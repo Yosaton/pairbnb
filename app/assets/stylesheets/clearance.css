@@ -1,0 +1,9 @@
+.clearance-box 	{
+	width: 25em;
+	margin: auto;
+	margin-top: 10em;
+	padding: 0em 1em 2em 1em;
+	border: 1px black solid;
+	border-radius: 1em;
+	line-height: 3em;
+}

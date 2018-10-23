@@ -12,4 +12,39 @@
  *
  *= require_tree .
  *= require_self
+ *= require base
+ *= require clearance
  */
+
+
+/*Rails Override*/
+a 	{
+	text-decoration: none;
+	color: black;
+}
+
+a:visited {
+	text-decoration: none;
+	color: black;
+}
+
+a:hover 	{
+	text-decoration: underline;
+	background-color: transparent;
+}
+
+
+nav a 	{
+	text-decoration: none;
+	color: white;
+}
+
+nav a:visited {
+	text-decoration: none;
+	color: white;
+}
+
+nav a:hover 	{
+	text-decoration: underline;
+	background-color: transparent;
+}

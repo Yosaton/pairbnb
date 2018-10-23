@@ -1,0 +1,34 @@
+/* Layout i.e. Nav Bar and Global styling */
+
+/*Document-wide*/
+html body 	{
+	padding: 0;
+	margin: 0;
+}
+
+
+/*navbar*/
+nav 	{
+	padding: 0.5em;
+	background-color: red;
+	font-size: 20pt;
+	line-height: 28pt
+}
+
+
+#logo 	{
+	display: inline-block;
+	color: white;
+}
+
+
+#navbar-controls 	{
+	display: inline-block;
+	float: right;
+}
+
+
+/*General Classes*/
+.centered {
+	text-align: center;
+}

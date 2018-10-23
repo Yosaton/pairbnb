@@ -1,0 +1,25 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Photos</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @listing_photos.each do |listing_photo| %>
+      <tr>
+        <td><%= link_to 'Show', listing_photo %></td>
+        <td><%= link_to 'Edit', edit_listing_photo_path(listing_photo) %></td>
+        <td><%= link_to 'Destroy', listing_photo, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Listing Photo', new_listing_photo_path %>
