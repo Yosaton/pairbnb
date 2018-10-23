@@ -38,6 +38,7 @@ gem 'clearance'
 gem 'figaro'
 gem 'omniauth'
 gem 'omniauth-google-oauth2'
+gem 'faker'
 
 
 # Reduces boot times through caching; required in config/boot.rb

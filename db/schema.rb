@@ -46,12 +46,16 @@ ActiveRecord::Schema.define(version: 2018_10_23_123831) do
 
   create_table "listings", force: :cascade do |t|
     t.string "name"
+    t.string "property_type"
     t.string "address"
     t.string "city"
     t.string "country"
     t.integer "price"
     t.integer "capacity"
     t.integer "rating", default: 0
+    t.string "description"
+    t.boolean "is_verified", default: false
+    t.integer "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -61,6 +65,7 @@ ActiveRecord::Schema.define(version: 2018_10_23_123831) do
     t.string "last_name"
     t.date "birthdate"
     t.string "email"
+    t.integer "role", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "encrypted_password", limit: 128
