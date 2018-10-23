@@ -12,6 +12,10 @@ Rails.application.routes.draw do
       only: [:create, :edit, :update]
   end
 
+  # Omniauth redirect
+  get "/auth/:provider/callback" => "sessions#create_from_omniauth"
+
+
 	# Resources from rails build
 	resources :listing_photos
 	resources :avatars
