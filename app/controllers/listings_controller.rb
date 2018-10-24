@@ -26,21 +26,31 @@ class ListingsController < ApplicationController
   # POST /listings
   # POST /listings.json
   def create
+    max_photos_notice = ""
+
     @listing = Listing.new(listing_params)
     @listing.user_id = current_user.id
-    @listing.save
-
-    # Handle image uploads
-    listing_photo_params[:photos].each do |photo|
-      new_photo = ListingPhoto.new(photo: photo)
-      new_photo.listing_id = @listing.id
-      new_photo.save
-    end
 
     respond_to do |format|
       if @listing.save
-        format.html { redirect_to @listing, notice: 'Listing was successfully created.' }
+
+        # Handle image uploads
+        if(listing_photo_params[:photos].length != 0)
+          listing_photo_params[:photos].each do |photo|
+            if(@listing.can_add_more_photos?)
+              new_photo = ListingPhoto.new(photo: photo)
+              new_photo.listing_id = @listing.id
+              new_photo.save
+              @listing = Listing.find_by_id(@listing.id) # Need to re-get reference to @listing to update the picture count
+            else
+              max_photos_notice = "However, maximum photos limit exceeded. Images over the limit were ignored."
+            end
+          end
+        end
+        
+        format.html { redirect_to @listing, notice: "Listing was successfully created. #{max_photos_notice}" }
         format.json { render :show, status: :created, location: @listing }
+
       else
         format.html { render :new }
         format.json { render json: @listing.errors, status: :unprocessable_entity }
@@ -53,19 +63,25 @@ class ListingsController < ApplicationController
   # PATCH/PUT /listings/1
   # PATCH/PUT /listings/1.json
   def update
-
+    max_photos_notice = ""
     # If updating, just add more new photos that are uploaded
     if(listing_photo_params[:photos] != nil)
+
       listing_photo_params[:photos].each do |photo|
-        new_photo = ListingPhoto.new(photo: photo)
-        new_photo.listing_id = @listing.id
-        new_photo.save
+        if(@listing.can_add_more_photos?)
+          new_photo = ListingPhoto.new(photo: photo)
+          new_photo.listing_id = @listing.id
+          new_photo.save
+          @listing = Listing.find_by_id(@listing.id) # Need to re-get reference to @listing to update the picture count        else
+          max_photos_notice = "However, exceeded maximum photos limit of 8."
+        end
+
       end
     end
 
     respond_to do |format|
       if @listing.update(listing_params)
-        format.html { redirect_to listing_path(@listing.id), notice: 'Listing was successfully updated.' }
+        format.html { redirect_to listing_path(@listing.id), notice: "Listing was successfully updated. #{max_photos_notice}" }
         format.json { render :show, status: :ok, location: @listing }
       else
         format.html { render :edit }

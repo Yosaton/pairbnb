@@ -30,10 +30,11 @@
 
 	<div class="row-buddies" id="listing-main-img-container">
 		<% if(@random_main_image != nil) %>
-			<%= image_tag @random_main_image.photo.url, id: "listing-main-img"%>
+			<%= image_tag @random_main_image.photo.full.url, id: "listing-main-img"%>
 		<% end %>
 		</div>
 </div>
+
 <div id="listing-detail-container">
 
 	<div id="listing-logo-description-container">
@@ -57,7 +58,7 @@
 	<div id="listing-images-container">
 		<%if @listing_images != nil %>
 			<%@listing_images.each do |listing_image|%>
-				<%= image_tag listing_image.photo.url, class: "listing-image-small row-buddies"%>
+				<%= image_tag listing_image.photo.thumb.url, class: "listing-image-small row-buddies"%>
 			<% end %>
 		<% end %>
 	</div>
@@ -70,7 +71,7 @@
 
 	<% if @listing.user.listings.length > 1 %>
 
-		<%@listing.user.listings.each do |listing| %>
+		<%@listing.user.listings.order(:name).each do |listing| %>
 			
 			<% if listing.id != @listing.id %>
 				<%= render partial: "listing_card_listing", locals: {listing: listing} %>

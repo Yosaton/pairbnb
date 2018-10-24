@@ -1,7 +1,7 @@
 class Listing < ApplicationRecord
 	# Validations
 	YES_VALIDATE = Listing.attribute_names
-	NO_VALIDATE = ["is_verified"]
+	NO_VALIDATE = ["is_verified", "id", "created_at", "updated_at"]
 
 	VALIDATE = YES_VALIDATE - NO_VALIDATE
 
@@ -48,6 +48,10 @@ class Listing < ApplicationRecord
 		return "#{name} #{display_badge_if_verified}"
 	end
 
+    # Max photos 8
+    def can_add_more_photos?
+      return (listing_photos.length <= 7)? true : false
+    end 
 
 	private
 	def display_badge_if_verified
