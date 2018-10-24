@@ -1,3 +1,121 @@
-// Place all the styles related to the Listings controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
+/*The listing box*/
+.profile-listing-box 	{
+	padding: 1em;
+	margin: 1em;
+	border: 1px gainsboro solid;
+	border-radius: 1em;
+	background-color: white;
+}
+
+
+.moderator-profile-controls	{
+	padding: 1em 0em 1em 0em;
+}
+
+.profile-listing-box p, h2 	{
+	margin: 0;
+}
+
+.profile-listing-box:hover	{
+	background-color: gainsboro;
+}
+
+.listing-box-header a {
+	text-decoration: none;
+	color: red;
+
+	&:hover 	{
+		text-decoration: underline;
+	}
+}
+
+
+/*Listing Page*/
+.row-buddies 	{
+	display: inline-block;
+}
+
+
+#listing-banner 	{
+	width: 100%;
+}
+
+#listing-stats-box	{
+	padding: 1em 0em 0em 0em;
+	width: 35em;
+	height: 30em;
+	color: white;
+	background-color: #636363;
+}
+
+#listing-name 	{
+	text-align: center;
+	font-size: 24pt;
+	padding-bottom: 0;
+	margin-bottom: 0;
+}
+
+#listing-main-img	{
+	vertical-align: top;
+}
+
+
+#listing-detail-container	{
+	/*padding: 3em 15em 3em 0em;*/
+	text-align: center;
+}
+
+#listing-description	{
+	padding: 3em 0em 3em 0em;
+}
+
+#listing-user-logo	{
+	padding-bottom: 2em;
+}
+
+#listing-images 	{
+	height: 10em;
+}
+
+.listing-listing-box 	{
+	vertical-align: top;
+	width: 15em;
+	height: 15em;
+	padding: 1em 1em 0em 1em;
+	margin: 1em;
+	border: 1px gainsboro solid;
+	border-radius: 1em;
+	background-color: white;
+
+	&:hover {
+		background-color: gainsboro;
+	}
+}
+
+
+/*Listing Page Controls*/
+#listing-banner ul li a 	{
+	text-decoration: none;
+	color: white;
+
+	&:hover {
+		text-decoration: underline;
+	}
+}
+
+
+/*New listing form*/
+.new-listing-form-container 	{
+	font-weight: bold;
+	width: 50em;
+	margin: auto;
+	margin-top: 10em;
+	padding: 0em 1em 2em 2em;
+	border: 1px black solid;
+	border-radius: 1em;
+	line-height: 2em;
+}
+
+.listing-form-unhighlighted 	{
+	font-weight: normal;
+}

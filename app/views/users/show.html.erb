@@ -1,4 +1,65 @@
-<p id="notice"><%= notice %></p>
+<div class="centered">
 
-<%= link_to 'Edit', edit_user_path(@user) %> |
-<%= link_to 'Back', users_path %>
+	<h1><%=@user.full_name%></h1>
+	<%= image_tag "question-mark.jpg", class: "profile-page-avatar"%> 
+	<br />
+	<%="Member since #{@user.created_at.to_date}"%>
+</div> <br /> <br />
+
+<hr />
+<table class="profile-details">
+	<tr>
+		<td class="profile-details-left">
+			
+			<%=show_role%>
+
+			<%if current_user.moderator? || current_user.superadmin? %>
+				<div class="moderator-profile-controls">
+					<h2 class="underlined">Moderator Controls</h2>
+					<ul class="no-bullets">
+						<li>
+							Add moderator commands for a user here
+						</li>
+					</ul>
+				</div>
+			<% end %>
+
+
+			<%if current_user_is(@user) || current_user.superadmin? %>
+				<h2 class="underlined">Controls</h2>
+				<ul class="no-bullets">
+					<li>
+						<%= link_to "Add a Listing", new_listing_path%>
+					</li>
+
+					<li>
+						<%= link_to "View my Bookings (PLACEHOLDER)", edit_user_path(@user.id) %>
+					</li>
+
+					<li>
+						<%= link_to "Edit my Profile", edit_user_path(@user.id) %>
+					</li>
+
+					<li>
+						<%= link_to "Delete my Profile", "/users/#{@user.id}", :method => "DELETE"%>
+					</li>
+				</ul>
+			<% else %>
+				<h2 class="underlined">About</h2>
+			<% end %>
+
+			<ul class="no-bullets">
+				<li><%="Average Rating: #{@user.average_rating}/5"%></li>
+				<li><%="Listings: #{@user.listings.length}"%></li>
+			</ul>
+
+		</td>
+		<td>
+			<%= render partial: "/listings/listing_card_profile", locals: {listings: @user.listings}%>				
+		</td>
+	</tr>
+</table>
+
+
+REMOVE ME LATER
+<%=@user.email%>

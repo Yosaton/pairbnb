@@ -1,9 +1,12 @@
-<div class="text-field">
-  <%= form.label :email %>
-  <%= form.text_field :email, type: 'email' %>
-</div>
+<%= form_for :user, url: update_user_path, method: :patch do |f| %>
 
-<div class="password-field">
-  <%= form.label :password %>
-  <%= form.password_field :password %>
-</div>
+	<div>
+		<%= f.label :email, "New Email Address" %>
+		<%= f.text_field :email %>
+	</div>
+
+	Avatar shit goes here later
+
+
+	<br /><%= f.submit "Save Changes"%>
+<% end %>

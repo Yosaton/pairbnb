@@ -27,6 +27,7 @@ ActiveRecord::Base.transaction do
     listing['price'] = 1 + rand(10000)
     listing['capacity'] = 1 + rand(10)
     listing['price'] = rand(80..500)
+    listing['rating'] = rand(0..5)
     listing['description'] = Faker::Hipster.sentence
     listing['user_id'] = uids.sample
 
@@ -43,6 +44,7 @@ user['last_name'] = "Customer"
 user['birthdate'] = Faker::Date.between(50.years.ago, Date.today)
 user['email'] = "customer@test.com"
 user['password'] = "1234567890"
+user['role'] = 0
 User.create(user)
 
 # Fake moderator
@@ -53,6 +55,7 @@ user['last_name'] = "Moderator"
 user['birthdate'] = Faker::Date.between(50.years.ago, Date.today)
 user['email'] = "moderator@test.com"
 user['password'] = "1234567890"
+user['role'] = 1
 User.create(user)
 
 # Fake superadmin
@@ -63,4 +66,5 @@ user['last_name'] = "Superadmin"
 user['birthdate'] = Faker::Date.between(50.years.ago, Date.today)
 user['email'] = "superadmin@test.com"
 user['password'] = "1234567890"
+user['role'] = 2
 User.create(user)

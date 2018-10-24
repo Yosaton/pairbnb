@@ -19,20 +19,20 @@
 
     <div id="navbar-controls">
       <% if signed_in? %>
-        Signed in as: <%= current_user.email %>, replace me with user
+        <%= link_to image_tag("question-mark.jpg", class: "navbar-avatar"), user_path(current_user.id) %>&nbsp;
         <%= link_to User::SYMBOLS[:logout], sign_out_path, method: :delete %>
       <% else %>
         <%= link_to User::SYMBOLS[:login], sign_in_path, :class => "nav-link" %>
       <% end %>
     </div>
 
-    <div id="flash">
-      <% flash.each do |key, value| %>
-        <div class="flash <%= key %>"><%= value %></div>
-      <% end %>
-    </div>
-
   </nav>
+
+  <div id="flash">
+    <% flash.each do |key, value| %>
+      <div class="flash <%= key %>"><%= value %></div>
+    <% end %>
+  </div>
   <!-- END NAV BAR -->
 
 

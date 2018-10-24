@@ -1,0 +1,23 @@
+<%if listings.length > 0 %>
+	<%listings.each do |listing| %>
+		<div class="profile-listing-box">
+			<h2 class="listing-box-header">
+				<%= link_to listing.name, listing_path(listing.id), :class => "listing-box-header"%>
+			</h2>
+			<p class="italic"><%="#{listing.city}, #{listing.country}"%></p>
+			<p class="italic"><%=listing.property_type%></p>
+			<hr />
+			<p><%=listing.description%></p>
+			<hr />
+
+			<div style="text-align: center">
+				<span style="float: left"><%="#{listing.symbolize_rating}"%></span>
+				<span><%="#{listing.symbolize_capacity}"%></span>
+				<span style="float: right"><%="#{Listing::SYMBOLS[:price_icon]}#{listing.price} nightly"%></span>
+			</div>
+
+		</div>
+	<% end %>
+<% else %>
+	<h2 class="centered">This user has no listings!</h2>
+<% end %>

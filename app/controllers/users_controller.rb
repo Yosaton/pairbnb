@@ -40,15 +40,15 @@ class UsersController < ApplicationController
   # PATCH/PUT /users/1
   # PATCH/PUT /users/1.json
   def update
-    respond_to do |format|
-      if @user.update(user_params)
-        format.html { redirect_to @user, notice: 'User was successfully updated.' }
-        format.json { render :show, status: :ok, location: @user }
-      else
-        format.html { render :edit }
-        format.json { render json: @user.errors, status: :unprocessable_entity }
-      end
+    @user.email = user_params[:email]
+    if(@user.save)
+      flash[:success] = "Successfully updated profile!"
+      redirect_to user_path(@user.id)
+    else
+      flash[:error] = "Failed to update profile!"
+      redirect_to user_path(@user.id)
     end
+
   end
 
   # DELETE /users/1
@@ -56,7 +56,7 @@ class UsersController < ApplicationController
   def destroy
     @user.destroy
     respond_to do |format|
-      format.html { redirect_to users_url, notice: 'User was successfully destroyed.' }
+      format.html { redirect_to root_path, notice: 'Account successfully deleted.' }
       format.json { head :no_content }
     end
   end

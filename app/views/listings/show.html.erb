@@ -1,4 +1,67 @@
-<p id="notice"><%= notice %></p>
+<div id="listing-banner">
+	<div class="row-buddies" id="listing-stats-box">
+		<h1 id="listing-name"><%=@listing.name%></h1>
+		<ul class="no-bullets centered">
+			<li class="italic"><%="#{@listing.city}, #{@listing.country}"%></li>
+			<li>(<%=@listing.property_type%>)</li>
+			<li><%=@listing.symbolize_rating%></li>
+			<li><%=@listing.symbolize_capacity%></li>
+		</ul>
 
-<%= link_to 'Edit', edit_listing_path(@listing) %> |
-<%= link_to 'Back', listings_path %>
+		<br />
+
+		<% if (signed_in?) %>
+			<% if (current_user.id == @listing.user.id) || (current_user.superadmin?)%>
+				<h2 class="centered">Control Panel</h2>
+				<ul class="no-bullets centered">
+					<li><%= link_to "Edit Listing", "/listings/#{@listing.id}/edit", :method => "GET"%></li>
+					<li><%= link_to "Delete Listing", "/listings/#{@listing.id}", :method => "DELETE"%></li>
+				</ul>
+			<%end%>
+
+			<% if (current_user.moderator? || current_user.superadmin?)%>
+				<h2 class="centered">Elevated Control Panel</h2>
+				<ul class="no-bullets centered">
+					<li>VERIFY LISTING</li>
+				</ul>
+			<%end%>
+		<% end %>
+
+	</div>
+
+	<div class="row-buddies" id="listing-main-img">Main image goes here</div>
+</div>
+<div id="listing-detail-container">
+	<div id="listing-description"><%=@listing.description%></div>
+
+	<div id="listing-user-logo">
+		<h2>Your Host:</h2>
+		LOGO 
+		<br />
+		<p>Average rating: <%=@listing.user.average_rating%>/5</p>
+	</div>
+
+	<div id="listing-images">
+		Listing images go here (small), fiddle with that height bro
+	</div>
+	
+	<hr>
+	<br />
+	<h2>More from <%=@listing.user.full_name%></h2>
+	<br />
+
+
+	<% if @listing.user.listings.length > 1 %>
+
+		<%@listing.user.listings.each do |listing| %>
+			
+			<% if listing.id != @listing.id %>
+				<%= render partial: "listing_card_listing", locals: {listing: listing} %>
+			<% end %>
+
+		<% end %>
+
+	<% else %>
+		<h2>User has no other listings!</h2>
+	<% end %>
+</div>

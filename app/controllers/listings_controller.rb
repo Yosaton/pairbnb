@@ -1,5 +1,5 @@
 class ListingsController < ApplicationController
-  before_action :set_listing, only: [:show, :edit, :update, :destroy]
+  before_action :set_listing, only: [:show, :edit, :update, :destroy, :verify_listing]
 
   # GET /listings
   # GET /listings.json
@@ -25,6 +25,7 @@ class ListingsController < ApplicationController
   # POST /listings.json
   def create
     @listing = Listing.new(listing_params)
+    @listing.user_id = current_user.id
 
     respond_to do |format|
       if @listing.save
@@ -56,10 +57,17 @@ class ListingsController < ApplicationController
   def destroy
     @listing.destroy
     respond_to do |format|
-      format.html { redirect_to listings_url, notice: 'Listing was successfully destroyed.' }
+      format.html { redirect_to root_path, notice: 'Listing was successfully deleted.' }
       format.json { head :no_content }
     end
   end
+
+  # For toggling the is_verified of a listing
+  # POST
+  # def verify_listing
+  #   @listing.is_verified = !@listing.is_verified
+  #   @listing.save
+  # end
 
   private
     # Use callbacks to share common setup or constraints between actions.
@@ -69,6 +77,6 @@ class ListingsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def listing_params
-      params.fetch(:listing, {})
+      params.require(:listing).permit(:name, :property_type, :address, :city, :country, :price, :capacity, :description)
     end
 end

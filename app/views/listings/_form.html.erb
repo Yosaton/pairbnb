@@ -1,17 +1,46 @@
-<%= form_with(model: listing, local: true) do |form| %>
-  <% if listing.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(listing.errors.count, "error") %> prohibited this listing from being saved:</h2>
+<%= form_with(model: listing, local: true) do |f| %>
+  <div>
+    Listing Name (min. 10 chars)<br/>
+    <%=f.text_field :name, :size => 75%>
+  </div> <br/>
+  
+  <div>
+    Property Type <br/>
+    <%=f.select :property_type, ["House", "Entire Floor", "Condominium", "Villa", "Townhouse", "Castle", "Treehouse", "Igloo", "Yurt", "Cave", "Chalet", "Hut", "Tent", "Other"]%>
+  </div>  <br/>
 
-      <ul>
-      <% listing.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
+  <div>
+    Street Address <br/>
+    <%=f.text_field :address, :size => 40%>
+  </div>  <br/>
 
-  <div class="actions">
-    <%= form.submit %>
-  </div>
+  <div>
+    City <br/>
+    <%=f.text_field :city%>
+  </div>  <br/>
+
+  <div>
+    Country <br/>
+    <%=f.select :country, ApplicationRecord::COUNTRIES%>
+  </div>  <br/>
+
+  <div>
+    Price <br/>
+    <%=f.text_field :price, :size => 5%> <span class="listing-form-unhighlighted">USD per night</span>
+  </div>  <br/>
+
+  <div>
+    Capacity <br/>
+    <%=f.text_field :capacity, :size => 3%> <span class="listing-form-unhighlighted">pax</span>
+  </div>  <br/>
+
+  <div>
+    Description <br/>
+    <%=f.text_area :description, :rows => 4, :cols => 75%>
+  </div>  <br/>
+
+  <hr />
+  <%= link_to 'Back', :back %>
+  <%=f.submit "Add Listing", :style => "float:right"%>
+
 <% end %>

@@ -19,12 +19,20 @@ Rails.application.routes.draw do
   # Omniauth redirect
   get "/auth/:provider/callback" => "sessions#create_from_omniauth"
 
-
 	# Resources from rails build
 	resources :listing_photos
 	resources :avatars
 	resources :bookings
 	resources :listings
 	resources :users
+
+  # Manual additions
+  # update user
+  # make path for post to update
+  patch "/users/:id" => "users#update", as: "update_user"
+
+  # Verifying Listings
+  # post "/listings/verify_listing" => "listings#verify_listing", as: "verify_listing"
+
 	# For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

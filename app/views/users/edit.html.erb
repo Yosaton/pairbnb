@@ -1,6 +1,10 @@
-<h1>Editing User</h1>
+<div class="clearance-box centered">
+	<br />
+	<h2 class="centered"><%=@user.full_name%></h2>
+	<hr />
 
-<%= render 'form', user: @user %>
+	<%= render 'form', user: @user %>
 
-<%= link_to 'Show', @user %> |
-<%= link_to 'Back', users_path %>
+	<hr />
+	<%= link_to 'Back to Profile', user_path(@user.id) %>
+</div>
