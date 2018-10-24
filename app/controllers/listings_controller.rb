@@ -35,7 +35,7 @@ class ListingsController < ApplicationController
       if @listing.save
 
         # Handle image uploads
-        if(listing_photo_params[:photos].length != 0)
+        if(listing_photo_params[:photos] != nil)
           listing_photo_params[:photos].each do |photo|
             if(@listing.can_add_more_photos?)
               new_photo = ListingPhoto.new(photo: photo)
@@ -63,6 +63,15 @@ class ListingsController < ApplicationController
   # PATCH/PUT /listings/1
   # PATCH/PUT /listings/1.json
   def update
+
+    # Handle photo deletion before adding new shit
+    if(delete_photo_params[:delete_images] != nil)
+      delete_photo_params[:delete_images].keys.each do |listing_photo_id|
+        photo = ListingPhoto.find_by_id(listing_photo_id.to_i)
+        photo.destroy
+      end
+    end
+
     max_photos_notice = ""
     # If updating, just add more new photos that are uploaded
     if(listing_photo_params[:photos] != nil)
@@ -73,7 +82,8 @@ class ListingsController < ApplicationController
           new_photo.listing_id = @listing.id
           new_photo.save
           @listing = Listing.find_by_id(@listing.id) # Need to re-get reference to @listing to update the picture count        else
-          max_photos_notice = "However, exceeded maximum photos limit of 8."
+        else
+          max_photos_notice = "However, exceeded maximum photos limit of 8. Images over the limit were ignored."
         end
 
       end
@@ -126,5 +136,9 @@ class ListingsController < ApplicationController
 
     def listing_photo_params
       params.require(:listing).permit(photos: [])
+    end
+
+    def delete_photo_params
+      params.require(:listing).permit(delete_images: {})
     end
 end

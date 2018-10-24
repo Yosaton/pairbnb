@@ -40,11 +40,24 @@
   </div>  <br/>
 
   <div>
-    Upload photos <br/>
+    Upload photos (max 8 per listing)<br/>
     <%=f.file_field :photos, multiple: true %>
   </div> <br/>
 
+  <% if (listing.listing_photos.length != 0)%>
+    <div>
+      Select photos for deletion <br/> <br />
+
+      <%listing.listing_photos.each do |listing_photo| %>
+        <%= image_tag listing_photo.photo.thumb.url, class: "listing-photo-deletion-icon" %>
+        <%= f.check_box "delete_images[#{listing_photo.id}]", {:style => "position: relative; right: 1em; bottom: 4.5em"}, true, false %>
+      <% end %>
+
+    </div>
+  <% end %>
+
   <hr />
-  <%=f.submit "Add Listing", :style => "float:right"%>
+  <%= link_to "Go Back", listing_path(listing.id)%>
+  <%=f.submit "Submit!", :style => "float:right"%>
 
 <% end %>
