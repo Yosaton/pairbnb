@@ -1,6 +1,6 @@
 <div id="listing-banner">
 	<div class="row-buddies" id="listing-stats-box">
-		<h1 id="listing-name"><%=@listing.name%></h1>
+		<h1 id="listing-name"><%=@listing.name_with_verification%></h1>
 		<ul class="no-bullets centered">
 			<li class="italic"><%="#{@listing.city}, #{@listing.country}"%></li>
 			<li>(<%=@listing.property_type%>)</li>
@@ -22,7 +22,7 @@
 			<% if (current_user.moderator? || current_user.superadmin?)%>
 				<h2 class="centered">Elevated Control Panel</h2>
 				<ul class="no-bullets centered">
-					<li>VERIFY LISTING</li>
+					<li><%= link_to "Verify Listing", verify_listing_path, :method => "PUT"%></li>
 				</ul>
 			<%end%>
 		<% end %>
@@ -35,9 +35,10 @@
 	<div id="listing-description"><%=@listing.description%></div>
 
 	<div id="listing-user-logo">
-		<h2>Your Host:</h2>
-		LOGO 
+		<h2>Your Host</h2>
+		LOGO GOES HERE
 		<br />
+		<h3><%= link_to @listing.user.full_name, user_path(@listing.user)%></h3>
 		<p>Average rating: <%=@listing.user.average_rating%>/5</p>
 	</div>
 

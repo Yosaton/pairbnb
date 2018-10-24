@@ -32,7 +32,7 @@ Rails.application.routes.draw do
   patch "/users/:id" => "users#update", as: "update_user"
 
   # Verifying Listings
-  # post "/listings/verify_listing" => "listings#verify_listing", as: "verify_listing"
+  put "/listings/verify/:id" => "listings#verify", as: "verify_listing"
 
 	# For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

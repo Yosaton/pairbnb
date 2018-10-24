@@ -1,6 +1,6 @@
 <div class="listing-listing-box row-buddies">
 	<h2 class="listing-box-header">
-		<%= link_to listing.name, listing_path(listing.id), :class => "listing-box-header"%>
+		<%= link_to listing.name_with_verification, listing_path(listing.id), :class => "listing-box-header"%>
 	</h2>
 	<p class="italic"><%="#{listing.city}, #{listing.country}"%></p>
 	<p class="italic"><%=listing.property_type%></p>

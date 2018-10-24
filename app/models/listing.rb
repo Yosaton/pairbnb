@@ -1,6 +1,6 @@
 class Listing < ApplicationRecord
 	# Validations
-	validates_length_of :name, minimum: 10
+	validates_length_of :name, minimum: 1
 	validates :capacity, numericality: {greater_than: 0}
 	validates :price, numericality: {greater_than: 0}
 	validates :rating, numericality: {greater_than: -1}
@@ -13,7 +13,7 @@ class Listing < ApplicationRecord
 
 
 	# Constant Symbols hash
-	SYMBOLS = {rating_star: "🌟", rating_empty: "⚬", capacity: "😃", price_icon: "💰"}
+	SYMBOLS = {rating_star: "🌟", rating_empty: "⚬", capacity: "😃", price_icon: "💰", verified: "👍"}
 
 
 	# Function Definitions
@@ -30,5 +30,24 @@ class Listing < ApplicationRecord
 
 	def symbolize_capacity
 		return "#{SYMBOLS[:capacity]} #{capacity}"
+	end
+
+
+	def name_with_verification
+		return "#{display_badge_if_verified} #{name} #{display_badge_if_verified}"
+	end
+
+	def name_with_verification_right
+		return "#{name} #{display_badge_if_verified}"
+	end
+
+
+	private
+	def display_badge_if_verified
+		if(is_verified)
+			return SYMBOLS[:verified]
+		else
+			return ""
+		end
 	end
 end

@@ -1,5 +1,5 @@
 class ListingsController < ApplicationController
-  before_action :set_listing, only: [:show, :edit, :update, :destroy, :verify_listing]
+  before_action :set_listing, only: [:show, :edit, :update, :destroy, :verify]
 
   # GET /listings
   # GET /listings.json
@@ -64,10 +64,16 @@ class ListingsController < ApplicationController
 
   # For toggling the is_verified of a listing
   # POST
-  # def verify_listing
-  #   @listing.is_verified = !@listing.is_verified
-  #   @listing.save
-  # end
+  def verify
+    @listing.is_verified = !@listing.is_verified
+    if(@listing.save)
+      flash[:success] = "Listing is_verified is now #{@listing.is_verified}"
+    else
+      flash[:error] = "Failed to verify/unverify listing. #{@listing.errors.full_messages}"
+    end
+
+    redirect_to listing_path(@listing.id)
+  end
 
   private
     # Use callbacks to share common setup or constraints between actions.
