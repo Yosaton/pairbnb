@@ -28,7 +28,11 @@
 		<% end %>
 	</div>
 
-	<div class="row-buddies" id="listing-main-img">Main image goes here</div>
+	<div class="row-buddies" id="listing-main-img-container">
+		<% if(@random_main_image != nil) %>
+			<%= image_tag @random_main_image.photo.url, id: "listing-main-img"%>
+		<% end %>
+		</div>
 </div>
 <div id="listing-detail-container">
 
@@ -50,8 +54,12 @@
 	</div>
 
 
-	<div id="listing-images">
-		Listing images go here (small), fiddle with that height bro
+	<div id="listing-images-container">
+		<%if @listing_images != nil %>
+			<%@listing_images.each do |listing_image|%>
+				<%= image_tag listing_image.photo.url, class: "listing-image-small row-buddies"%>
+			<% end %>
+		<% end %>
 	</div>
 	
 	<hr>

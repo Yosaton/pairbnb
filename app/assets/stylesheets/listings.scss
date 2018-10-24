@@ -55,10 +55,13 @@
 	margin-bottom: 0;
 }
 
-#listing-main-img	{
+#listing-main-img-container	{
 	vertical-align: top;
 }
 
+#listing-main-img	{
+	width: 10em;
+}
 
 #listing-detail-container	{
 	/*padding: 3em 15em 3em 0em;*/
@@ -102,7 +105,14 @@
 }
 
 
-#listing-images 	{
+#listing-images-container 	{
+	padding: 1em;
+	background-color: #636363;
+	height: 10em;
+}
+
+.listing-image-small	{
+	width: 15em;
 	height: 10em;
 }
 
@@ -138,7 +148,7 @@
 	font-weight: bold;
 	width: 50em;
 	margin: auto;
-	margin-top: 10em;
+	margin: 5em auto 5em auto;
 	padding: 0em 1em 2em 2em;
 	border: 1px black solid;
 	border-radius: 1em;

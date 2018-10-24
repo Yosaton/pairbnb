@@ -1,5 +1,12 @@
 class Listing < ApplicationRecord
 	# Validations
+	YES_VALIDATE = Listing.attribute_names
+	NO_VALIDATE = ["is_verified"]
+
+	VALIDATE = YES_VALIDATE - NO_VALIDATE
+
+	validates_presence_of VALIDATE
+
 	validates_length_of :name, minimum: 1
 	validates :capacity, numericality: {greater_than: 0}
 	validates :price, numericality: {greater_than: 0}

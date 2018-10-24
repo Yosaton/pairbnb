@@ -39,8 +39,12 @@
     <%=f.text_area :description, :rows => 4, :cols => 75%>
   </div>  <br/>
 
+  <div>
+    Upload photos <br/>
+    <%=f.file_field :photos, multiple: true %>
+  </div> <br/>
+
   <hr />
-  <%= link_to 'Back', :back %>
   <%=f.submit "Add Listing", :style => "float:right"%>
 
 <% end %>

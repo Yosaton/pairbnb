@@ -10,6 +10,8 @@ class ListingsController < ApplicationController
   # GET /listings/1
   # GET /listings/1.json
   def show
+    @listing_images = @listing.listing_photos.shuffle
+    @random_main_image = @listing_images.pop
   end
 
   # GET /listings/new
@@ -26,6 +28,14 @@ class ListingsController < ApplicationController
   def create
     @listing = Listing.new(listing_params)
     @listing.user_id = current_user.id
+    @listing.save
+
+    # Handle image uploads
+    listing_photo_params[:photos].each do |photo|
+      new_photo = ListingPhoto.new(photo: photo)
+      new_photo.listing_id = @listing.id
+      new_photo.save
+    end
 
     respond_to do |format|
       if @listing.save
@@ -36,14 +46,26 @@ class ListingsController < ApplicationController
         format.json { render json: @listing.errors, status: :unprocessable_entity }
       end
     end
+
+
   end
 
   # PATCH/PUT /listings/1
   # PATCH/PUT /listings/1.json
   def update
+
+    # If updating, just add more new photos that are uploaded
+    if(listing_photo_params[:photos] != nil)
+      listing_photo_params[:photos].each do |photo|
+        new_photo = ListingPhoto.new(photo: photo)
+        new_photo.listing_id = @listing.id
+        new_photo.save
+      end
+    end
+
     respond_to do |format|
       if @listing.update(listing_params)
-        format.html { redirect_to @listing, notice: 'Listing was successfully updated.' }
+        format.html { redirect_to listing_path(@listing.id), notice: 'Listing was successfully updated.' }
         format.json { render :show, status: :ok, location: @listing }
       else
         format.html { render :edit }
@@ -84,5 +106,9 @@ class ListingsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def listing_params
       params.require(:listing).permit(:name, :property_type, :address, :city, :country, :price, :capacity, :description)
+    end
+
+    def listing_photo_params
+      params.require(:listing).permit(photos: [])
     end
 end
