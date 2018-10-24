@@ -65,19 +65,42 @@
 	text-align: center;
 }
 
+
+#listing-logo-description-container {
+	text-align: left;
+}
+
 #listing-description	{
+	margin: 0;
+	background-color: red;
 	padding: 3em 0em 3em 0em;
 }
 
-#listing-user-logo	{
-	padding-bottom: 2em;
+#listing-user-logo-container	{
+	text-align: center;
+	width: 35em;
+	color: white;
+	padding: 2em 0em 2em 0em;
 	line-height: 1em;
+	background-color: #636363;
 }
 
-#listing-user-logo a 	{
+#listing-user-logo-container a 	{
 	text-decoration: none;
-	color: red;
+	color: white;
+
+	&:hover {
+		text-decoration: underline;
+	}
 }
+
+#listing-user-logo 	{
+	width: 8em;
+	height: 8em;
+	border: 5px orange solid;
+	border-radius: 15em;
+}
+
 
 #listing-images 	{
 	height: 10em;

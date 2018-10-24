@@ -3,10 +3,10 @@
 	<div>
 		<%= f.label :email, "New Email Address" %>
 		<%= f.text_field :email %>
+
+		<%= f.label :avatar_image, "Upload a profile avatar"%>
+		<%= f.file_field :avatar_image %>
 	</div>
-
-	Avatar shit goes here later
-
 
 	<br /><%= f.submit "Save Changes"%>
 <% end %>

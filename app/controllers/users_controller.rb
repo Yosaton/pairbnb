@@ -41,6 +41,18 @@ class UsersController < ApplicationController
   # PATCH/PUT /users/1.json
   def update
     @user.email = user_params[:email]
+
+    # Avatar updating / creating
+    # Destroy the old avatar (if it exists) and make a new one
+    if(@user.avatar != nil)
+      @user.avatar.destroy
+    end
+    
+    new_avatar = Avatar.new(avatar_image: user_params[:avatar_image])
+    new_avatar.user_id = @user.id
+    new_avatar.save
+
+
     if(@user.save)
       flash[:success] = "Successfully updated profile!"
       redirect_to user_path(@user.id)

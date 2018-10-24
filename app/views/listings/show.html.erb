@@ -26,21 +26,29 @@
 				</ul>
 			<%end%>
 		<% end %>
-
 	</div>
 
 	<div class="row-buddies" id="listing-main-img">Main image goes here</div>
 </div>
 <div id="listing-detail-container">
-	<div id="listing-description"><%=@listing.description%></div>
 
-	<div id="listing-user-logo">
-		<h2>Your Host</h2>
-		LOGO GOES HERE
-		<br />
-		<h3><%= link_to @listing.user.full_name, user_path(@listing.user)%></h3>
-		<p>Average rating: <%=@listing.user.average_rating%>/5</p>
+	<div id="listing-logo-description-container">
+		<div class="row-buddies" id="listing-user-logo-container">
+			<% if(@listing.user.avatar != nil) %>
+				<%= image_tag @listing.user.avatar.avatar_image.profile_size.url, id: "listing-user-logo"%>
+			<% else %>
+				<%= image_tag "question-mark.jpg", id: "listing-user-logo"%>
+			<% end %>
+
+			<br />
+			<h3><%= link_to @listing.user.full_name, user_path(@listing.user)%></h3>
+			<p>Average rating: <%=@listing.user.average_rating%>/5</p>
+		</div>
+
+
+		<div class="row-buddies" id="listing-description"><%=@listing.description%></div>
 	</div>
+
 
 	<div id="listing-images">
 		Listing images go here (small), fiddle with that height bro

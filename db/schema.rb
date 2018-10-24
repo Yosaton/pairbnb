@@ -26,6 +26,8 @@ ActiveRecord::Schema.define(version: 2018_10_23_123831) do
   end
 
   create_table "avatars", force: :cascade do |t|
+    t.string "avatar_image"
+    t.integer "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

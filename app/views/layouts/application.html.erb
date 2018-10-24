@@ -19,7 +19,13 @@
 
     <div id="navbar-controls">
       <% if signed_in? %>
-        <%= link_to image_tag("question-mark.jpg", class: "navbar-avatar"), user_path(current_user.id) %>&nbsp;
+
+        <%if (current_user.avatar == nil)%>
+          <%= link_to image_tag("question-mark.jpg", class: "navbar-avatar"), user_path(current_user.id) %>&nbsp;
+        <% else %>
+          <%= link_to image_tag(current_user.avatar.avatar_image.navbar_size.url, class: "navbar-avatar"), user_path(current_user.id) %>&nbsp;
+        <% end %>
+
         <%= link_to User::SYMBOLS[:logout], sign_out_path, method: :delete %>
       <% else %>
         <%= link_to User::SYMBOLS[:login], sign_in_path, :class => "nav-link" %>

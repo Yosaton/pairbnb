@@ -39,6 +39,8 @@ gem 'figaro'
 gem 'omniauth'
 gem 'omniauth-google-oauth2'
 gem 'faker'
+gem 'carrierwave', '~> 1.0'
+gem "mini_magick"
 
 
 # Reduces boot times through caching; required in config/boot.rb
