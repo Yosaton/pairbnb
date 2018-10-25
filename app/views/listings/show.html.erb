@@ -7,6 +7,7 @@
 				<li>(<%=@listing.property_type%>)</li>
 				<li><%=@listing.symbolize_rating%></li>
 				<li><%=@listing.symbolize_capacity%></li>
+				<li id="listing-price-tag"><%="$ #{@listing.price} nightly"%></li>
 			</ul>
 
 			<br />
@@ -42,6 +43,7 @@
 				<p>Average rating: <%=@listing.user.average_rating%>/5</p>
 			</div>
 		</div>
+
 	</div>
 
 	<div class="row-buddies" id="listing-main-img-container">
