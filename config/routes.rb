@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :taggings
+  resources :tags
   # Root redirect
   root "welcome#index"
 

@@ -12,6 +12,18 @@ class ListingsController < ApplicationController
   def show
     @listing_images = @listing.listing_photos.shuffle
     @random_main_image = @listing_images.pop
+
+    @related_listings = []
+
+    @listing.tags.each do |tag|
+      @related_listings << tag.listings
+    end
+
+    @related_listings.flatten!
+    @related_listings = @related_listings.uniq
+    @related_listings -= [@listing]
+    @related_listings = @related_listings.sample(6)
+
   end
 
   # GET /listings/new
@@ -34,7 +46,7 @@ class ListingsController < ApplicationController
     respond_to do |format|
       if @listing.save
 
-        # Handle image uploads
+        # Handle image uploads (must be done after the user is saved)
         if(listing_photo_params[:photos] != nil)
           listing_photo_params[:photos].each do |photo|
             if(@listing.can_add_more_photos?)
@@ -47,7 +59,12 @@ class ListingsController < ApplicationController
             end
           end
         end
-        
+
+
+        # Handle tagging
+        loop_and_assign_tags
+
+
         format.html { redirect_to @listing, notice: "Listing was successfully created. #{max_photos_notice}" }
         format.json { render :show, status: :created, location: @listing }
 
@@ -89,6 +106,15 @@ class ListingsController < ApplicationController
       end
     end
 
+
+    # Handle Tagging
+    # Only 3 tags per listing, so before we do the shit to add new tags, remove the old ones
+    @listing.taggings.each do |tagging|
+      tagging.destroy
+    end
+    
+    loop_and_assign_tags
+
     respond_to do |format|
       if @listing.update(listing_params)
         format.html { redirect_to listing_path(@listing.id), notice: "Listing was successfully updated. #{max_photos_notice}" }
@@ -129,6 +155,24 @@ class ListingsController < ApplicationController
       @listing = Listing.find(params[:id])
     end
 
+    def loop_and_assign_tags
+      listing_tag_params[:tags].values.reject{|t| t.strip.empty?}.each do |tag_text| # iterate over all non-empty members
+
+      db_tag = Tag.find_by(text: tag_text)
+
+      if(db_tag != nil)
+          # Tag exists! Do nothing.
+          
+      else
+          # Tag doesn't exist! Create new tag
+        db_tag = Tag.create(text: tag_text)
+
+      end
+
+        Tagging.create(listing_id: @listing.id, tag_id: db_tag.id)
+      end
+    end
+
     # Never trust parameters from the scary internet, only allow the white list through.
     def listing_params
       params.require(:listing).permit(:name, :property_type, :address, :city, :country, :price, :capacity, :description)
@@ -140,5 +184,9 @@ class ListingsController < ApplicationController
 
     def delete_photo_params
       params.require(:listing).permit(delete_images: {})
+    end
+
+    def listing_tag_params
+      params.require(:listing).permit(tags: {})
     end
 end

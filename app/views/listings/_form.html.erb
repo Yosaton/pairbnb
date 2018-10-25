@@ -4,6 +4,18 @@
     <%=f.text_field :name, :size => 75%>
   </div> <br/>
   
+  <div style="margin-bottom: 2em">
+    Enter up to 3 tags for your listing (10 characters max per tag): <br/>
+
+    <% 3.times do |index| %>
+      <div class="row-buddies">
+        <%=f.text_field :"tags[tag#{index}]", :size => 10, :value => (listing.tags[index]!=nil)? listing.tags[index].text : ""%>
+      </div>    
+    <% end %>
+
+    
+  </div>
+
   <div>
     Property Type <br/>
     <%=f.select :property_type, ["House", "Entire Floor", "Condominium", "Villa", "Townhouse", "Castle", "Treehouse", "Igloo", "Yurt", "Cave", "Chalet", "Hut", "Tent", "Other"]%>

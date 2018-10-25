@@ -16,6 +16,8 @@ class Listing < ApplicationRecord
 	# Associations
 	has_many 	:bookings 
 	has_many	:listing_photos
+	has_many :taggings
+	has_many :tags, :through => :taggings
 	belongs_to 	:user
 
 
@@ -52,6 +54,16 @@ class Listing < ApplicationRecord
     def can_add_more_photos?
       return (listing_photos.length <= 7)? true : false
     end 
+
+
+    def tagline
+    	last_period = (tags.length == 0)? "" : "."
+    	return tags.map { |t|  t.text}.join(". ") + last_period
+    end
+
+    def tagline_space_delimited
+    	return tags.map { |t|  t.text}.join(" ")
+    end
 
 	private
 	def display_badge_if_verified

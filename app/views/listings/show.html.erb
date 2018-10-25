@@ -62,7 +62,10 @@
 			<% end %>
 		<% end %>
 	</div>
-	<div class="row-buddies" id="listing-description"><%=@listing.description%></div>	
+	<div class="centered tags-container italic">
+		<%=@listing.tagline%>
+	</div>
+	<div id="listing-description"><%=@listing.description%></div>	
 	<hr>
 </div>
 
@@ -88,6 +91,24 @@
 	<% else %>
 		<h2>User has no other listings!</h2>
 	<% end %>
+</div>
+
+<hr />
+
+<div class="centered">
+	<br />
+		<h2>Related Listings</h2>
+	<br />
+
+	<% if(@related_listings.length != 0) %>
+		<% @related_listings.each do |listing| %>
+			<%= render partial: "listing_card_listing", locals: {listing: listing} %>
+		<% end %>
+		<div>YO MAKE A LINK HERE TO GO TO A PAGE THAT SHOWS ALL RELATED LISTINGS!</div>
+	<% else %>
+		<h2 style="padding: 1em">Nothing here!</h2>
+	<% end %>
+
 </div>
 
 
