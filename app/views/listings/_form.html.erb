@@ -57,7 +57,7 @@
   <% end %>
 
   <hr />
-  <%= link_to "Go Back", listing_path(listing.id)%>
+  <%= link_to "Back to Profile", user_path(current_user.id) %>
   <%=f.submit "Submit!", :style => "float:right"%>
 
 <% end %>
