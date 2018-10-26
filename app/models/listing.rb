@@ -14,7 +14,7 @@ class Listing < ApplicationRecord
 	validates :rating, numericality: {less_than: 6}
 	
 	# Associations
-	has_many 	:bookings 
+	has_many 	:bookings
 	has_many	:listing_photos
 	has_many :taggings
 	has_many :tags, :through => :taggings
