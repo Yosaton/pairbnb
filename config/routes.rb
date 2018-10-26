@@ -1,6 +1,4 @@
 Rails.application.routes.draw do
-  resources :taggings
-  resources :tags
   # Root redirect
   root "welcome#index"
 
@@ -27,7 +25,9 @@ Rails.application.routes.draw do
 	resources :bookings
 	resources :listings
 	resources :users
-
+  # resources :taggings NO NEEED RESOURCES TAGGING (NO TAGGING SHIT HAPPENING)
+  # resources :tags NO NEED RESOURCES TAGS (NO TAG SHIT HAPPENING)
+  
   # Manual additions
   # update user
   # make path for post to update
@@ -35,6 +35,7 @@ Rails.application.routes.draw do
 
   # Verifying Listings
   put "/listings/verify/:id" => "listings#verify", as: "verify_listing"
+
 
 	# For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
