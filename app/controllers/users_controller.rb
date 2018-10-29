@@ -48,9 +48,11 @@ class UsersController < ApplicationController
       @user.avatar.destroy
     end
     
-    new_avatar = Avatar.new(avatar_image: user_params[:avatar_image])
-    new_avatar.user_id = @user.id
-    new_avatar.save
+    if(user_params[:avatar_image] != nil)
+      new_avatar = Avatar.new(avatar_image: user_params[:avatar_image])
+      new_avatar.user_id = @user.id
+      new_avatar.save
+    end
 
 
     if(@user.save)
