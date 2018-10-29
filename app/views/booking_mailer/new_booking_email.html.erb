@@ -1,0 +1,28 @@
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h1>Congratulations! You have received a booking from <%= @booking.user.full_name %>!</h1>
+    <table>
+    	<tr>
+    		<td style="font-weight: bold; text-align: left;">Listing</td>
+    		<td><%=@booking.listing.name%></td>
+    	</tr>
+    	<tr>
+    		<td style="font-weight: bold; text-align: left;">Start Date</td>
+    		<td><%=@booking.start_date.to_date%></td>
+    	</tr>
+    	<tr>
+    		<td style="font-weight: bold; text-align: left;">End Date</td>
+    		<td><%=@booking.end_date.to_date%></td>
+    	</tr>
+    	<tr>
+    		<td style="font-weight: bold; text-align: left;">Total Price ($)</td>
+    		<td><%=@booking.c_t_p%></td>
+    	</tr>
+    </table>
+
+    <h2>Please note that as of this E-mail, payment has not yet been sent.</h2>
+  </body>
+</html>
