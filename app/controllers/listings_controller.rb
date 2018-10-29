@@ -18,6 +18,7 @@ class ListingsController < ApplicationController
       end
     end
 
+    @text_injection = (search_params[:start_date].blank? && search_params[:end_date].blank?)? "" : "from #{params[:search][:start_date].to_date} to #{params[:search][:end_date].to_date}"
 
   end
 
@@ -45,15 +46,16 @@ class ListingsController < ApplicationController
     # HEY DUSTIN if the current user has a booking where the start date is later than Date.today, THEN..
     # change the href and text to suit.... (the view should already accomodate this, just work out the IF
     # condition and what to change href and shit to)
-    current_user.bookings.order(:start_date).each do |booking|
-      if(booking.listing.id == @listing.id)
+    if(signed_in?)
+      current_user.bookings.order(:start_date).each do |booking|
+        if(booking.listing.id == @listing.id)
 
-        if(booking.start_date >= Date.today)
-          @booking_button_href = "#{booking_path(booking.id)}"
-          @booking_button_text = "You have already booked this listing from #{booking.start_date} to #{booking.end_date}."
-          break
+          if(booking.start_date >= Date.today)
+            @booking_button_href = "#{booking_path(booking.id)}"
+            @booking_button_text = "You have already booked this listing from #{booking.start_date} to #{booking.end_date}."
+            break
+          end
         end
-
       end
     end
 

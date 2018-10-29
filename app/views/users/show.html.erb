@@ -45,6 +45,10 @@
 						</li>
 
 						<li>
+							<%= link_to "View my Guests", guests_path(@user.id) %>
+						</li>						
+
+						<li>
 							<%= link_to "Edit my Profile", edit_user_path(@user.id) %>
 						</li>
 
@@ -69,7 +73,3 @@
 		</td>
 	</tr>
 </table>
-
-
-REMOVE ME LATER
-<%=@user.email%>

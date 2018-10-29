@@ -1,5 +1,5 @@
 class UsersController < Clearance::UsersController
-  before_action :set_user, only: [:show, :edit, :update, :destroy]
+  before_action :set_user, only: [:show, :edit, :update, :destroy, :guests]
 
   # GET /users
   # GET /users.json
@@ -76,6 +76,10 @@ class UsersController < Clearance::UsersController
       format.html { redirect_to root_path, notice: 'Account successfully deleted.' }
       format.json { head :no_content }
     end
+  end
+
+  def guests
+    @user_all_listings = @user.listings
   end
 
   private

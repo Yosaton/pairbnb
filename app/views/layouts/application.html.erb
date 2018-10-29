@@ -5,8 +5,9 @@
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
-    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+
   </head>
 
   <body>
@@ -17,7 +18,7 @@
       <%= link_to "🏡", root_path, :class => "nav-link" %>
     </div>
 
-    <div class="row-buddies" style="color:white; margin-left: 1em;">
+    <div id="searchbar" class="row-buddies" style="color:white; margin-left: 1em;">
       <%= form_for :search, method: "GET", url: listings_path do |f| %>
       Looking for a place in 
         <%= f.select :city, Listing.all.map { |e|  e.city}.sort%>
@@ -55,5 +56,6 @@
 
 
     <%= yield %>
+
   </body>
 </html>

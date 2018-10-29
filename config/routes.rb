@@ -36,6 +36,13 @@ Rails.application.routes.draw do
   # Verifying Listings
   put "/listings/verify/:id" => "listings#verify", as: "verify_listing"
 
+  # Payments
+  get '/payments/:booking_id' => "braintree#show", as: "payments"
+  post 'braintree/checkout'
+  
+
+  # Guests
+  get '/users/:id/guests' => "users#guests", as: "guests"
 
 	# For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

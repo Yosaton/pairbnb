@@ -1,7 +1,6 @@
 <h2 class="centered" style="font-size: 24pt; margin: 1em 0em 1em 0em">
-  <%="Search results for listings in #{params[:search][:city]} from #{params[:search][:start_date].to_date} to #{params[:search][:end_date].to_date}"%>
+
+  <%="Search results for listings in #{params[:search][:city]} #{@text_injection}"%>
 </h2>
 
 <%= render partial: "/listings/listing_card_profile", locals: {listings: @listings}%>
-
-<%= paginate @listings%>

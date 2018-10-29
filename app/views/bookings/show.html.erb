@@ -8,7 +8,14 @@
 			<li>$<%=@booking.price%></li>
 		</ul>
 	<% else %>
-		<h2> You do not own this booking and have no permission to access it </h2>
+		<h2> You do not own this booking and have no permission to access this </h2>
 	<% end %>
+
+	<%if(@booking.is_paid)%>
+		<%=@booking.payment_status%>
+	<% else %>
+		<%= link_to "Pay", payments_path(@booking.id)%>
+	<% end %>
+	<hr/>
 	<%= link_to "Back to #{@booking.listing.name}", listing_path(@booking.listing.id) %>
 </div>
