@@ -79,6 +79,21 @@
 #listing-detail-container	{
 	/*padding: 3em 15em 3em 0em;*/
 	text-align: center;
+	background-color: #636363;	
+	color: white;
+}
+
+
+#book-now-button 	{
+	padding: 1em;
+	margin-bottom: 1em;
+	font-size: 18pt;
+	background-color: red;
+	color: white;
+
+	&:hover 	{
+		background-color: #ff4949;
+	}
 }
 
 

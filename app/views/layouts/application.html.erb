@@ -14,7 +14,19 @@
   <nav>
 
     <div id="logo">
-      <%= link_to "PairBnB", root_path, :class => "nav-link" %>
+      <%= link_to "🏡", root_path, :class => "nav-link" %>
+    </div>
+
+    <div class="row-buddies" style="color:white; margin-left: 1em;">
+      <%= form_for :search, method: "GET", url: listings_path do |f| %>
+      Looking for a place in 
+        <%= f.select :city, Listing.all.map { |e|  e.city}%>
+         from
+        <%= f.date_field :start_date %>
+         to 
+        <%= f.date_field :end_date %>
+        <%= f.submit ">"%>
+      <% end %>
     </div>
 
     <div id="navbar-controls">

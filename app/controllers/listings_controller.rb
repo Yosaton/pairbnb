@@ -4,7 +4,21 @@ class ListingsController < ApplicationController
   # GET /listings
   # GET /listings.json
   def index
-    @listings = Listing.all
+    p search_params
+    @listings = Listing.where(city: search_params[:city])
+
+    @listings.each do |listing| # For each listing in the city desired...
+      
+      if(listing.has_bookings_between(search_params[:start_date], search_params[:end_date]))
+        # If that listing has a booking in the date range specified, we need to reject it
+        @listings -= [listing]
+      else
+        # Otherwise, business as normal
+        next
+      end
+    end
+
+
   end
 
   # GET /listings/1
@@ -23,6 +37,25 @@ class ListingsController < ApplicationController
     @related_listings = @related_listings.uniq
     @related_listings -= [@listing]
     @related_listings = @related_listings.sample(6)
+
+    @booking_button_href = "#{new_booking_path}?listing_id=#{@listing.id}"
+    @booking_button_text = "Book now!"
+
+
+    # HEY DUSTIN if the current user has a booking where the start date is later than Date.today, THEN..
+    # change the href and text to suit.... (the view should already accomodate this, just work out the IF
+    # condition and what to change href and shit to)
+    current_user.bookings.order(:start_date).each do |booking|
+      if(booking.listing.id == @listing.id)
+
+        if(booking.start_date >= Date.today)
+          @booking_button_href = "#{booking_path(booking.id)}"
+          @booking_button_text = "You have already booked this listing from #{booking.start_date} to #{booking.end_date}."
+          break
+        end
+
+      end
+    end
 
   end
 
@@ -188,5 +221,9 @@ class ListingsController < ApplicationController
 
     def listing_tag_params
       params.require(:listing).permit(tags: {})
+    end
+
+    def search_params
+      params.require(:search).permit(:city, :start_date, :end_date)
     end
 end

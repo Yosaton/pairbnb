@@ -1,25 +1,23 @@
-<p id="notice"><%= notice %></p>
+<div class="clearance-box centered">
 
-<h1>Bookings</h1>
+  <%if (@bookings.length != 0) %>
 
-<table>
-  <thead>
-    <tr>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
+    <%if (current_user.id == @bookings.first.user.id) %>
 
-  <tbody>
-    <% @bookings.each do |booking| %>
-      <tr>
-        <td><%= link_to 'Show', booking %></td>
-        <td><%= link_to 'Edit', edit_booking_path(booking) %></td>
-        <td><%= link_to 'Destroy', booking, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
+        <h2><%="Bookings for #{@user.full_name}"%></h2>
+        <%@bookings.order(:start_date).each do |booking|%>
+          <a href="/bookings/<%=booking.id%>"> 
+            <%="#{booking.listing.name}, from #{booking.start_date.to_date} to #{booking.end_date.to_date}"%>
+          </a> 
+          <br/>
+        <% end %>
+    
+    <% else %>
+      <h2>No bookings here!</h2>
     <% end %>
-  </tbody>
-</table>
 
-<br>
+  <% else %>
+    <h2>You aren't allowed to view this page!</h2>
+  <% end %>
 
-<%= link_to 'New Booking', new_booking_path %>
+</div>

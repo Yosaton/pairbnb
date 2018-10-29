@@ -14,7 +14,7 @@ class Listing < ApplicationRecord
 	validates :rating, numericality: {less_than: 6}
 	
 	# Associations
-	has_many 	:bookings
+	has_many 	:bookings	
 	has_many	:listing_photos
 	has_many :taggings
 	has_many :tags, :through => :taggings
@@ -63,6 +63,17 @@ class Listing < ApplicationRecord
 
     def tagline_space_delimited
     	return tags.map { |t|  t.text}.join(" ")
+    end
+
+    def has_bookings_between(start_date, end_date)
+    	bookings.each do |booking|
+    		if(start_date <= booking.end_date && booking.start_date <= end_date) # if true, overlap found
+    			return true
+    		else
+    			next
+    		end
+    	end
+    	return false
     end
 
 	private

@@ -13,6 +13,7 @@
 			<br />
 
 			<% if (signed_in?) %>
+
 				<% if (current_user.id == @listing.user.id) || (current_user.superadmin?)%>
 					<h2 class="centered">Control Panel</h2>
 					<ul class="no-bullets centered">
@@ -52,6 +53,8 @@
 		<% end %>
 	</div>
 
+
+
 </div>
 <div id="listing-detail-container">
 
@@ -62,12 +65,21 @@
 			<% end %>
 		<% end %>
 	</div>
+
 	<div class="centered tags-container italic">
 		<%=@listing.tagline%>
 	</div>
 	<div id="listing-description"><%=@listing.description%></div>	
-	<hr>
+
+	
+	<a href="<%=@booking_button_href%>" style="text-decoration: none;">
+		<div class="centered" id="book-now-button">
+			<%=@booking_button_text%>
+		</div>
+	</a>
 </div>
+
+
 
 
 <div class="centered">
