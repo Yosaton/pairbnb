@@ -3,7 +3,7 @@
 	<h2 class="centered"><%=@user.full_name%></h2>
 	<hr />
 
-	<%= render 'form', user: @user %>
+	<%= render 'edit_user_form', user: @user %>
 
 	<hr />
 	<%= link_to 'Back to Profile', user_path(@user.id) %>

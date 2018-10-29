@@ -1,4 +1,4 @@
-<%= form_for :user, url: new_user_path, method: :patch do |f| %>
+<%= form_for :user, url: user_path(user.id), method: :patch do |f| %>
 
 	<div>
 		<%= f.label :first_name, "First Name" %>
@@ -10,8 +10,8 @@
 		<%= f.label :email, "New Email Address" %>
 		<%= f.text_field :email %>
 
-		<%= f.label :password, "Password" %>
-		<%= f.password_field :password %>
+		<%= f.label :avatar_image, "New Avatar Image" %>
+		<%= f.file_field :avatar_image %>
 	</div>
 
 	<br /><%= f.submit "Submit"%>
