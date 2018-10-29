@@ -20,7 +20,7 @@
     <div class="row-buddies" style="color:white; margin-left: 1em;">
       <%= form_for :search, method: "GET", url: listings_path do |f| %>
       Looking for a place in 
-        <%= f.select :city, Listing.all.map { |e|  e.city}%>
+        <%= f.select :city, Listing.all.map { |e|  e.city}.sort%>
          from
         <%= f.date_field :start_date %>
          to 

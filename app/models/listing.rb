@@ -67,7 +67,7 @@ class Listing < ApplicationRecord
 
     def has_bookings_between(start_date, end_date)
     	bookings.each do |booking|
-    		if(start_date <= booking.end_date && booking.start_date <= end_date) # if true, overlap found
+    		if(start_date.to_date <= booking.end_date.to_date && booking.start_date.to_date <= end_date.to_date) # if true, overlap found
     			return true
     		else
     			next
