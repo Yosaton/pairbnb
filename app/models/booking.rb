@@ -7,6 +7,7 @@ class Booking < ApplicationRecord
 	validates :start_date, :end_date, presence: true
 	validate :end_after_start
 	validate :booking_does_not_clash
+	validate :booking_after_today
 
 	# Functions
 	# Multiplies price per night by the number of days the booking is for to get total price.
@@ -54,6 +55,14 @@ class Booking < ApplicationRecord
 				# Handling overlap: not allowed to save!
 				errors.add(:booking_date, "overlaps with another booking!")
 			end
+		end
+	end
+
+
+	# Makes sure that you cant make a booking in the past!
+	def booking_after_today
+		if(start_date < Date.today)
+			errors.add(:start_date, "must not be in the past!")
 		end
 	end
 
