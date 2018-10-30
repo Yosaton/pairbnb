@@ -1,0 +1,9 @@
+<% if(@results.last_page?) %>
+	<h1 class="centered"><%="#{1 + @total_results - @results.count} to #{@total_results} of #{@total_results}"%> result(s) found for your query!</h1>
+<% else %>
+	<h1 class="centered"><%="#{1 + @results.length*(@results.current_page-1)} to #{@results.length*@results.current_page} of #{@total_results}"%> result(s) found for your query!</h1>
+<% end %>
+
+<%= render partial: "/listings/listing_card_profile", locals: {listings: @results} %>
+
+<div class="centered"><%= paginate @results%></div>

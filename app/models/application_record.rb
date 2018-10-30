@@ -2,6 +2,7 @@ class ApplicationRecord < ActiveRecord::Base
   self.abstract_class = true
 
   COUNTRIES = [
+  "",
   "Afghanistan",
   "Aland Islands",
   "Albania",

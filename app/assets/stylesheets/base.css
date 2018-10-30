@@ -4,6 +4,7 @@
 html body 	{
 	padding: 0;
 	margin: 0;
+    max-width: 100%;
 }
 
 h1 	{
@@ -12,10 +13,12 @@ h1 	{
 
 /*navbar*/
 nav 	{
-	padding: 0.5em;
+	display: fixed;
+	width: 100%;
+	padding: 0.5em 0 0.5em 0;
 	background-color: red;
 	font-size: 20pt;
-	line-height: 28pt
+	line-height: 28pt;
 }
 
 /*FLASH*/
@@ -38,6 +41,7 @@ nav 	{
 
 
 #logo 	{
+	padding-left: 0.5em;
 	display: inline-block;
 	color: white;
 }
@@ -49,6 +53,7 @@ nav 	{
 #navbar-controls 	{
 	display: inline-block;
 	float: right;
+	padding-right: 1em;
 }
 
 
@@ -90,4 +95,8 @@ nav 	{
 
 .blue 	{
 	color: blue;
+}
+
+.white-bg	{
+	background-color: white;
 }
