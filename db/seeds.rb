@@ -15,11 +15,15 @@ end
 # Seed Listings
 property_types = ["House", "Entire Floor", "Condominium", "Villa", "Townhouse", "Castle", "Treehouse", "Igloo", "Yurt", "Cave", "Chalet", "Hut", "Tent", "Other"]
 random_bool = [true, false]
-random_tag = Faker::Hipster.paragraph(4, true, 4).split(" ")
+random_tags = []
 
-random_tag.each do |tag|
-    Tag.create(text: tag)
+50.times do
+    random_tags << Faker::Hacker.adjective
 end 
+
+random_tags.uniq.each do |tag|
+    Tag.create(text: tag)
+end
 
 listing = {}
 uids = []
