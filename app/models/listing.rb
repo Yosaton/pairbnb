@@ -25,10 +25,11 @@ class Listing < ApplicationRecord
 	# Constant Symbols hash
 	SYMBOLS = {rating_star: "🌟", rating_empty: "⚬", capacity: "😃", price_icon: "💰", verified: "👍", bed: "🛏️", bath: "🚽", tick: "🗸"}
 	AMENITIES = {essentials: "🍃", airconditioner: "❄️", washer_dryer: "👕", television: "📺", fireplace: "🔥", wifi: "📶", hot_water: "🚰", kitchen: "🍳", heating: "♨️", living_room: "☕"}
-
+	PROPERTY_TYPES = ["", "House", "Entire Floor", "Condominium", "Villa", "Townhouse", "Castle", "Treehouse", "Igloo", "Yurt", "Cave", "Chalet", "Hut", "Tent", "Other"]
 
 	# Scopes for searching
-	scope :keywords, -> (keywords) { where("LOWER(name) LIKE ?", "%#{keywords.downcase}%")}
+	# scope :keywords, -> (keywords) { where("LOWER(name) LIKE ?", "%#{keywords.downcase}%")}
+	scope :property_type, -> (property_type) { where property_type: property_type }
 	scope :country, -> (country) { where country: country }
 	scope :max_price, -> (max_price) { where("price <= ?", max_price) }
 	scope :n_bedrooms, -> (n_bedrooms) { where n_bedrooms: n_bedrooms }

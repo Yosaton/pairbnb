@@ -18,7 +18,7 @@
 
   <div>
     Property Type <br/>
-    <%=f.select :property_type, ["House", "Entire Floor", "Condominium", "Villa", "Townhouse", "Castle", "Treehouse", "Igloo", "Yurt", "Cave", "Chalet", "Hut", "Tent", "Other"]%>
+    <%=f.select :property_type, Listing::PROPERTY_TYPES%>
   </div>  <br/>
 
   <div>

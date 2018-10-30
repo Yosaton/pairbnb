@@ -32,9 +32,9 @@
 
 					<tr>
 						<td>
-						Looking for
+						Looking for a
 						</td>
-						<td><%=f.text_field :keywords, :placeholder => "Keywords"%></td>
+						<td><%=f.select :property_type, Listing::PROPERTY_TYPES%></td>
 						
 					</tr>
 
@@ -95,6 +95,16 @@
 					
 			<% end %>
 
+			<hr />
+			
+			<h3 class="centered">Alternatively, use our text search...</h3>
+			<div class="centered">
+				<%= form_for :text_search do |f|%>
+					<%= f.text_field :keywords, :placeholder => "Keywords"%>
+					<%= f.submit ">"%>
+				<% end %>
+				<br />
+			</div>
 		</div>
 	</td>
 
