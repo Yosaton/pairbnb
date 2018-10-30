@@ -6,15 +6,20 @@
 			</h2>
 			<p class="italic"><%="#{listing.city}, #{listing.country}"%></p>
 			<p class="italic"><%=listing.property_type%></p>
+			<%=listing.amenity_string%>
 			<hr />
 			<p><%=listing.description%></p>
 			<hr />
 
-			<div style="text-align: center">
-				<span style="float: left"><%="#{listing.symbolize_rating}"%></span>
-				<span><%="#{listing.symbolize_capacity}"%></span>
-				<span style="float: right"><%="#{Listing::SYMBOLS[:price_icon]}#{listing.price} nightly"%></span>
-			</div>
+			<table class="centered" style="width: 100%; margin-bottom: 0em">
+				<tr>
+					<td><%="#{Listing::SYMBOLS[:rating_star]}#{listing.rating}"%></td>
+					<td><%="#{Listing::SYMBOLS[:bed]}#{listing.n_bedrooms}"%></td>
+					<td><%="#{Listing::SYMBOLS[:capacity]}#{listing.capacity}"%></td>
+					<td><%="#{Listing::SYMBOLS[:bath]}#{listing.n_bathrooms}"%></td>
+					<td><%="#{Listing::SYMBOLS[:price_icon]}#{listing.price}"%></td>
+				</tr>
+			</table>
 
 		</div>
 	<% end %>

@@ -7,6 +7,7 @@
 				<li>(<%=@listing.property_type%>)</li>
 				<li><%=@listing.symbolize_rating%></li>
 				<li><%=@listing.symbolize_capacity%></li>
+				<li><%=@listing.amenity_string%></li>
 				<li id="listing-price-tag"><%="$ #{@listing.price} nightly"%></li>
 			</ul>
 
@@ -69,7 +70,11 @@
 	<div class="centered tags-container italic">
 		<%=@listing.tagline%>
 	</div>
-	<div id="listing-description"><%=@listing.description%></div>	
+	<div>
+		<%=@listing.amenity_write%>
+	</div>
+	<div id="listing-description"><%=@listing.description%></div>
+
 
 	
 	<a href="<%=@booking_button_href%>" style="text-decoration: none;">
@@ -116,7 +121,7 @@
 		<% @related_listings.each do |listing| %>
 			<%= render partial: "listing_card_listing", locals: {listing: listing} %>
 		<% end %>
-		<div>YO MAKE A LINK HERE TO GO TO A PAGE THAT SHOWS ALL RELATED LISTINGS!</div>
+		
 	<% else %>
 		<h2 style="padding: 1em">Nothing here!</h2>
 	<% end %>

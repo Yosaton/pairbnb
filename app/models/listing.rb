@@ -2,12 +2,13 @@ class Listing < ApplicationRecord
 	# Validations
 	YES_VALIDATE = Listing.attribute_names
 	NO_VALIDATE = ["is_verified", "id", "created_at", "updated_at"]
+	AMENITIES = ["has_essentials", "has_airconditioner", "has_washer_dryer", "has_television", "has_fireplace", "has_wifi", "has_hot_water", "has_kitchen", "has_heating", "has_living_room"]
 
-	VALIDATE = YES_VALIDATE - NO_VALIDATE
+	VALIDATE = YES_VALIDATE - NO_VALIDATE - AMENITIES
 
 	validates_presence_of VALIDATE
 
-	validates_length_of :name, minimum: 1
+	validates_length_of :name, minimum: 3
 	validates :capacity, numericality: {greater_than: 0}
 	validates :price, numericality: {greater_than: 0}
 	validates :rating, numericality: {greater_than: -1}
@@ -22,7 +23,8 @@ class Listing < ApplicationRecord
 
 
 	# Constant Symbols hash
-	SYMBOLS = {rating_star: "🌟", rating_empty: "⚬", capacity: "😃", price_icon: "💰", verified: "👍"}
+	SYMBOLS = {rating_star: "🌟", rating_empty: "⚬", capacity: "😃", price_icon: "💰", verified: "👍", bed: "🛏️", bath: "🚽", tick: "🗸"}
+	AMENITIES = {essentials: "🍃", airconditioner: "❄️", washer_dryer: "👕", television: "📺", fireplace: "🔥", wifi: "📶", hot_water: "🚰", kitchen: "🍳", heating: "♨️", living_room: "☕"}
 
 
 	# Function Definitions
@@ -76,6 +78,33 @@ class Listing < ApplicationRecord
 	    	end
 	    end
     	return false
+    end
+
+    def amenity_string
+    	result = []
+
+		Listing::AMENITIES.each do |key, value|
+			if (send("has_#{key}") == true)
+				result << value				
+			end 
+		end
+
+		return result.join(" ")
+    end
+
+
+    def amenity_write
+    	result = ["#{Listing::SYMBOLS[:tick]}"]
+
+		Listing::AMENITIES.each do |key, value|
+			if (send("has_#{key}") == true)
+				result << key.capitalize.to_s.gsub("_", " ")			
+			end 
+		end
+
+		result << "#{Listing::SYMBOLS[:tick]}"
+
+		return result.join(" #{Listing::SYMBOLS[:tick]} ")
     end
 
 	private

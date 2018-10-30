@@ -13,6 +13,14 @@ ActiveRecord::Base.transaction do
 end 
 
 # Seed Listings
+property_types = ["House", "Entire Floor", "Condominium", "Villa", "Townhouse", "Castle", "Treehouse", "Igloo", "Yurt", "Cave", "Chalet", "Hut", "Tent", "Other"]
+random_bool = [true, false]
+random_tag = Faker::Hipster.paragraph(4, true, 4).split(" ")
+
+random_tag.each do |tag|
+    Tag.create(text: tag)
+end 
+
 listing = {}
 uids = []
 User.all.each { |u| uids << u.id }
@@ -20,18 +28,36 @@ User.all.each { |u| uids << u.id }
 ActiveRecord::Base.transaction do
   100.times do 
     listing['name'] = Faker::App.name
-    listing['property_type'] = ["House", "Entire Floor", "Condominium", "Villa", "Townhouse", "Castle", "Treehouse", "Igloo", "Yurt", "Cave", "Chalet", "Hut", "Tent", "Other"].sample
+    listing['property_type'] = property_types.sample
     listing['address'] = Faker::Address.street_address
     listing['city'] = Faker::Address.city
     listing['country'] = Faker::Address.country
-    listing['price'] = 1 + rand(10000)
+    listing['price'] = 49 + rand(10000)
     listing['capacity'] = 1 + rand(10)
-    listing['price'] = rand(80..500)
     listing['rating'] = rand(0..5)
-    listing['description'] = Faker::Hipster.sentence
+    listing['description'] = Faker::Hipster.paragraph(4, true, 4)
     listing['user_id'] = uids.sample
 
-    Listing.create(listing)
+    listing['n_bedrooms'] = 1 + rand(7)
+    listing['n_bathrooms'] = 1 + rand(7)
+
+    listing['has_essentials'] = random_bool.sample
+    listing['has_airconditioner'] = random_bool.sample 
+    listing['has_washer_dryer'] = random_bool.sample 
+    listing['has_television'] = random_bool.sample 
+    listing['has_fireplace'] = random_bool.sample 
+    listing['has_wifi'] = random_bool.sample 
+    listing['has_hot_water'] = random_bool.sample 
+    listing['has_kitchen'] = random_bool.sample 
+    listing['has_heating'] = random_bool.sample 
+    listing['has_living_room'] = random_bool.sample 
+
+    new_listing = Listing.new(listing)
+    new_listing.save
+
+    3.times do 
+        Tagging.create(listing_id: new_listing.id, tag_id: Tag.all.sample.id)
+    end
   end
 end
 

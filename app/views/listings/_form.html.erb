@@ -52,6 +52,47 @@
   </div>  <br/>
 
   <div>
+    Number of bedrooms <br/>
+    <%=f.text_field :n_bedrooms, :size => 2%>
+  </div>  <br/>  
+
+  <div>
+    Number of bathrooms <br/>
+    <%=f.text_field :n_bathrooms, :size => 2%>
+  </div>  <br/>
+
+  <hr />
+  <div style="margin: 1em 0em 1em 0em">
+    <table style="width: 100%">
+      <tr>
+        <td><%=f.label :essentials%><%="#{Listing::AMENITIES[:essentials]}"%> <%=f.check_box :has_essentials%></td>
+        
+        <td><%=f.label :airconditioner%><%="#{Listing::AMENITIES[:airconditioner]}"%> <%=f.check_box :has_airconditioner%></td>
+        
+        <td><%=f.label :washer_dryer%><%="#{Listing::AMENITIES[:washer_dryer]}"%> <%=f.check_box :has_washer_dryer%></td>
+        
+        <td><%=f.label :television%><%="#{Listing::AMENITIES[:television]}"%> <%=f.check_box :has_television%></td>
+        
+        <td><%=f.label :fireplace%><%="#{Listing::AMENITIES[:fireplace]}"%> <%=f.check_box :has_fireplace%></td>
+        
+      </tr>
+      <tr>
+        <td><%=f.label :wifi%><%="#{Listing::AMENITIES[:wifi]}"%> <%=f.check_box :has_wifi%></td>
+        
+        <td><%=f.label :hot_water%><%="#{Listing::AMENITIES[:hot_water]}"%> <%=f.check_box :has_hot_water%></td>
+        
+        <td><%=f.label :kitchen%><%="#{Listing::AMENITIES[:kitchen]}"%> <%=f.check_box :has_kitchen%></td>
+        
+        <td><%=f.label :heating%><%="#{Listing::AMENITIES[:heating]}"%> <%=f.check_box :has_heating%></td>
+        
+        <td><%=f.label :living_room%><%="#{Listing::AMENITIES[:living_room]}"%> <%=f.check_box :has_living_room%></td>
+        
+      </tr>
+    </table>
+  </div>
+  <hr />
+
+  <div>
     Upload photos (max 8 per listing)<br/>
     <%=f.file_field :photos, multiple: true %>
   </div> <br/>
