@@ -44,7 +44,11 @@ Rails.application.routes.draw do
   get '/users/:id/guests' => "users#guests", as: "guests"
 
   #Searches
+  # Filter search
   get '/search/show'
+
+  # Text search
+  get '/search/text_search'
 
 	# For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

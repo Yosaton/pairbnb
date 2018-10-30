@@ -49,6 +49,8 @@ gem 'kaminari'
 gem 'braintree'
 gem 'sidekiq'
 
+gem 'pg_search'
+
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.1.0', require: false
 

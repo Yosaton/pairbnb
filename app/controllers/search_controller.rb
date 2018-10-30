@@ -16,9 +16,30 @@ class SearchController < ApplicationController
 
   	@total_results = @results.length
     @results = @results.order(:rating).page params[:page]
-
   end
 
+
+  def text_search
+    all_keywords = text_search_params[:keywords].strip.split(" ") # Array of words from search box
+
+    @results = Listing.where(nil)
+
+    @results_from_name_search = []
+    @results_from_tag_search = []
+
+    all_keywords.each do |keyword|
+      @results_from_name_search << @results.search_keywords(keyword).map { |e|  e.id} if !@results.search_keywords(keyword).empty?
+      @results_from_tag_search << @results.search_tags(keyword).map { |e|  e.id} if !@results.search_tags(keyword).empty?
+    end
+
+    @results = @results_from_name_search + @results_from_tag_search
+    @results.flatten!
+
+    @results = Listing.where(id: @results)
+    @total_results = @results.length
+    @results = @results.order(:rating).page params[:page]
+
+  end
 
   private
 
@@ -28,5 +49,9 @@ class SearchController < ApplicationController
 
   def search_amenities_params
   	params.require(:search).permit(:has_essentials, :has_airconditioner, :has_washer_dryer, :has_television, :has_fireplace, :has_wifi, :has_hot_water, :has_kitchen, :has_heating, :has_living_room)
+  end
+
+  def text_search_params
+    params.require(:text_search).permit(:keywords)
   end
 end

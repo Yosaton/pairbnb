@@ -1,4 +1,6 @@
 class Listing < ApplicationRecord
+	include PgSearch
+
 	# Validations
 	YES_VALIDATE = Listing.attribute_names
 	NO_VALIDATE = ["is_verified", "id", "created_at", "updated_at"]
@@ -45,6 +47,10 @@ class Listing < ApplicationRecord
 	scope :has_kitchen, -> (has_kitchen) { where has_kitchen: has_kitchen }
 	scope :has_heating, -> (has_heating) { where has_heating: has_heating }
 	scope :has_living_room, -> (has_living_room) { where has_living_room: has_living_room }
+
+	# PG Search scopes for text_searches
+	pg_search_scope :search_keywords, :against => :name
+	pg_search_scope :search_tags, :associated_against => {:tags => [:text]}
 
 	# Function Definitions
 	def symbolize_rating

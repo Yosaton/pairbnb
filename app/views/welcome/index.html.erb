@@ -99,7 +99,7 @@
 			
 			<h3 class="centered">Alternatively, use our text search...</h3>
 			<div class="centered">
-				<%= form_for :text_search do |f|%>
+				<%= form_for :text_search, url: "/search/text_search", method: "GET" do |f|%>
 					<%= f.text_field :keywords, :placeholder => "Keywords"%>
 					<%= f.submit ">"%>
 				<% end %>
