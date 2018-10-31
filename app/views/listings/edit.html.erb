@@ -1,8 +1,11 @@
-<div class="new-listing-form-container">
+<% if (signed_in? && (current_user.id == @listing.user.id)) %>
+	<div class="new-listing-form-container">
 
-	<h1>Edit <%=@listing.name%></h1>
+		<h1>Edit <%=@listing.name%></h1>
 
-	<%= render 'form', listing: @listing %>
+		<%= render 'form', listing: @listing %>
 
-
-</div>
+	</div>
+<% else %>
+	<h1 class="centered">You do not have permission to access this page</h1>
+<% end %>

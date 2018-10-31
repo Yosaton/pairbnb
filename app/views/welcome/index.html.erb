@@ -4,7 +4,7 @@
 
 	<td id="details">
 		<div>
-			<h1>Random Listing: <%= link_to @featured_listing.name, listing_path(@featured_listing)%></h1>
+			<h1>Random Listing: <%= link_to @featured_listing.name_with_verification_right, listing_path(@featured_listing)%><%=@featured_listing.smoking_badge%></h1>
 			<h2>From <%= link_to @featured_listing.user.full_name, user_path(@featured_listing.user)%></h2>
 			<%=@featured_listing.amenity_string%><br/>
 			<%=@featured_listing.symbolize_rating%><br/>
@@ -57,6 +57,11 @@
 				 	<tr>
 				 		<td>and</td>
 				 		<td><%=f.text_field :n_bathrooms, :size => 1%> bathroom(s)</td>
+				 	</tr>
+
+				 	<tr>
+				 		<td>Smoking?</td>
+				 		<td><%=f.check_box :smoking_allowed%></td>
 				 	</tr>
 
 				 	<tr>

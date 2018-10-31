@@ -1,0 +1,32 @@
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h1><%= @booking.user.full_name %> just paid their booking fee!</h1>
+    <table>
+    	<tr>
+    		<td style="font-weight: bold; text-align: left;">Listing</td>
+    		<td><%=@booking.listing.name%></td>
+    	</tr>
+    	<tr>
+    		<td style="font-weight: bold; text-align: left;">Start Date</td>
+    		<td><%=@booking.start_date.to_date%></td>
+    	</tr>
+    	<tr>
+    		<td style="font-weight: bold; text-align: left;">End Date</td>
+    		<td><%=@booking.end_date.to_date%></td>
+    	</tr>
+    	<tr>
+    		<td style="font-weight: bold; text-align: left;">Total Price ($)</td>
+    		<td><%=@booking.c_t_p%></td>
+    	</tr>
+
+        <tr>
+            <td colspan=2 style="font-weight: bold; color:green">PAID</td>
+        </tr>
+    </table>
+
+    <h2>Please make sure your property is well-prepped for their arrival!</h2>
+  </body>
+</html>

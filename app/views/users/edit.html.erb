@@ -1,10 +1,16 @@
-<div class="clearance-box centered">
-	<br />
-	<h2 class="centered"><%=@user.full_name%></h2>
-	<hr />
+<% if (signed_in? && (current_user.id == @user.id)) %>
+	<div class="clearance-box centered">
+		<br />
+		<h2 class="centered"><%=@user.full_name%></h2>
+		<hr />
 
-	<%= render 'edit_user_form', user: @user %>
+		<%= render 'edit_user_form', user: @user %>
 
-	<hr />
-	<%= link_to 'Back to Profile', user_path(@user.id) %>
-</div>
+		<hr />
+		<%= link_to 'Back to Profile', user_path(@user.id) %>
+	</div>
+	<% else %>
+
+	<h1 class="centered">You do not have permission to access this page</h1>
+
+<% end %>

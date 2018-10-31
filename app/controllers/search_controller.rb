@@ -2,7 +2,7 @@ class SearchController < ApplicationController
   def show
   	@results = Listing.where(nil)
 
-	# Values for the checkboxes are "0" and "1", so lets handle them separately
+	# Values for the checkboxes are "0" and "1", so lets handle them separately!
   	search_params.each do |key, value|
 		@results = @results.public_send(key, value) if value.present? 
   	end
@@ -23,6 +23,7 @@ class SearchController < ApplicationController
     @results = Listing.where(id: get_text_search_results)
     @total_results = @results.length
     @results = @results.order(:rating).page params[:page]
+    render :show
     
   end
 
@@ -54,7 +55,7 @@ class SearchController < ApplicationController
 
 
   def search_params
-  	params.require(:search).permit(:property_type, :country, :max_price, :n_bedrooms, :n_bathrooms)
+  	params.require(:search).permit(:property_type, :country, :max_price, :n_bedrooms, :n_bathrooms, :smoking_allowed)
   end
 
   def search_amenities_params

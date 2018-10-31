@@ -88,10 +88,17 @@
         <td><%=f.label :living_room%><%="#{Listing::AMENITIES[:living_room]}"%> <%=f.check_box :has_living_room%></td>
         
       </tr>
+
+      <tr>
+        <td colspan=5 class=centered>
+          <hr />
+          <%=f.label :smoking_allowed?%><%=f.check_box :smoking_allowed%>
+        </td>
+
+      </tr>
     </table>
   </div>
   <hr />
-
   <div>
     Upload photos (max 8 per listing)<br/>
     <%=f.file_field :photos, multiple: true %>

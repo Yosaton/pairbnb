@@ -45,6 +45,8 @@ ActiveRecord::Base.transaction do
     listing['n_bedrooms'] = 1 + rand(7)
     listing['n_bathrooms'] = 1 + rand(7)
 
+    listing['smoking_allowed'] = random_bool.sample
+
     listing['has_essentials'] = random_bool.sample
     listing['has_airconditioner'] = random_bool.sample 
     listing['has_washer_dryer'] = random_bool.sample 

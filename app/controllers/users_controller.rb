@@ -24,10 +24,18 @@ class UsersController < Clearance::UsersController
   # POST /users
   # POST /users.json
   def create
-    @user = User.new(first_name: user_params[:first_name], last_name: user_params[:last_name], email: user_params[:email])
+    @user = User.new(first_name: user_params[:first_name], last_name: user_params[:last_name], email: user_params[:email], password: user_params[:password])
 
     respond_to do |format|
       if @user.save
+
+        if(user_params[:avatar_image] != nil)
+          new_avatar = Avatar.new(avatar_image: user_params[:avatar_image])
+          new_avatar.user_id = @user.id
+          new_avatar.save
+        end
+        
+        sign_in(@user)
         format.html { redirect_to @user, notice: 'User was successfully created.' }
         format.json { render :show, status: :created, location: @user }
       else
@@ -90,6 +98,6 @@ class UsersController < Clearance::UsersController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
-      params.require(:user).permit(:first_name, :last_name, :email, :password, :password_confirmation, :avatar_image)
+      params.require(:user).permit(:first_name, :last_name, :email, :password, :avatar_image)
     end
 end
