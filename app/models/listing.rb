@@ -3,7 +3,7 @@ class Listing < ApplicationRecord
 
 	# Validations
 	YES_VALIDATE = Listing.attribute_names
-	NO_VALIDATE = ["is_verified", "id", "created_at", "updated_at"]
+	NO_VALIDATE = ["is_verified", "id", "created_at", "updated_at", "smoking_allowed"]
 	AMENITIES = ["has_essentials", "has_airconditioner", "has_washer_dryer", "has_television", "has_fireplace", "has_wifi", "has_hot_water", "has_kitchen", "has_heating", "has_living_room"]
 
 	VALIDATE = YES_VALIDATE - NO_VALIDATE - AMENITIES
@@ -25,7 +25,7 @@ class Listing < ApplicationRecord
 
 
 	# Constant Symbols hash
-	SYMBOLS = {rating_star: "🌟", rating_empty: "⚬", capacity: "😃", price_icon: "💰", verified: "👍", bed: "🛏️", bath: "🚽", tick: "🗸"}
+	SYMBOLS = {rating_star: "🌟", rating_empty: "⚬", capacity: "😃", price_icon: "💰", verified: "👍", bed: "🛏️", bath: "🚽", tick: "🗸", no_smoking: "🚭"}
 	AMENITIES = {essentials: "🍃", airconditioner: "❄️", washer_dryer: "👕", television: "📺", fireplace: "🔥", wifi: "📶", hot_water: "🚰", kitchen: "🍳", heating: "♨️", living_room: "☕"}
 	PROPERTY_TYPES = ["", "House", "Entire Floor", "Condominium", "Villa", "Townhouse", "Castle", "Treehouse", "Igloo", "Yurt", "Cave", "Chalet", "Hut", "Tent", "Other"]
 
@@ -36,6 +36,7 @@ class Listing < ApplicationRecord
 	scope :max_price, -> (max_price) { where("price <= ?", max_price) }
 	scope :n_bedrooms, -> (n_bedrooms) { where n_bedrooms: n_bedrooms }
 	scope :n_bathrooms, -> (n_bathrooms) { where n_bathrooms: n_bathrooms }
+	scope :smoking_allowed, -> (smoking_allowed) { where smoking_allowed: smoking_allowed}
 
 	scope :has_essentials, -> (has_essentials) { where has_essentials: has_essentials }
 	scope :has_airconditioner, -> (has_airconditioner) { where has_airconditioner: has_airconditioner }
@@ -103,6 +104,10 @@ class Listing < ApplicationRecord
 	    	end
 	    end
     	return false
+    end
+
+    def smoking_badge
+    	return (smoking_allowed)? "" : Listing::SYMBOLS[:no_smoking]
     end
 
     def amenity_string

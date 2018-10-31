@@ -54,7 +54,7 @@ class SearchController < ApplicationController
 
 
   def search_params
-  	params.require(:search).permit(:property_type, :country, :max_price, :n_bedrooms, :n_bathrooms)
+  	params.require(:search).permit(:property_type, :country, :max_price, :n_bedrooms, :n_bathrooms, :smoking_allowed)
   end
 
   def search_amenities_params

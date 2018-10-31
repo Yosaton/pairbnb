@@ -2,6 +2,7 @@
 	<h2 class="listing-box-header">
 		<%= link_to listing.name_with_verification, listing_path(listing.id), :class => "listing-box-header"%>
 	</h2>
+	<div><%=listing.smoking_badge%></div>
 	<p class="italic"><%="#{listing.city}, #{listing.country}".truncate(25)%></p>
 	<%=listing.amenity_string%>
 	<hr />
@@ -18,7 +19,7 @@
 		</tr>
 	</table>
 	<hr/>
-	<div class= "italic" style="font-size: 10pt; color: grey; padding: 1em;">
+	<div class= "italic" style="font-size: 10pt; color: grey; padding: 0;">
 		<%=listing.tagline_space_delimited%>
 	</div>
 </div>
