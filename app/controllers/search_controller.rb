@@ -2,7 +2,7 @@ class SearchController < ApplicationController
   def show
   	@results = Listing.where(nil)
 
-	# Values for the checkboxes are "0" and "1", so lets handle them separately
+	# Values for the checkboxes are "0" and "1", so lets handle them separately!
   	search_params.each do |key, value|
 		@results = @results.public_send(key, value) if value.present? 
   	end
