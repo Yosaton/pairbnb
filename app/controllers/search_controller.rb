@@ -23,6 +23,7 @@ class SearchController < ApplicationController
     @results = Listing.where(id: get_text_search_results)
     @total_results = @results.length
     @results = @results.order(:rating).page params[:page]
+    render :show
     
   end
 
