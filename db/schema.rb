@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_10_23_123831) do
+ActiveRecord::Schema.define(version: 2018_10_30_015135) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -26,6 +26,8 @@ ActiveRecord::Schema.define(version: 2018_10_23_123831) do
   end
 
   create_table "avatars", force: :cascade do |t|
+    t.string "avatar_image"
+    t.integer "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -37,21 +39,54 @@ ActiveRecord::Schema.define(version: 2018_10_23_123831) do
     t.integer "listing_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "price"
+    t.boolean "is_paid", default: false
   end
 
   create_table "listing_photos", force: :cascade do |t|
+    t.string "photo"
+    t.integer "listing_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
   create_table "listings", force: :cascade do |t|
     t.string "name"
+    t.string "property_type"
     t.string "address"
     t.string "city"
     t.string "country"
     t.integer "price"
     t.integer "capacity"
     t.integer "rating", default: 0
+    t.string "description"
+    t.boolean "is_verified", default: false
+    t.integer "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "n_bedrooms"
+    t.integer "n_bathrooms"
+    t.boolean "has_essentials", default: false
+    t.boolean "has_airconditioner", default: false
+    t.boolean "has_washer_dryer", default: false
+    t.boolean "has_television", default: false
+    t.boolean "has_fireplace", default: false
+    t.boolean "has_wifi", default: false
+    t.boolean "has_hot_water", default: false
+    t.boolean "has_kitchen", default: false
+    t.boolean "has_heating", default: false
+    t.boolean "has_living_room", default: false
+  end
+
+  create_table "taggings", force: :cascade do |t|
+    t.integer "listing_id"
+    t.integer "tag_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "tags", force: :cascade do |t|
+    t.string "text"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -61,6 +96,7 @@ ActiveRecord::Schema.define(version: 2018_10_23_123831) do
     t.string "last_name"
     t.date "birthdate"
     t.string "email"
+    t.integer "role", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "encrypted_password", limit: 128

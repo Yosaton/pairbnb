@@ -1,6 +1,8 @@
 class User < ApplicationRecord
   include Clearance::User
 
+  # Enum for roles
+  enum role: [:customer, :moderator, :superadmin]
 
   # Associations
   has_many :authentications, dependent: :destroy #omniauth
@@ -16,11 +18,27 @@ class User < ApplicationRecord
   	return "#{first_name} #{last_name}"
   end
 
+  def average_rating
+    result = 0
+    divisor = 1
+
+    if(listings.length > 0)
+      listings.each do |listing|
+        result += listing.rating
+      end
+      divisor = listings.length
+    end
+
+    return result/divisor
+  end
 
   #Omniauth Functions
   def self.create_with_auth_and_hash(authentication, auth_hash)
+    first_name = auth_hash["info"]["name"].split(" ").first
+    last_name = auth_hash["info"]["name"].split(" ").last
     user = self.create!(
-    name: auth_hash["info"]["name"],
+    first_name: first_name,
+    last_name: last_name,
     email: auth_hash["info"]["email"],
     password: SecureRandom.hex(10)
     )

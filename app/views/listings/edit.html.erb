@@ -1,6 +1,8 @@
-<h1>Editing Listing</h1>
+<div class="new-listing-form-container">
 
-<%= render 'form', listing: @listing %>
+	<h1>Edit <%=@listing.name%></h1>
 
-<%= link_to 'Show', @listing %> |
-<%= link_to 'Back', listings_path %>
+	<%= render 'form', listing: @listing %>
+
+
+</div>

@@ -18,7 +18,7 @@
     <% if Clearance.configuration.allow_sign_up? %>
       <%= link_to t(".sign_up"), sign_up_path %> <br />
     <% end %>
-    <%= link_to "Sign in with Google (BROKEN!)", "/auth/google_oauth2" %> <br />
+    <%= link_to "Sign in with Google", "/auth/google_oauth2" %> <br />
     <%= link_to t(".forgot_password"), new_password_path %>
   </div>
 <% end %>

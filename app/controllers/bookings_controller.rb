@@ -1,10 +1,12 @@
 class BookingsController < ApplicationController
   before_action :set_booking, only: [:show, :edit, :update, :destroy]
+  before_action :require_login, only: [:new]
 
   # GET /bookings
   # GET /bookings.json
   def index
-    @bookings = Booking.all
+    @user = User.find_by_id(params[:format])
+    @bookings = Booking.where(user_id: params[:format])
   end
 
   # GET /bookings/1
@@ -14,6 +16,7 @@ class BookingsController < ApplicationController
 
   # GET /bookings/new
   def new
+    @listing = Listing.find_by_id(listing_id_from_params[:listing_id].to_i)
     @booking = Booking.new
   end
 
@@ -24,11 +27,16 @@ class BookingsController < ApplicationController
   # POST /bookings
   # POST /bookings.json
   def create
+    @listing = Listing.find_by_id(listing_id_from_params[:listing_id].to_i)
     @booking = Booking.new(booking_params)
+    @booking.user_id = current_user.id
+    @booking.listing_id = @listing.id
+    @booking.price = @booking.calculate_total_price(@listing.price)
 
     respond_to do |format|
       if @booking.save
-        format.html { redirect_to @booking, notice: 'Booking was successfully created.' }
+        BookingJob.perform_later(@booking)
+        format.html { redirect_to listing_path(@listing), notice: 'Booking was successfully created.' }
         format.json { render :show, status: :created, location: @booking }
       else
         format.html { render :new }
@@ -69,6 +77,11 @@ class BookingsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def booking_params
-      params.fetch(:booking, {})
+      params.require(:booking).permit(:start_date, :end_date)
+    end
+
+    # Get the listing ID this booking is for, based off the params sent in listing#show
+    def listing_id_from_params
+      params.permit(:listing_id)
     end
 end

@@ -4,31 +4,99 @@
 html body 	{
 	padding: 0;
 	margin: 0;
+    max-width: 100%;
 }
 
+h1 	{
+	font-size: 36pt;
+}
 
 /*navbar*/
 nav 	{
-	padding: 0.5em;
+	display: fixed;
+	width: 100%;
+	padding: 0.5em 0 0.5em 0;
 	background-color: red;
 	font-size: 20pt;
-	line-height: 28pt
+	line-height: 28pt;
+}
+
+/*FLASH*/
+.flash 	{
+	font-size: 18px;
+	text-align: center;
+}
+
+.success {
+	background-color: #9bff8e;
+}
+
+.notice 	{
+	background-color: #ffe763;
+}
+
+.error 	{
+	background-color: #fc8890;
 }
 
 
 #logo 	{
+	padding-left: 0.5em;
 	display: inline-block;
 	color: white;
 }
 
+#searchbar 	{
+	color:black;
+}
 
 #navbar-controls 	{
 	display: inline-block;
 	float: right;
+	padding-right: 1em;
+}
+
+
+.navbar-avatar	{
+	position: relative;
+	top: 0.2em;
+	width: 1em;
+	height: 1em;
+	border: 1px orange solid;
+	border-radius: 1em;
 }
 
 
 /*General Classes*/
 .centered {
 	text-align: center;
+}
+
+.italic 	{
+	font-style: italic;
+}
+
+.left-aligned 	{
+	text-align: left;
+}
+
+.underlined	{
+	text-decoration: underline;
+}
+
+.no-bullets 	{
+	list-style: none;
+	padding-left: 0;
+}
+
+.red 	{
+	color: red;
+}
+
+.blue 	{
+	color: blue;
+}
+
+.white-bg	{
+	background-color: white;
 }

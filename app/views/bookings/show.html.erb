@@ -1,4 +1,21 @@
-<p id="notice"><%= notice %></p>
+<div class="clearance-box centered">
 
-<%= link_to 'Edit', edit_booking_path(@booking) %> |
-<%= link_to 'Back', bookings_path %>
+	<%if((signed_in?) && (current_user.id == @booking.user.id)) %>	
+		<h2><%="#{current_user.full_name}'s booking for #{@booking.listing.name}"%></h2>
+		<ul class="no-bullets">
+			<li><%="From: #{@booking.start_date.to_date} to #{@booking.end_date.to_date}"%></li>
+			<li>(<%=@booking.days_of_booking%> days)</li>
+			<li>$<%=@booking.price%></li>
+		</ul>
+	<% else %>
+		<h2> You do not own this booking and have no permission to access this </h2>
+	<% end %>
+
+	<%if(@booking.is_paid)%>
+		<%=@booking.payment_status%>
+	<% else %>
+		<%= link_to "Pay", payments_path(@booking.id)%>
+	<% end %>
+	<hr/>
+	<%= link_to "Back to #{@booking.listing.name}", listing_path(@booking.listing.id) %>
+</div>

@@ -1,0 +1,18 @@
+<%= form_for :user, url: user_path(user.id), method: :patch do |f| %>
+
+	<div>
+		<%= f.label :first_name, "First Name" %>
+		<%= f.text_field :first_name %>
+
+		<%= f.label :last_name, "Last Name" %>
+		<%= f.text_field :last_name %>
+
+		<%= f.label :email, "New Email Address" %>
+		<%= f.text_field :email %>
+
+		<%= f.label :avatar_image, "New Avatar Image" %>
+		<%= f.file_field :avatar_image %>
+	</div>
+
+	<br /><%= f.submit "Submit"%>
+<% end %>

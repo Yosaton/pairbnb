@@ -5,8 +5,9 @@
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
-    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+
   </head>
 
   <body>
@@ -14,28 +15,47 @@
   <nav>
 
     <div id="logo">
-      <%= link_to "PairBnB", root_path, :class => "nav-link" %>
+      <%= link_to "🏡", root_path, :class => "nav-link" %>
+    </div>
+
+    <div id="searchbar" class="row-buddies" style="color:white; margin-left: 1em;">
+      <%= form_for :search, method: "GET", url: listings_path do |f| %>
+      Looking for a place in 
+        <%= f.select :city, Listing.all.map { |e|  e.city}.sort%>
+         from
+        <%= f.date_field :start_date %>
+         to 
+        <%= f.date_field :end_date %>
+        <%= f.submit ">"%>
+      <% end %>
     </div>
 
     <div id="navbar-controls">
       <% if signed_in? %>
-        Signed in as: <%= current_user.email %>, replace me with user
+
+        <%if (current_user.avatar == nil)%>
+          <%= link_to image_tag("question-mark.jpg", class: "navbar-avatar"), user_path(current_user.id) %>&nbsp;
+        <% else %>
+          <%= link_to image_tag(current_user.avatar.avatar_image.navbar_size.url, class: "navbar-avatar"), user_path(current_user.id) %>&nbsp;
+        <% end %>
+
         <%= link_to User::SYMBOLS[:logout], sign_out_path, method: :delete %>
       <% else %>
         <%= link_to User::SYMBOLS[:login], sign_in_path, :class => "nav-link" %>
       <% end %>
     </div>
 
-    <div id="flash">
-      <% flash.each do |key, value| %>
-        <div class="flash <%= key %>"><%= value %></div>
-      <% end %>
-    </div>
-
   </nav>
+
+  <div id="flash">
+    <% flash.each do |key, value| %>
+      <div class="flash <%= key %>"><%= value %></div>
+    <% end %>
+  </div>
   <!-- END NAV BAR -->
 
 
     <%= yield %>
+
   </body>
 </html>

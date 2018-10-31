@@ -1,3 +1,200 @@
-// Place all the styles related to the Listings controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
+/*The listing box*/
+.profile-listing-box 	{
+	padding: 1em;
+	margin: 1em;
+	border: 1px gainsboro solid;
+	border-radius: 1em;
+	background-color: white;
+}
+
+
+.moderator-profile-controls	{
+	padding: 1em 0em 1em 0em;
+}
+
+.profile-listing-box p, h2 	{
+	margin: 0;
+}
+
+.profile-listing-box:hover	{
+	background-color: gainsboro;
+}
+
+.listing-box-header a {
+	text-decoration: none;
+	color: red;
+
+	&:hover 	{
+		text-decoration: underline;
+	}
+}
+
+
+/*Listing Page*/
+.row-buddies 	{
+	display: inline-block;
+}
+
+#listing-main-img-and-stats	{
+	background-color: #636363;
+	display: flex;
+	width: 100%;
+}
+
+#listing-banner 	{
+	height: 100%;
+}
+
+#listing-stats-box	{
+	padding: 1em 0em 0em 0em;
+	width: 35em;
+	height: 30em;
+	color: white;
+}
+
+#listing-name 	{
+	text-align: center;
+	font-size: 24pt;
+	padding-bottom: 0;
+	margin-bottom: 0;
+}
+
+#listing-price-tag 	{
+	padding-top: 2em;
+	font-size: 18pt;
+	font-weight: bold;
+	color: #ffc68e;
+}
+
+#listing-main-img-container	{
+	/*text-align: center;*/
+	vertical-align: top;
+}
+
+#listing-main-img	{
+	width: 100%;
+	/*height: 100%;*/
+}
+
+#listing-detail-container	{
+	/*padding: 3em 15em 3em 0em;*/
+	text-align: center;
+	background-color: #636363;	
+	color: white;
+}
+
+
+#book-now-button 	{
+	padding: 1em;
+	margin-bottom: 1em;
+	font-size: 18pt;
+	background-color: red;
+	color: white;
+
+	&:hover 	{
+		background-color: #ff4949;
+	}
+}
+
+
+.tags-container	{
+	padding: 1em;
+	font-size: 22pt;
+}
+
+#listing-logo-description-container {
+	text-align: left;
+}
+
+#listing-description	{
+	margin: 1em 5em 1em 5em;
+	padding: 3em 0em 3em 0em;
+}
+
+#listing-user-logo-container	{
+	text-align: center;
+	width: 35em;
+	color: white;
+	padding: 2em 0em 2em 0em;
+	line-height: 1em;
+}
+
+#listing-user-logo-container a 	{
+	text-decoration: none;
+	color: white;
+
+	&:hover {
+		text-decoration: underline;
+	}
+}
+
+#listing-user-logo 	{
+	width: 8em;
+	height: 8em;
+	border: 5px orange solid;
+	border-radius: 15em;
+}
+
+
+#listing-images-container 	{
+	padding: 1em;
+	background-color: #636363;
+	min-height: 10em;
+}
+
+.listing-image-small	{
+	width: 15em;
+	height: 10em;
+	border: 1px gainsboro solid;
+	margin: 0em 0.5em 0em 0.5em;
+}
+
+.listing-listing-box 	{
+	vertical-align: top;
+	width: 18em;
+	height: 18em;
+	padding: 1em 1em 0em 1em;
+	margin: 1em;
+	border: 1px gainsboro solid;
+	border-radius: 1em;
+	background-color: white;
+
+	&:hover {
+		background-color: gainsboro;
+	}
+}
+
+
+/*Listing Page Controls*/
+#listing-banner ul li a 	{
+	text-decoration: none;
+	color: white;
+
+	&:hover {
+		text-decoration: underline;
+	}
+}
+
+
+/* listing form*/
+.new-listing-form-container 	{
+	font-weight: bold;
+	width: 50em;
+	margin: auto;
+	margin: 5em auto 5em auto;
+	padding: 0em 1em 2em 2em;
+	border: 1px black solid;
+	border-radius: 1em;
+	line-height: 2em;
+}
+
+.listing-form-unhighlighted 	{
+	font-weight: normal;
+}
+
+
+.listing-photo-deletion-icon 	{
+	border: 1px gainsboro solid;
+	width: 7.5em;
+	height: 5em;
+}
