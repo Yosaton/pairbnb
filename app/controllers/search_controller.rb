@@ -20,28 +20,38 @@ class SearchController < ApplicationController
 
 
   def text_search
-    all_keywords = text_search_params[:keywords].strip.split(" ") # Array of words from search box
-
-    @results = Listing.where(nil)
-
-    @results_from_name_search = []
-    @results_from_tag_search = []
-
-    all_keywords.each do |keyword|
-      @results_from_name_search << @results.search_keywords(keyword).map { |e|  e.id} if !@results.search_keywords(keyword).empty?
-      @results_from_tag_search << @results.search_tags(keyword).map { |e|  e.id} if !@results.search_tags(keyword).empty?
-    end
-
-    @results = @results_from_name_search + @results_from_tag_search
-    @results.flatten!
-
-    @results = Listing.where(id: @results)
+    @results = Listing.where(id: get_text_search_results)
     @total_results = @results.length
     @results = @results.order(:rating).page params[:page]
-
+    
   end
 
+  def text_search_ajax
+    @results = Listing.where(id: get_text_search_results).limit(5)
+    @results = @results.order(:rating)
+    render status: 200, json: @results.as_json
+  end
+
+
   private
+
+  def get_text_search_results
+    all_keywords = text_search_params[:keywords].strip.split(" ") # Array of words from search box
+
+    results = Listing.where(nil)
+
+    results_from_name_search = []
+    results_from_tag_search = []
+
+    all_keywords.each do |keyword|
+      results_from_name_search << results.search_keywords(keyword).map { |e|  e.id} if !results.search_keywords(keyword).empty?
+      results_from_tag_search << results.search_tags(keyword).map { |e|  e.id} if !results.search_tags(keyword).empty?
+    end
+
+    results = results_from_name_search + results_from_tag_search
+    return results.flatten!
+  end
+
 
   def search_params
   	params.require(:search).permit(:property_type, :country, :max_price, :n_bedrooms, :n_bathrooms)

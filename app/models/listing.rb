@@ -49,7 +49,7 @@ class Listing < ApplicationRecord
 	scope :has_living_room, -> (has_living_room) { where has_living_room: has_living_room }
 
 	# PG Search scopes for text_searches
-	pg_search_scope :search_keywords, :against => :name
+	pg_search_scope :search_keywords, :against => :name, using: { tsearch: { any_word: true, prefix: true } }
 	pg_search_scope :search_tags, :associated_against => {:tags => [:text]}
 
 	# Function Definitions

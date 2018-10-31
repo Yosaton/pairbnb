@@ -49,6 +49,7 @@ Rails.application.routes.draw do
 
   # Text search
   get '/search/text_search'
+  get '/search/text_search_ajax'
 
 	# For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
