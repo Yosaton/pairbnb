@@ -3,7 +3,7 @@
 
 <div class="container-fluid" id="welcome">
 	
-	<div class="row no-gutters p-4 mx-auto">
+	<div class="row no-gutters p-5 mx-auto">
 
 		<div class="d-none d-xl-block col-8 p-4" id="random-listing-display">
 			<h1>
@@ -76,10 +76,10 @@
 				</div>
 
 		<!-- AMENITITES WORK -->
-				<div class="row my-3">
+				<div class="row my-4">
 					<% i = 0 %>
 					<% Listing::AMENITIES.each do |key, value|%>
-						<div class="col-2">
+						<div class="col-2 my-2">
 							<%=f.check_box "has_#{key}".to_sym, :id => i, :class => "hidden-checkbox"%>
 							<label for="<%=i%>" class="label-for-check" data-toggle="tooltip" title="<%="#{key.to_s.capitalize.split("_").join(" ")}"%>" data-placement="top">
 								<%=Listing.display_fa_icon(key)%>
