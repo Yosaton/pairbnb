@@ -5,6 +5,9 @@
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.2/css/all.css" integrity="sha384-/rXc/GQVaYpyDdyxK+ecHPVYJSN9bmVFBvjA/9eOB+pb3F2w2N6fc5qB9Ew5yIns" crossorigin="anonymous">
+    <!--(Above) Font Awesome CDN, (Below) Bootstrap CDN-->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
 
@@ -12,50 +15,54 @@
 
   <body>
   <!-- START NAV BAR -->
-  <nav>
+    <nav class="container-fluid">
+      <div class="row">
 
-    <div id="logo">
-      <%= link_to "🏡", root_path, :class => "nav-link" %>
-    </div>
+        <!--Logo that links to homepage-->
+        <div class="col-11" id="logo">
+          <%= link_to root_path do%>
+            <i class="fas fa-home"></i>
+          <% end %>
+        </div>
+        
+        <!--Signin, signout, profile things-->
+        <div class="col" id="navbar-controls" style="text-align: right;">
+          <% if signed_in? %>
 
-    <div id="searchbar" class="row-buddies" style="color:white; margin-left: 1em;">
-      <%= form_for :search, method: "GET", url: listings_path do |f| %>
-      Looking for a place in 
-        <%= f.select :city, Listing.all.map { |e|  e.city}.sort%>
-         from
-        <%= f.date_field :start_date %>
-         to 
-        <%= f.date_field :end_date %>
-        <%= f.submit ">"%>
+            <%if (current_user.avatar == nil)%>
+              <%= link_to image_tag("question-mark.jpg", class: "navbar-avatar"), user_path(current_user.id) %>&nbsp;
+            <% else %>
+              <%= link_to image_tag(current_user.avatar.avatar_image.navbar_size.url, class: "navbar-avatar"), user_path(current_user.id) %>&nbsp;
+            <% end %>
+
+            <%= link_to sign_out_path, method: :delete do %>
+              <i class="fas fa-sign-out-alt"></i>
+            <% end %>
+
+          <% else %>
+
+            <!--Show the Login Button-->
+            <%= link_to sign_in_path do %>
+              <i class="fas fa-sign-in-alt"></i>
+            <% end %>
+          <% end %>
+        </div>
+
+      </div>
+
+    <div id="flash">
+      <% flash.each do |key, value| %>
+        <div class="flash <%= key %>"><%= value %></div>
       <% end %>
     </div>
 
-    <div id="navbar-controls">
-      <% if signed_in? %>
-
-        <%if (current_user.avatar == nil)%>
-          <%= link_to image_tag("question-mark.jpg", class: "navbar-avatar"), user_path(current_user.id) %>&nbsp;
-        <% else %>
-          <%= link_to image_tag(current_user.avatar.avatar_image.navbar_size.url, class: "navbar-avatar"), user_path(current_user.id) %>&nbsp;
-        <% end %>
-
-        <%= link_to User::SYMBOLS[:logout], sign_out_path, method: :delete %>
-      <% else %>
-        <%= link_to User::SYMBOLS[:login], sign_in_path, :class => "nav-link" %>
-      <% end %>
-    </div>
-
-  </nav>
-
-  <div id="flash">
-    <% flash.each do |key, value| %>
-      <div class="flash <%= key %>"><%= value %></div>
-    <% end %>
-  </div>
+    </nav>
   <!-- END NAV BAR -->
 
 
     <%= yield %>
 
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
   </body>
 </html>

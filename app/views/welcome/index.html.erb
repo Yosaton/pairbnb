@@ -1,127 +1,156 @@
-<%= image_tag "sky-background.jpg", :id => "welcome-background"%>
-<table id="welcome-detail-box">
-	<tr>
+<!--Hiding scrollbar for just this page-->
+<style type="text/css">body{overflow: hidden}</style>
 
-	<td id="details">
-		<div>
-			<h1>Random Listing: <%= link_to @featured_listing.name_with_verification_right, listing_path(@featured_listing)%><%=@featured_listing.smoking_badge%></h1>
-			<h2>From <%= link_to @featured_listing.user.full_name, user_path(@featured_listing.user)%></h2>
-			<%=@featured_listing.amenity_string%><br/>
-			<%=@featured_listing.symbolize_rating%><br/>
-			<%=@featured_listing.symbolize_capacity%>
+<div class="container-fluid" id="welcome">
+	
+		<div class="row no-gutters p-4 mx-auto">
 
+			<div class="d-none d-xl-block col-8 p-4" id="random-listing-display">
+				<h1>
+					Random Listing: <%= link_to @featured_listing.name_with_verification_right, listing_path(@featured_listing)%>
+					<span class="smoking"><%=@featured_listing.smoking_badge%></span>
+				</h1>
 
-			<ul style="font-size: 14pt; line-height: 2em;">
-				<%@featured_listing.tags.each do |tag|%>
-					<li><%=tag.text%></li>
-				<%end%>
-			</ul>
+				<h2>From <%= link_to @featured_listing.user.full_name, user_path(@featured_listing.user)%></h2>
 
-			<h2><%=@featured_listing.description.truncate(300)%></h2>
-
-		</div>
-	</td>
-
-	<td id="search-form-box" style="width: 35em; padding-top: 1em;">
-		<div>
-			<h2 class="centered underlined">Find my NEXT home!</h2>
-
-			<%=form_for :search, url: search_show_path, method: "GET" do |f|%>
-				<br/>
-				<table id="search-form">
-
-					<tr>
-						<td>
-						Looking for a
-						</td>
-						<td><%=f.select :property_type, Listing::PROPERTY_TYPES%></td>
-						
-					</tr>
-
-					<tr>
-						<td>in</td>
-						<td><%=f.select :country, ApplicationRecord::COUNTRIES%></td>
-						
-					</tr>
-
-					<tr>
-						<td>at most $</td>
-						<td><%=f.text_field :max_price, :size => 4 %> a night</td>
-					</tr>
-				 
-				 	<tr>
-				 		<td>with</td>
-				 		<td><%=f.text_field :n_bedrooms, :size => 1%> bedroom(s)</td>
-				 	</tr>
-
-				 	<tr>
-				 		<td>and</td>
-				 		<td><%=f.text_field :n_bathrooms, :size => 1%> bathroom(s)</td>
-				 	</tr>
-
-				 	<tr>
-				 		<td>Smoking?</td>
-				 		<td><%=f.check_box :smoking_allowed%></td>
-				 	</tr>
-
-				 	<tr>
-				 		<td colspan=2 style="text-align: left;">With the following amenities being a must:</td>
-				 	</tr>
-				</table>
-
-				<table>
-					<tr>
-						<td><%=f.label :essentials%><%="#{Listing::AMENITIES[:essentials]}"%> <%=f.check_box :has_essentials%></td>
-						        
-				        <td><%=f.label :airconditioner%><%="#{Listing::AMENITIES[:airconditioner]}"%> <%=f.check_box :has_airconditioner%></td>
-				        
-				        <td><%=f.label :washer_dryer%><%="#{Listing::AMENITIES[:washer_dryer]}"%> <%=f.check_box :has_washer_dryer%></td>
-				        
-				        <td><%=f.label :television%><%="#{Listing::AMENITIES[:television]}"%> <%=f.check_box :has_television%></td>
-				        
-				        <td><%=f.label :fireplace%><%="#{Listing::AMENITIES[:fireplace]}"%> <%=f.check_box :has_fireplace%></td>
-					</tr>
-					<tr>
-				        <td><%=f.label :wifi%><%="#{Listing::AMENITIES[:wifi]}"%> <%=f.check_box :has_wifi%></td>
-				        
-				        <td><%=f.label :hot_water%><%="#{Listing::AMENITIES[:hot_water]}"%> <%=f.check_box :has_hot_water%></td>
-				        
-				        <td><%=f.label :kitchen%><%="#{Listing::AMENITIES[:kitchen]}"%> <%=f.check_box :has_kitchen%></td>
-				        
-				        <td><%=f.label :heating%><%="#{Listing::AMENITIES[:heating]}"%> <%=f.check_box :has_heating%></td>
-				        
-				        <td><%=f.label :living_room%><%="#{Listing::AMENITIES[:living_room]}"%> <%=f.check_box :has_living_room%></td>
-					</tr>
-
-					<tr>
-						<td colspan=5 class=centered><%=f.submit "Search!"%></td>
-					</tr>
-				</table>
-					
-			<% end %>
-
-			<hr />
+				<ul id="random-listing-tags">
+					<%@featured_listing.tags.each do |tag|%>
+						<li><%=tag.text%> &nbsp;</li>
+					<%end%>
+				</ul>
+				
+				<div id="random-listing-stats">
+					<%=@featured_listing.amenity_string%><br/>
+					<div class="rating"><%=@featured_listing.symbolize_rating%></div>
+					<%=@featured_listing.symbolize_capacity%>
+				</div>
 			
-			<h3 class="centered">Alternatively, use our text search...</h3>
-			<div class="centered">
-
-				<form action='/search/text_search' method="GET">
-					<input type="text" list="list" id="text-search" name="text_search[keywords]"/>
-
-					<input type="submit" value=">"/>
-
-
-					<datalist id="list">						
-					</datalist>
-				</form>
-				<br />
-
+				<p>
+					<br/>
+					<%=@featured_listing.description.truncate(300)%>
+				</p>
 			</div>
-		</div>
-	</td>
 
-	</tr>
-</table>
+			<div class="col" id="search-form-box">
+				<div class="p-4">
+					<h2 class="centered underlined">Find my NEXT home!</h2>
+
+					<%=form_for :search, url: search_show_path, method: "GET" do |f|%>
+						<br/>
+						<table id="search-form">
+
+							<tr>
+								<td>
+								Looking for a
+								</td>
+								<td><%=f.select :property_type, Listing::PROPERTY_TYPES%></td>
+								
+							</tr>
+
+							<tr>
+								<td>in</td>
+								<td><%=f.select :country, ApplicationRecord::COUNTRIES%></td>
+								
+							</tr>
+
+							<tr>
+								<td>at most $</td>
+								<td><%=f.text_field :max_price, :size => 4 %> a night</td>
+							</tr>
+						 
+						 	<tr>
+						 		<td>with</td>
+						 		<td><%=f.text_field :n_bedrooms, :size => 1%> bedroom(s)</td>
+						 	</tr>
+
+						 	<tr>
+						 		<td>and</td>
+						 		<td><%=f.text_field :n_bathrooms, :size => 1%> bathroom(s)</td>
+						 	</tr>
+
+						 	<tr>
+						 		<td>Smoking?</td>
+						 		<td><%=f.check_box :smoking_allowed%></td>
+						 	</tr>
+
+						 	<tr>
+						 		<td colspan=2 style="text-align: left;">With the following amenities being a must:</td>
+						 	</tr>
+						</table>
+
+						<table>
+							<tr>
+								<td>
+									<%=f.label :essentials%><%=Listing.display_fa_icon(:essentials)%> <%=f.check_box :has_essentials%>		
+								</td>
+								        
+						        <td>
+						        	<%=f.label :airconditioner%><%=Listing.display_fa_icon(:airconditioner)%> <%=f.check_box :has_airconditioner%>						  
+						        </td>
+						        
+						        <td>
+						        	<%=f.label :laundry%><%=Listing.display_fa_icon(:washer_dryer)%> <%=f.check_box :has_washer_dryer%>						  
+						        </td>
+						        
+						        <td>
+						        	<%=f.label :television%><%=Listing.display_fa_icon(:television)%> <%=f.check_box :has_television%>						  
+						        </td>
+						        
+						        <td>
+						        	<%=f.label :fireplace%><%=Listing.display_fa_icon(:fireplace)%> <%=f.check_box :has_fireplace%>						  
+						        </td>
+							</tr>
+							<tr>
+						        <td>
+						        	<%=f.label :wifi%><%=Listing.display_fa_icon(:wifi)%> <%=f.check_box :has_wifi%>						  
+						        </td>
+						        
+						        <td>
+						        	<%=f.label :hot_water%><%=Listing.display_fa_icon(:hot_water)%> <%=f.check_box :has_hot_water%>						  
+						        </td>
+						        
+						        <td>
+						        	<%=f.label :kitchen%><%=Listing.display_fa_icon(:kitchen)%> <%=f.check_box :has_kitchen%>						  
+						        </td>
+						        
+						        <td>
+						        	<%=f.label :heating%><%=Listing.display_fa_icon(:heating)%> <%=f.check_box :has_heating%>						  
+						        </td>
+						        
+						        <td>
+						        	<%=f.label :living_room%><%=Listing.display_fa_icon(:living_room)%> <%=f.check_box :has_living_room%>						  
+						        </td>
+							</tr>
+
+							<tr>
+								<td colspan=5 class=centered><%=f.submit "Search!"%></td>
+							</tr>
+						</table>
+							
+					<% end %>
+
+					<hr />
+					
+					<h3 class="centered">Alternatively, use our text search...</h3>
+					<div class="centered">
+
+						<form action='/search/text_search' method="GET">
+							<input type="text" list="list" id="text-search" name="text_search[keywords]"/>
+
+							<input type="submit" value=">"/>
+
+
+							<datalist id="list">						
+							</datalist>
+						</form>
+						<br />
+					</div>
+				</div>
+			</div>
+
+		</div>
+	
+</div>
 
 <!-- AJAX SHIT -->
 <script>
@@ -158,11 +187,7 @@
 
 			    let auth_token = document.querySelector("[name='csrf-token']").content
 			    xhttp.open("GET", "/search/text_search_ajax?text_search[keywords]=" + input.value, true)
-			    //allow js to make request to rails server
-			    // xhttp.setRequestHeader("Accept", "application/json")
-			    // xhttp.setRequestHeader("X-CSRF-TOKEN", auth_token)
 			    xhttp.send()
 			}
 		}
-
 </script>
