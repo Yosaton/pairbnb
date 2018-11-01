@@ -32,18 +32,17 @@
 		</div>
 
 		<div class="col p-4" id="search-form-box">
-
 			<%=form_for :search, url: search_show_path, method: "GET" do |f|%>
 				
 				<div class="input-group mt-2">
-					<div class="input-group-prepend">
+					<div class="input-group-prepend" data-toggle="tooltip" title="Listing Type" data-placement="left">
 						<span class="input-group-text"><i class="fas fa-building"></i></span>
 					</div>
 						<%=f.select :property_type, Listing::PROPERTY_TYPES, {}, {:class => "form-control"}%>
 				</div>
 
 				<div class="input-group mt-2">
-					<div class="input-group-prepend">
+					<div class="input-group-prepend" data-toggle="tooltip" title="Country" data-placement="left">
 						<div class="input-group-text"><i class="fas fa-globe"></i></div>
 					</div>
 					<%=f.select :country, ApplicationRecord::COUNTRIES, {}, {:class => "form-control w-75"}%>
@@ -54,7 +53,7 @@
 				<div class="row">
 					<div class="col-4">
 						<div class="input-group mt-2">
-							<div class="input-group-prepend">
+							<div class="input-group-prepend" data-toggle="tooltip" title="Price per Night ($)" data-placement="top">
 								<div class="input-group-text"><i class="fas fa-money-bill"></i></div>
 							</div>
 							<%=f.text_field :max_price, :size => 4, :class => "form-control"%>		
@@ -62,7 +61,7 @@
 					</div>
 					<div class="col-4">
 						<div class="input-group mt-2">
-							<div class="input-group-prepend">
+							<div class="input-group-prepend" data-toggle="tooltip" title="Bathrooms" data-placement="top">
 								<div class="input-group-text"><i class="fas fa-toilet-paper"></i></div>
 							</div>
 							<%=f.text_field :n_bathrooms, :size => 4, :class => "form-control"%>
@@ -70,7 +69,7 @@
 					</div>
 					<div class="col-4">
 						<div class="input-group mt-2">
-							<div class="input-group-prepend">
+							<div class="input-group-prepend" data-toggle="tooltip" title="Bedrooms" data-placement="top">
 								<div class="input-group-text"><i class="fas fa-bed"></i></div>
 							</div>
 							<%=f.text_field :n_bedrooms, :size => 4, :class => "form-control"%>
@@ -85,7 +84,9 @@
 					<% Listing::AMENITIES.each do |key, value|%>
 						<div class="col-2">
 							<%=f.check_box "has_#{key}".to_sym, :id => i, :class => "hidden-checkbox"%>
-							<label for="<%=i%>" class="label-for-check"><%=Listing.display_fa_icon(key)%></label>
+							<label for="<%=i%>" class="label-for-check" data-toggle="tooltip" title="<%="#{key.capitalize}"%>" data-placement="top">
+								<%=Listing.display_fa_icon(key)%>
+							</label>
 						</div>
 
 						<% i += 1 %>
@@ -96,7 +97,7 @@
 		<!-- END AMENITIES WORK -->
 
 				<%=f.check_box :smoking_allowed, :class => "hidden-checkbox", :id => "smoking_allowed"%>
-				<label for="smoking_allowed" class="label-for-check-smoking">
+				<label for="smoking_allowed" class="label-for-check-smoking" data-toggle="tooltip" title="Allowed to Smoke?" data-placement="top">
 					<span class="text-white">Smoking </span><i class="fas fa-smoking"></i><span class="text-white"> Allowed</span>
 				</label>
 				<div class="input-group mt-2">
@@ -129,6 +130,13 @@
 		</div>
 	</div>	
 </div>
+
+<!--Activating all tooltips-->
+<script>
+	$(document).ready(function(){
+	    $('[data-toggle="tooltip"]').tooltip(); 
+	});
+</script>
 
 <!-- AJAX SHIT -->
 <script>
