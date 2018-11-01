@@ -39,8 +39,7 @@ class UsersController < Clearance::UsersController
         format.html { redirect_to @user, notice: 'User was successfully created.' }
         format.json { render :show, status: :created, location: @user }
       else
-        p @user.errors.full_messages
-        format.html { render :new }
+        format.html { redirect_to new_user_path, notice: @user.errors.full_messages.join(". ") }
         format.json { render json: @user.errors, status: :unprocessable_entity }
       end
     end

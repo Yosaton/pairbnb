@@ -58,8 +58,36 @@
 
 #search-form-box tr td:first-child 	{
 	font-weight: bold;
+	text-align: right;
 }
 
 #search-form-box label	{
 	font-weight: normal;
+	text-align: center;
+}
+
+
+/*Checkboxes that change their labels when selected*/
+.hidden-checkbox 	{
+	display:none;
+}
+
+
+.label-for-check	{
+	font-size: 16pt;
+}
+
+.label-for-check-smoking 	{
+	font-size: 16pt;
+	padding: 1em 0 1em 0;
+	border-radius: 0.5em;
+}
+
+.hidden-checkbox:checked + .label-for-check {
+  color: green;
+}
+
+.hidden-checkbox:checked + .label-for-check-smoking {
+  background-color: red;
+  color:red;
 }

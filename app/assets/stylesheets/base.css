@@ -16,6 +16,54 @@ h1 	{
 	font-size: 36pt;
 }
 
+/*General Classes*/
+.centered {
+	text-align: center;
+}
+
+.italic 	{
+	font-style: italic;
+}
+
+.left-aligned 	{
+	text-align: left;
+}
+
+.underlined	{
+	text-decoration: underline;
+}
+
+.no-bullets 	{
+	list-style: none;
+	padding-left: 0;
+}
+
+.red 	{
+	color: red;
+}
+
+.blue 	{
+	color: blue;
+}
+
+.white-bg	{
+	background-color: white;
+}
+
+.form 	{
+	padding: 2em;
+	border: 1px black solid;
+	border-radius: 1em;
+}
+
+
+.form-other-links 	{
+	line-height: 26pt;
+	font-size: 14pt;
+}
+
+
+/*specific to application.html.erb template*/
 /*navbar*/
 nav 	{
 	display: fixed;
@@ -67,7 +115,7 @@ nav 	{
 	top: 0.2em;*/
 	width: 1em;
 	height: 1em;
-	border: 1px orange solid;
+	border: 2px black solid;
 	border-radius: 1em;
 }
 
@@ -82,39 +130,4 @@ nav 	{
 
 .smoking 	{
 	color: red;
-}
-
-
-/*General Classes*/
-.centered {
-	text-align: center;
-}
-
-.italic 	{
-	font-style: italic;
-}
-
-.left-aligned 	{
-	text-align: left;
-}
-
-.underlined	{
-	text-decoration: underline;
-}
-
-.no-bullets 	{
-	list-style: none;
-	padding-left: 0;
-}
-
-.red 	{
-	color: red;
-}
-
-.blue 	{
-	color: blue;
-}
-
-.white-bg	{
-	background-color: white;
 }

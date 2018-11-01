@@ -40,11 +40,11 @@ class Listing < ApplicationRecord
 					airconditioner: "far fa-snowflake",
 					washer_dryer: "fas fa-tshirt",
 					television: "fas fa-tv",
-					fireplace: "fas fa-campfire",
+					fireplace: "fas fa-fire",
 					wifi: "fas fa-wifi",
 					hot_water: "fas fa-shower",
 					kitchen: "fas fa-utensils",
-					heating: "fas fa-fire",
+					heating: "fas fa-thermometer-three-quarters",
 					living_room: "fas fa-coffee"
 				}
 
