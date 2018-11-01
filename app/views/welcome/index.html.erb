@@ -48,8 +48,6 @@
 					<%=f.select :country, ApplicationRecord::COUNTRIES, {}, {:class => "form-control w-75"}%>
 				</div>
 
-				<hr />
-
 				<div class="row">
 					<div class="col-4">
 						<div class="input-group mt-2">
@@ -77,9 +75,8 @@
 					</div>
 				</div>
 
-				<hr />
 		<!-- AMENITITES WORK -->
-				<div class="row">
+				<div class="row my-3">
 					<% i = 0 %>
 					<% Listing::AMENITIES.each do |key, value|%>
 						<div class="col-2">
@@ -92,7 +89,6 @@
 						<% i += 1 %>
 					<% end %>
 				</div>
-				<hr />
 			
 		<!-- END AMENITIES WORK -->
 
