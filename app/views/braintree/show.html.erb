@@ -1,65 +1,95 @@
-<div class="centered" style="display:flex; vertical-align: top">
-	<div class="clearance-box centered row-buddies">
-		<%if(current_user.id == @booking.user.id)%>
-			<h2>Payment</h2>
-			<hr />
+<div class="container-fluid mt-5">
+  <div class="row">
 
-			<div class="demo-frame">
+    <div class="col-3"></div>
 
-				<%= form_for :checkout_form, url: braintree_checkout_path, html: { id: "cardForm"} do |form| %>
-					<%= form.hidden_field :booking_id, value: @booking.id%>
+    <div class="col centered form">
+  		<%if(current_user.id == @booking.user.id)%>
+        <h2>Booking Details</h2>
 
-					<%= form.label :card_number, "Credit Card Number", html: {class: "hosted-fields--label"} %>
-					<div id="card-number" class="hosted-field"></div>
+        <div class="row mt-2">
+          <div class="col">
+            <h6>
+              <span class="font-weight-bold">Listing: </span><br/>
+              <%=@booking.listing.name%>
+          </h6>
+          </div>
 
-					<%= form.label :expiration_date, "Expiration Date", html: {class: "hosted-fields--label"} %>
-					<div id="expiration-date" class="hosted-field"></div>
+          <div class="col">
+            <h6>
+              <span class="font-weight-bold">From:</span><br/>
+              <%=@booking.start_date.to_date%>
+          </h6>
+          </div>
 
-					<%= form.label :cvv, "CVV", html: {class: "hosted-fields--label"} %>
-					<div id="cvv" class="hosted-field"></div>
+          <div class="col">
+            <h6>
+              <span class="font-weight-bold">To:</span><br/>
+              <%=@booking.end_date.to_date%>
+          </h6>
+          </div>
 
-					<%= form.hidden_field "payment_method_nonce" %>
+          <div class="col">
+            <h6>
+              <span class="font-weight-bold">Total Price ($):</span><br/>
+              <%=@booking.c_t_p%>
+          </h6>
+          </div>
+        </div>
 
-					<div class="button-container">
-					<%= form.submit "Purchase", disabled: true, class: "btn btn-primary", id: "submit-payment-btn" %>
-					</div>
+        <hr />
 
-				<% end %>
-			</div>
-		<%else%>
-			
+        <div class="row">
+          <div class="col-12">
+      			<div class="demo-frame">
 
-		<%end%>
-	</div>
+      				<%= form_for :checkout_form, url: braintree_checkout_path, html: { id: "cardForm"} do |form| %>
+      					<%= form.hidden_field :booking_id, value: @booking.id%>
 
-	<div class="clearance-box centered row-buddies">
-		<%if(current_user.id == @booking.user.id)%>
-			<h2>Booking Details</h2>
+      					<div class="input-group mb-2">
+                  <div class="input-group-prepend" data-toggle="tooltip" data-placement="left" title="Credit Card Number">
+                    <div class="input-group-text">
+                      <i class="far fa-credit-card fa-xs"></i>
+                    </div>
+                  </div>
+      					   <div id="card-number" class="hosted-field form-control"></div>
+                </div>
 
-			<table>
-				<tr>
-					<td style="text-align: right">Listing:</td>
-					<td style="text-align: left"><%=@booking.listing.name%></td>
-				</tr>
-				<tr>
-					<td style="text-align: right">From:</td>
-					<td style="text-align: left"><%=@booking.start_date.to_date%></td>
-				</tr>
-				<tr>
-					<td style="text-align: right">To:</td>
-					<td style="text-align: left"><%=@booking.end_date.to_date%></td>
-				</tr>
-				<tr>
-					<td style="text-align: right">Total Price ($):</td>
-					<td style="text-align: left"><%=@booking.c_t_p%></td>
-				</tr>
-			</table>
+      					<div class="input-group mb-2">
+                  <div class="input-group-prepend" data-toggle="tooltip" data-placement="left" title="Expiry Date">
+                    <div class="input-group-text">
+                      <i class="fas fa-calendar-alt"></i>
+                    </div>
+                  </div>
+      					   <div id="expiration-date" class="hosted-field form-control"></div>
+                </div>
 
-		<%else%>
-			
+      					<div class="input-group mb-2">
+                  <div class="input-group-prepend" data-toggle="tooltip" data-placement="left" title="CVV Code. This is the 3 digit number at the back of your card.">
+                    <div class="input-group-text">
+                      <i class="fas fa-unlock-alt"></i>
+                    </div>
+                  </div>
+      					   <div id="cvv" class="hosted-field form-control"></div>
+                </div>
 
-		<%end%>
-	</div>
+      					<%= form.hidden_field "payment_method_nonce" %>
+
+      					<div class="button-container">
+      					<%= form.submit "Purchase", disabled: true, class: "btn btn-success w-100", id: "submit-payment-btn" %>
+      					</div>
+
+      				<% end %>
+      			</div>
+    		<%else%>
+    			
+
+    		<%end%>
+      </div>
+      </div>
+  	</div>
+    <div class="col-3"></div>
+  </div>
 </div>
 
 

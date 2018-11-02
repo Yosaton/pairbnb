@@ -40,6 +40,7 @@ ActiveRecord::Base.transaction do
     listing['capacity'] = 1 + rand(10)
     listing['rating'] = rand(0..5)
     listing['description'] = Faker::Hipster.paragraph(4, true, 4)
+    listing['is_verified'] = random_bool.sample
     listing['user_id'] = uids.sample
 
     listing['n_bedrooms'] = 1 + rand(7)
@@ -65,6 +66,23 @@ ActiveRecord::Base.transaction do
         Tagging.create(listing_id: new_listing.id, tag_id: Tag.all.sample.id)
     end
   end
+end
+
+# Seed bookings
+all_users = User.all 
+all_listings = Listing.all
+
+all_listings.each do |listing|
+
+    (2+rand(8)).times do 
+
+        start_date = Faker::Date.between(Date.today, 1.year.from_now)
+        end_date = start_date + rand(50).days
+
+        new_booking = Booking.create(user_id: all_users.sample.id, listing_id: listing.id, start_date: start_date, end_date: end_date, price: (listing.price*(end_date-start_date)), is_paid: random_bool.sample)
+        
+    end
+
 end
 
 # Make test accounts

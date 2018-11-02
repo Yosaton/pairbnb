@@ -93,8 +93,8 @@
 		<!-- END AMENITIES WORK -->
 
 				<%=f.check_box :smoking_allowed, :class => "hidden-checkbox", :id => "smoking_allowed"%>
-				<label for="smoking_allowed" class="label-for-check-smoking" data-toggle="tooltip" title="Allowed to Smoke?" data-placement="top">
-					<span class="text-white">Smoking </span><i class="fas fa-smoking"></i><span class="text-white"> Allowed</span>
+				<label for="smoking_allowed" id="smoking_allowed_label" class="label-for-check-smoking" data-toggle="tooltip" title="Allowed to Smoke?" data-placement="top">
+					<span class="text-white">SMOKING</span><i class="fas fa-smoking-ban"></i><span class="text-white">ALLOWED</span>
 				</label>
 				<div class="input-group mt-2">
 					<%=f.submit "Find My NEXT Home", :class => "btn btn-primary w-100"%>
@@ -105,7 +105,7 @@
 
 			<hr />
 			
-			<div class="centered">
+			<div class="centered mt-3">
 				<form action='/search/text_search' method="GET">
 					<div class="input-group">
 						<input type="text" list="list" id="text-search" name="text_search[keywords]" class="form-control" placeholder="Enter keywords..." />
@@ -126,13 +126,6 @@
 		</div>
 	</div>	
 </div>
-
-<!--Activating all tooltips-->
-<script>
-	$(document).ready(function(){
-	    $('[data-toggle="tooltip"]').tooltip(); 
-	});
-</script>
 
 <!-- AJAX SHIT -->
 <script>

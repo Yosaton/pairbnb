@@ -1,15 +1,23 @@
-<h1 class="centered"><%=@user.full_name%>'s Guests</h1>
-<hr />
+<h1 class="centered">Guests</h1>
+
+<% if (signed_in? && current_user.id == @user.id) %>
+
 <% if(@user_all_listings != nil) %>
 	<% @user_all_listings.each do |listing| %>
 
 		<% related_bookings = Booking.where(listing_id: listing.id).where("start_date > ?", Date.yesterday) %>
 
-		<% related_bookings.each do |booking| %>
+		<% related_bookings.order(:start_date).each do |booking| %>
 			<%= render partial: "/users/guest_card", locals: {booking: booking} %>
 		<% end %>
 
 	<% end %>
 <% else %>
 	<h2 class="centered">Nothing here!</h2>
+<% end %>
+
+<% else %>
+
+<h6 class="centered"> You are not allowed to view this page! #reported </h6>
+
 <% end %>

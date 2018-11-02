@@ -1,25 +1,50 @@
-<div class="listing-listing-box row-buddies">
-	<h2 class="listing-box-header">
-		<%= link_to listing.name_with_verification, listing_path(listing.id), :class => "listing-box-header"%>
-	</h2>
-	<p class="italic"><%="#{listing.city}, #{listing.country}".truncate(25)%></p>
-	<%=listing.amenity_string%>
+<div class="container centered listing-card-listing">
+
+	<div class="row">
+		<div class="col-12">
+			<h2>
+			<%= link_to listing.name_with_verification, listing_path(listing.id), :class => "listing-box-header"%>
+			</h2>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-12">
+			<p class="italic"><%="#{listing.city}, #{listing.country}".truncate(25)%></p>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-12">
+			<%=listing.amenity_string%>		
+		</div>
+	</div>
 	<hr />
-	<p><%=listing.description.truncate(28)%></p>
+
+	<div class="row">
+		<div class="col-12">
+			<p class="mb-0"><%=listing.description.truncate(50)%></p>		
+		</div>
+	</div>
 	<hr />
+
+	<div class="row">
+		<div class="col-3"><%=Listing.display_fa_icon_symbols(:capacity)%> <br/> <%="#{listing.capacity}"%></div>
+		<div class="col-2"><%=Listing.display_fa_icon_symbols(:bed)%> <br/> <%="#{listing.n_bedrooms}"%></div>
+		<div class="col"><%=Listing.display_fa_icon_symbols(:rating_star)%> <br/> <%="#{listing.rating}"%></div>
+		<div class="col-2"><%=Listing.display_fa_icon_symbols(:bath)%> <br/> <%="#{listing.n_bathrooms}"%></div>
+		<div class="col-3"><%=Listing.display_fa_icon_symbols(:price_icon)%> <br/> <%="#{listing.price}"%></div>
+	</div>
 	
-	<table class="centered" style="margin: auto">
-		<tr>
-			<td><%="#{Listing::SYMBOLS[:rating_star]}#{listing.rating}"%></td>
-			<td><%="#{Listing::SYMBOLS[:bed]}#{listing.n_bedrooms}"%></td>
-			<td><%="#{Listing::SYMBOLS[:capacity]}#{listing.capacity}"%></td>
-			<td><%="#{Listing::SYMBOLS[:bath]}#{listing.n_bathrooms}"%></td>
-			<td><%="#{Listing::SYMBOLS[:price_icon]}#{listing.price}"%></td>
-		</tr>
-	</table>
 	<hr/>
+
+	<div class="row">
+		<div class="col">
+			<%=listing.tagline_space_delimited%>	
+		</div>
+	</div>
 	<div class= "italic" style="font-size: 10pt; color: grey; padding: 0;">
-		<%=listing.tagline_space_delimited%>
+		
 	</div>
 	<div style=""><%=listing.smoking_badge%></div>
 </div>

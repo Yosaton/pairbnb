@@ -28,12 +28,12 @@ class Listing < ApplicationRecord
 	SYMBOLS = { rating_star: "fas fa-star",
 				rating_empty: "far fa-star",
 				capacity: "fas fa-user",
-				price_icon: "💰",
-				verified: "👍",
-				bed: "🛏️",
-				bath: "🚽",
+				price_icon: "fas fa-money-bill",
+				verified: "fas fa-check-circle fa-xs",
+				bed: "fas fa-bed",
+				bath: "fas fa-toilet-paper",
 				tick: "🗸",
-				no_smoking: "fas fa-smoking-ban"
+				no_smoking: "fas fa-smoking-ban fa-xs"
 			}
 
 	AMENITIES = { 	essentials: "fas fa-leaf",
@@ -96,6 +96,10 @@ class Listing < ApplicationRecord
 		return "<i class='#{AMENITIES[symbol.to_sym]}'></i>".html_safe
 	end
 
+	def self.display_fa_icon_symbols(symbol)
+		return "<i class='#{SYMBOLS[symbol.to_sym]}'></i>".html_safe
+	end
+
 	def symbolize_rating
 		x = [fetch_font_awesome_class("symbols", :rating_empty)] * 5
 
@@ -144,11 +148,11 @@ class Listing < ApplicationRecord
 
 
 	def name_with_verification
-		return "#{display_badge_if_verified} #{name} #{display_badge_if_verified}"
+		return "#{display_badge_if_verified} #{name} #{display_badge_if_verified}".html_safe
 	end
 
 	def name_with_verification_right
-		return "#{name} #{display_badge_if_verified}"
+		return "#{name} #{display_badge_if_verified}".html_safe
 	end
 
     def tagline
@@ -185,7 +189,7 @@ class Listing < ApplicationRecord
 	private
 	def display_badge_if_verified
 		if(is_verified)
-			return SYMBOLS[:verified]
+			return "<i class='#{SYMBOLS[:verified]}' style='color: #35c2ff'></i>"
 		else
 			return ""
 		end

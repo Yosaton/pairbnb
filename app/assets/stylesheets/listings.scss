@@ -177,15 +177,24 @@
 
 
 /* listing form*/
-.new-listing-form-container 	{
-	font-weight: bold;
-	width: 50em;
-	margin: auto;
-	margin: 5em auto 5em auto;
-	padding: 0em 1em 2em 2em;
-	border: 1px black solid;
-	border-radius: 1em;
-	line-height: 2em;
+.listing-form-border {
+	border: 1px solid black;
+}
+
+#listing-form-header 	{
+	border-radius: 1em 1em 0em 0em;
+	background-color: red;
+	color: white;
+}
+
+#listing-form-body 	{
+	padding-top: 2em;
+	border-top: 0;
+	border-radius: 0em 0em 1em 1em;
+}
+
+.tag-input 	{
+	text-align: center;
 }
 
 .listing-form-unhighlighted 	{
@@ -197,4 +206,20 @@
 	border: 1px gainsboro solid;
 	width: 7.5em;
 	height: 5em;
+}
+
+/*CARDS*/
+/*Listing page*/
+.listing-card-listing	{
+	height: 27em;
+	border: 1px gainsboro solid;
+	border-radius: 1em;
+
+	&:hover 	{
+		background-color: gainsboro;
+	}
+}
+
+.no-interior 	{
+	background-color: gainsboro;
 }

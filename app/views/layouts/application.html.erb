@@ -25,14 +25,14 @@
       <div class="row">
 
         <!--Logo that links to homepage-->
-        <div class="col-11" id="logo">
+        <div class="col-1" id="logo">
           <%= link_to root_path do%>
             <i class="fas fa-home"></i>
           <% end %>
         </div>
         
         <!--Signin, signout, profile things-->
-        <div class="col" id="navbar-controls" style="text-align: right;">
+        <div class="col text-right" id="navbar-controls">
           <% if signed_in? %>
 
             <%if (current_user.avatar == nil)%>
@@ -67,5 +67,12 @@
 
     <%= yield %>
 
+  <!--Activating all tooltips-->
+  <script>
+    $(document).ready(function(){
+        $('[data-toggle="tooltip"]').tooltip(); 
+    });
+  </script>
+  
   </body>
 </html>

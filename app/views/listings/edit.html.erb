@@ -1,9 +1,17 @@
 <% if (signed_in? && (current_user.id == @listing.user.id)) %>
-	<div class="new-listing-form-container">
+	<div class="container w-50 p-2 my-5">
+		<div class="row listing-form-border" id="listing-form-header">
+			<div class="col">
+				<h1>Edit <%=@listing.name%></h1>
+			</div>
+		</div>
 
-		<h1>Edit <%=@listing.name%></h1>
-
-		<%= render 'form', listing: @listing %>
+		<div class="row listing-form-border" id="listing-form-body">
+			<div class="col">
+				<%= render 'form', listing: @listing %>		
+			</div>
+		</div>
+		
 
 	</div>
 <% else %>
