@@ -1,8 +1,10 @@
-<div class="clearance-box centered">
+<div class="container centered w-50 mt-5 booking-form-container">
 
 	<%if((signed_in?) && (current_user.id == @booking.user.id)) %>	
 		<h2><%="#{current_user.full_name}'s booking for #{@booking.listing.name}"%></h2>
-		<ul class="no-bullets">
+		<hr/>
+
+		<ul class="no-bullets" style="font-size: 20pt; line-height: 2em">
 			<li><%="From: #{@booking.start_date.to_date} to #{@booking.end_date.to_date}"%></li>
 			<li>(<%=@booking.days_of_booking%> days)</li>
 			<li>$<%=@booking.price%></li>
@@ -12,10 +14,10 @@
 	<% end %>
 
 	<%if(@booking.is_paid)%>
-		<%=@booking.payment_status%>
+		<h6 class="PAID"><%=@booking.payment_status%></h6>
 	<% else %>
-		<%= link_to "Pay", payments_path(@booking.id)%>
+		<%= link_to "Pay Now", payments_path(@booking.id), :class => "btn btn-success mb-2"%>
 	<% end %>
-	<hr/>
-	<%= link_to "Back to #{@booking.listing.name}", listing_path(@booking.listing.id) %>
+	<br />
+	<%= link_to "Back to #{@booking.listing.name}", listing_path(@booking.listing.id), :class => "btn btn-secondary" %>
 </div>

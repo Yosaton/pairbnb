@@ -1,16 +1,69 @@
 /* Layout i.e. Nav Bar and Global styling */
 
 /*Document-wide*/
-html body 	{
+
+html body {
 	padding: 0;
 	margin: 0;
-    max-width: 100%;
+}
+
+html, body 	{
+    height: 100%;
+    min-height: 100%;
 }
 
 h1 	{
 	font-size: 36pt;
 }
 
+/*General Classes*/
+.centered {
+	text-align: center;
+}
+
+.italic 	{
+	font-style: italic;
+}
+
+.left-aligned 	{
+	text-align: left;
+}
+
+.underlined	{
+	text-decoration: underline;
+}
+
+.no-bullets 	{
+	list-style: none;
+	padding-left: 0;
+}
+
+.red 	{
+	color: red;
+}
+
+.blue 	{
+	color: blue;
+}
+
+.white-bg	{
+	background-color: white;
+}
+
+.form 	{
+	padding: 2em;
+	border: 1px black solid;
+	border-radius: 1em;
+}
+
+
+.form-other-links 	{
+	line-height: 26pt;
+	font-size: 14pt;
+}
+
+
+/*specific to application.html.erb template*/
 /*navbar*/
 nav 	{
 	display: fixed;
@@ -58,45 +111,23 @@ nav 	{
 
 
 .navbar-avatar	{
-	position: relative;
-	top: 0.2em;
+/*	position: relative;
+	top: 0.2em;*/
 	width: 1em;
 	height: 1em;
-	border: 1px orange solid;
+	border: 2px black solid;
 	border-radius: 1em;
 }
 
-
-/*General Classes*/
-.centered {
-	text-align: center;
+#black-form	{
+	background-color:black;
 }
 
-.italic 	{
-	font-style: italic;
+
+.rating {
+	color: gold;
 }
 
-.left-aligned 	{
-	text-align: left;
-}
-
-.underlined	{
-	text-decoration: underline;
-}
-
-.no-bullets 	{
-	list-style: none;
-	padding-left: 0;
-}
-
-.red 	{
+.smoking 	{
 	color: red;
-}
-
-.blue 	{
-	color: blue;
-}
-
-.white-bg	{
-	background-color: white;
 }

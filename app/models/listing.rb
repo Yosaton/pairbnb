@@ -25,9 +25,45 @@ class Listing < ApplicationRecord
 
 
 	# Constant Symbols hash
-	SYMBOLS = {rating_star: "🌟", rating_empty: "⚬", capacity: "😃", price_icon: "💰", verified: "👍", bed: "🛏️", bath: "🚽", tick: "🗸", no_smoking: "🚭"}
-	AMENITIES = {essentials: "🍃", airconditioner: "❄️", washer_dryer: "👕", television: "📺", fireplace: "🔥", wifi: "📶", hot_water: "🚰", kitchen: "🍳", heating: "♨️", living_room: "☕"}
-	PROPERTY_TYPES = ["", "House", "Entire Floor", "Condominium", "Villa", "Townhouse", "Castle", "Treehouse", "Igloo", "Yurt", "Cave", "Chalet", "Hut", "Tent", "Other"]
+	SYMBOLS = { rating_star: "fas fa-star",
+				rating_empty: "far fa-star",
+				capacity: "fas fa-user",
+				price_icon: "fas fa-money-bill",
+				verified: "fas fa-check-circle fa-xs",
+				bed: "fas fa-bed",
+				bath: "fas fa-toilet-paper",
+				tick: "🗸",
+				no_smoking: "fas fa-smoking-ban fa-xs"
+			}
+
+	AMENITIES = { 	essentials: "fas fa-leaf",
+					airconditioner: "far fa-snowflake",
+					washer_dryer: "fas fa-tshirt",
+					television: "fas fa-tv",
+					fireplace: "fas fa-fire",
+					wifi: "fas fa-wifi",
+					hot_water: "fas fa-shower",
+					kitchen: "fas fa-utensils",
+					heating: "fas fa-thermometer-three-quarters",
+					living_room: "fas fa-coffee"
+				}
+
+	PROPERTY_TYPES = [	"",
+						"House",
+						"Entire Floor",
+						"Condominium",
+						"Villa",
+						"Townhouse",
+						"Castle",
+						"Treehouse",
+						"Igloo",
+						"Yurt",
+						"Cave",
+						"Chalet",
+						"Hut",
+						"Tent",
+						"Other"
+					]
 
 	# Scopes for searching
 	# scope :keywords, -> (keywords) { where("LOWER(name) LIKE ?", "%#{keywords.downcase}%")}
@@ -54,72 +90,40 @@ class Listing < ApplicationRecord
 	pg_search_scope :search_tags, :associated_against => {:tags => [:text]}
 
 	# Function Definitions
+
+	# Rendering Functions
+	def self.display_fa_icon(symbol)
+		return "<i class='#{AMENITIES[symbol.to_sym]}'></i>".html_safe
+	end
+
+	def self.display_fa_icon_symbols(symbol)
+		return "<i class='#{SYMBOLS[symbol.to_sym]}'></i>".html_safe
+	end
+
 	def symbolize_rating
-		x = (SYMBOLS[:rating_empty] * 5).split("")
+		x = [fetch_font_awesome_class("symbols", :rating_empty)] * 5
 
 		rating.times do |i|
-			x[i] = SYMBOLS[:rating_star]
+			x[i] = fetch_font_awesome_class("symbols", :rating_star)
 		end
-
-		return x.join("")
+		
+		return render_font_awesome_string(x).join("").html_safe
 	end
-
 
 	def symbolize_capacity
-		return "#{SYMBOLS[:capacity]} #{capacity}"
+		return "#{render_font_awesome_string([fetch_font_awesome_class("symbols", :capacity)]).join("")} #{capacity}".html_safe
 	end
-
-
-	def name_with_verification
-		return "#{display_badge_if_verified} #{name} #{display_badge_if_verified}"
-	end
-
-	def name_with_verification_right
-		return "#{name} #{display_badge_if_verified}"
-	end
-
-    # Max photos 8
-    def can_add_more_photos?
-      return (listing_photos.length <= 7)? true : false
-    end 
-
-
-    def tagline
-    	last_period = (tags.length == 0)? "" : "."
-    	return tags.map { |t|  t.text}.join(". ") + last_period
-    end
-
-    def tagline_space_delimited
-    	return tags.map { |t|  t.text}.join(" ")
-    end
-
-    def has_bookings_between(start_date, end_date)
-    	if(start_date.strip != "" && end_date.strip != "")
-	    	bookings.each do |booking|
-	    		if(start_date.to_date <= booking.end_date.to_date && booking.start_date.to_date <= end_date.to_date) # if true, overlap found
-	    			return true
-	    		else
-	    			next
-	    		end
-	    	end
-	    end
-    	return false
-    end
-
-    def smoking_badge
-    	return (smoking_allowed)? "" : Listing::SYMBOLS[:no_smoking]
-    end
 
     def amenity_string
     	result = []
 
 		Listing::AMENITIES.each do |key, value|
 			if (send("has_#{key}") == true)
-				result << value				
+				result << value			
 			end 
 		end
 
-		return result.join(" ")
+		return render_font_awesome_string(result).join(" ").html_safe
     end
 
 
@@ -137,12 +141,73 @@ class Listing < ApplicationRecord
 		return result.join(" #{Listing::SYMBOLS[:tick]} ")
     end
 
+
+	def smoking_badge
+    	return (smoking_allowed)? "" : render_font_awesome_string([fetch_font_awesome_class("symbols", :no_smoking)]).join("").html_safe
+    end
+
+
+	def name_with_verification
+		return "#{display_badge_if_verified} #{name} #{display_badge_if_verified}".html_safe
+	end
+
+	def name_with_verification_right
+		return "#{name} #{display_badge_if_verified}".html_safe
+	end
+
+    def tagline
+    	last_period = (tags.length == 0)? "" : "."
+    	return tags.map { |t|  t.text}.join(". ") + last_period
+    end
+
+    def tagline_space_delimited
+    	return tags.map { |t|  t.text}.join(" ")
+    end
+
+
+
+    # Validation etc functions
+    # Max photos 8
+    def can_add_more_photos?
+      return (listing_photos.length <= 7)? true : false
+    end 
+
+    def has_bookings_between(start_date, end_date)
+    	if(start_date.strip != "" && end_date.strip != "")
+	    	bookings.each do |booking|
+	    		if(start_date.to_date <= booking.end_date.to_date && booking.start_date.to_date <= end_date.to_date) # if true, overlap found
+	    			return true
+	    		else
+	    			next
+	    		end
+	    	end
+	    end
+    	return false
+    end
+
+   
 	private
 	def display_badge_if_verified
 		if(is_verified)
-			return SYMBOLS[:verified]
+			return "<i class='#{SYMBOLS[:verified]}' style='color: #35c2ff'></i>"
 		else
 			return ""
 		end
+	end
+
+	# Returns the HTML class needed for the <i> tag to display the icon!
+	def fetch_font_awesome_class(source, symbol)
+		case source.downcase
+		when "symbols"
+			return "#{SYMBOLS[symbol.to_sym]}"
+
+		when "amenities"
+			return "#{AMENITIES[symbol.to_sym]}"
+		end
+	end
+
+	# Takes array of font awesome classes, wraps each in its own <i> tag and returns as array
+	def render_font_awesome_string(array_of_fa_classes)
+		return array_of_fa_classes.map {|e| "<i class='#{e}'></i>"}
 	end
 end

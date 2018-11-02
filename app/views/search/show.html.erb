@@ -1,9 +1,20 @@
-<% if(@results.last_page?) %>
-	<h1 class="centered"><%="#{1 + @total_results - @results.count} to #{@total_results} of #{@total_results}"%> result(s) found for your query!</h1>
-<% else %>
-	<h1 class="centered"><%="#{1 + @results.length*(@results.current_page-1)} to #{@results.length*@results.current_page} of #{@total_results}"%> result(s) found for your query!</h1>
-<% end %>
-
-<%= render partial: "/listings/listing_card_profile", locals: {listings: @results} %>
+<div class="container-fluid centered">
+	<div class="row">
+		<div class="col-12">
+			<% if(@results.last_page?) %>
+				<h1 class="centered"><%="#{1 + @total_results - @results.count} to #{@total_results} of #{@total_results}"%> result(s) found for your query!</h1>
+			<% else %>
+				<h1 class="centered"><%="#{1 + @results.length*(@results.current_page-1)} to #{@results.length*@results.current_page} of #{@total_results}"%> result(s) found for your query!</h1>
+			<% end %>
+		</div>
+	</div>
+		
+	<%= render partial: "/listings/listing_card_profile", locals: {listings: @results} %>	
+			
+	<div class="row">
+		<div class="col-12 centered">
+		</div>
+	</div>
+</div>
 
 <div class="centered"><%= paginate @results%></div>

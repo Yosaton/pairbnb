@@ -1,28 +1,48 @@
 <%if listings.length > 0 %>
 	<%listings.order(rating: :desc).each do |listing| %>
-		<div class="profile-listing-box">
-			<h2 class="listing-box-header">
-				<%= link_to listing.name_with_verification_right, listing_path(listing.id), :class => "listing-box-header"%>
-				<span style="float: right"><%=listing.smoking_badge%></span>
-			</h2>
-			<p class="italic"><%="#{listing.city}, #{listing.country}"%></p>
-			<p class="italic"><%=listing.property_type%></p>
-			<%=listing.amenity_string%>
-			<hr />
-			<p><%=listing.description%></p>
-			<hr />
+	<div class="row">
+		<div class="col-12">
+			<div class="container profile-listing-box">
+			<div class="row">
+				<div class="col">
+					<h2 class="listing-box-header">
+					<%= link_to listing.name_with_verification_right, listing_path(listing.id), :class => "listing-box-header"%>
+					<span style="float: right"><%=listing.smoking_badge%></span>
+					</h2>
+					<p class="italic"><%="#{listing.city}, #{listing.country}"%></p>
+					<p class="italic"><%=listing.property_type%></p>
+					<%=listing.amenity_string%>
+					<hr />
+					<p><%=listing.description.truncate(200)%></p>
+					<hr />
 
-			<table class="centered" style="width: 100%; margin-bottom: 0em">
-				<tr>
-					<td><%="#{Listing::SYMBOLS[:rating_star]}#{listing.rating}"%></td>
-					<td><%="#{Listing::SYMBOLS[:bed]}#{listing.n_bedrooms}"%></td>
-					<td><%="#{Listing::SYMBOLS[:capacity]}#{listing.capacity}"%></td>
-					<td><%="#{Listing::SYMBOLS[:bath]}#{listing.n_bathrooms}"%></td>
-					<td><%="#{Listing::SYMBOLS[:price_icon]}#{listing.price}"%></td>
-				</tr>
-			</table>
+				</div>
+			</div>
 
+			<div class="row centered">
+				<div class="col-3">
+					<%=Listing.display_fa_icon_symbols(:capacity)%> <br/> <%="#{listing.capacity}"%>
+				</div>
+
+				<div class="col-2">
+					<%=Listing.display_fa_icon_symbols(:bed)%> <br/> <%="#{listing.n_bedrooms}"%>
+				</div>
+
+				<div class="col">
+					<%=Listing.display_fa_icon_symbols(:rating_star)%> <br/> <%="#{listing.rating}"%>
+				</div>
+
+				<div class="col-2">
+					<%=Listing.display_fa_icon_symbols(:bath)%> <br/> <%="#{listing.n_bathrooms}"%>
+				</div>
+
+				<div class="col-3">
+					<%=Listing.display_fa_icon_symbols(:price_icon)%> <br/> <%="#{listing.price}"%>
+				</div>
+			</div>
+			</div>
 		</div>
+	</div>
 	<% end %>
 <% else %>
 	<h2 class="centered">No listings here!</h2>

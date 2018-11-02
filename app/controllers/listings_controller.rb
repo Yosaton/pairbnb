@@ -37,7 +37,7 @@ class ListingsController < ApplicationController
     @related_listings.flatten!
     @related_listings = @related_listings.uniq
     @related_listings -= [@listing]
-    @related_listings = @related_listings.sample(5)
+    @related_listings = @related_listings.sample(4)
 
     @booking_button_href = "#{new_booking_path}?listing_id=#{@listing.id}"
     @booking_button_text = "Book now!"

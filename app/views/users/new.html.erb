@@ -1,32 +1,62 @@
-<div id="clearance" class="sign-up centered clearance-box">
-  <h2><%= t(".title") %></h2>
-  <hr />
+<div class="container-fluid w-25 mt-5 form">
+  <div class="row">
+    <div class="col centered">
 
-  <%= form_for :user, url: users_path do |f| %>
-    <div>
-      <%= f.label :first_name, "First Name" %>
-      <%= f.text_field :first_name %>
+      <h2><%= t(".title") %></h2>
+      <hr />
 
-      <%= f.label :last_name, "Last Name" %>
-      <%= f.text_field :last_name %>
+        <%= form_for :user, url: users_path do |f| %>
+          <div class="input-group mb-2">
+            <div class="input-group-prepend" data-toggle="tooltip" data-placement="left" title="First Name">
+              <div class="input-group-text">
+                <i class="fas fa-signature"></i>
+              </div>
+            </div>
+            <%= f.text_field :first_name, :class => "form-control", :placeholder => "First Name" %>
+          </div>
 
-      <%= f.label :email, "Email Address" %>
-      <%= f.text_field :email %>
+          <div class="input-group mb-2">
+            <div class="input-group-prepend" data-toggle="tooltip" data-placement="left" title="Last Name">
+              <div class="input-group-text">
+                <i class="fas fa-signature"></i>
+              </div>
+            </div>
+            <%= f.text_field :last_name, :class => "form-control", :placeholder => "Last Name" %>
+          </div>
 
-      <%= f.label :password, "Password" %>
-      <%= f.password_field :password %>
+          <div class="input-group mb-2">
+            <div class="input-group-prepend" data-toggle="tooltip" data-placement="left" title="Email Address">
+              <div class="input-group-text">
+                <i class="fas fa-at"></i>
+              </div>
+            </div>
+            <%= f.text_field :email, :class => "form-control", :placeholder => "Email Address" %>
+          </div>
 
-      <%= f.label :avatar_image%>
-      <%= f.file_field :avatar_image %>
+          <div class="input-group mb-2">
+            <div class="input-group-prepend" data-toggle="tooltip" data-placement="left" title="Password">
+              <div class="input-group-text">
+                <i class="fas fa-key"></i>
+              </div>
+            </div>
+            <%= f.password_field :password, :class => "form-control", :placeholder => "Password" %>
+          </div>  
+
+          <div class="input-group mb-2">
+            <div class="input-group-prepend" data-toggle="tooltip" data-placement="left" title="Avatar (optional)">
+              <div class="input-group-text">
+                <i class="fas fa-image"></i>
+              </div>
+            </div>
+            <%= f.file_field :avatar_image, :class => "form-control" %>
+          </div>
+          
+
+          <%= f.submit "Sign Up!", :class => "btn btn-primary w-100 mb-2"%>
+        <% end %>
+      <div>
+        <%= link_to t(".sign_in"), sign_in_path, :class => "btn btn-secondary w-100" %>
+      </div>
     </div>
-
-    <br /><%= f.submit "Submit"%>
-  <% end %>
-
-
-    <hr />
-
-    <div class="other-links">
-      <%= link_to t(".sign_in"), sign_in_path %>
-    </div>
+  </div>
 </div>

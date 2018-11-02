@@ -1,30 +1,54 @@
-<%= form_with(model: @booking, local: true) do |form| %>
-  <% if @booking.errors.any? %>
-    <div style="color: red">
-      <p><%= pluralize(@booking.errors.count, "error") %>:</p>
+<div class="container">
+  <div class="row">
+    <div class="col">
 
-      <ul>
-      <% @booking.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
+      <%= form_with(model: @booking, local: true) do |form| %>
+        <% if @booking.errors.any? %>
+          <div class="row" style="color: red">
+            <p><%= pluralize(@booking.errors.count, "error") %>:</p>
+
+            <ul>
+            <% @booking.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+            <% end %>
+            </ul>
+          </div>
+        <% end %>
+
+        <input type="text" value="<%=@listing.id%>" name="listing_id" style="display:none"/>
+
+        <div class="form-row">
+          <div class="input-group col m-auto px-0" style="padding: 2em; line-height: 1em;">
+            <div class="input-group-prepend" data-toggle="tooltip" title="Staying from..." data-placement="left">
+              <div class="input-group-text">
+                <i class="far fa-calendar-alt"></i>&nbsp;
+                <i class="fas fa-hourglass-start"></i>
+              </div>
+            </div>
+            <%= form.date_select :start_date, {start_year: Date.today.year, :order => [:day, :month, :year], :use_short_month => true}, {:class => "form-control"}%>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="input-group col m-auto px-0" style="padding: 2em; line-height: 1em;">
+            <div class="input-group-prepend" data-toggle="tooltip" title="Staying until..." data-placement="left">
+              <div class="input-group-text">
+                <i class="far fa-calendar-alt"></i>&nbsp;
+                <i class="fas fa-hourglass-end"></i>
+              </div>
+            </div>
+            <%= form.date_select :end_date, {start_year: Date.today.year, :order => [:day, :month, :year], :use_short_month => true}, {:class => "form-control"}%>  
+          </div>
+        </div>
+        
+        <div class="form-row">
+          <div class="col">
+            <%= form.submit "Book #{@listing.name}!", :class => "btn btn-primary w-100 mb-2"%>
+            <%= link_to 'Back', bookings_path, :class => "btn btn-secondary w-100" %>  
+          </div>
+        </div>
       <% end %>
-      </ul>
+
     </div>
-  <% end %>
-
-  <input type="text" value="<%=@listing.id%>" name="listing_id" style="display:none"/>
-
-  <div class="centered" style="padding: 2em; line-height: 1em;">
-    From: <br />
-    <%= form.date_select :start_date, start_year: Date.today.year%><br />
   </div>
-
-  <div class="centered" style="padding: 2em; line-height: 1em;">
-    To : <br />
-    <%= form.date_select :end_date, start_year: Date.today.year%><br />  
-  </div> <br />
-
-
-  <div class="actions">
-    <%= form.submit "Book #{@listing.name}!"%>
-  </div>
-<% end %>
+</div>

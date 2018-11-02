@@ -87,48 +87,88 @@
 
 
 
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-12">
+			<h2 class="centered">More from <%=@listing.user.full_name%></h2>
+		</div>
+	</div>
 
-<div class="centered">
-	<br />
-		<h2>More from <%=@listing.user.full_name%></h2>
-	<br />
+	<div class="row centered my-5">
+		<% if @listing.user.listings.length > 1 %>
+			<div class="col">
+				<div class="row">
+					<% listings = @listing.user.listings.order(:name)[0..3]%>
+					<%4.times do |i|%>
+						<% if(!listings[i].nil?)%>
+							<%listing = listings[i]%>
+							<% if listing.id != @listing.id %>
+								<div class="col-3">
+									<%= render partial: "listing_card_listing", locals: {listing: listing} %>
+								</div>
+							<% end %>
 
-	<% if @listing.user.listings.length > 1 %>
+						<% else %>
+							<div class="col-3"><div class="listing-card-listing no-interior"></div></div>
+						<% end %>
+					<% end %>
+				</div>
+			</div>
 
-		<%@listing.user.listings.order(:name)[0..4].each do |listing| %>
+		<% else %>
+
+			<div class="col-12">
+				<h6>User has no other listings!</h6>
+			</div>
 			
-			<% if listing.id != @listing.id %>
-				<%= render partial: "listing_card_listing", locals: {listing: listing} %>
-			<% end %>
-
 		<% end %>
-		<br /> <br />
-		<%= link_to "Go to profile >>", user_path(@listing.user.id) %>
-		<br /> <br />
+	</div>
+	
+	<div class="row centered mt-5">
+		<div class="col-12">
+			<%= link_to "Go to profile >>", user_path(@listing.user.id), :class => "btn" %>
+		</div>
+	</div>
 
-	<% else %>
-		<h2>User has no other listings!</h2>
-	<% end %>
-</div>
+	<hr />
 
-<hr />
+	<div class="row centered">
+		<div class="col-12 centered">
+			<h2>You might also enjoy...</h2>
+		</div>
+	</div>
 
-<div class="centered">
-	<br />
-		<h2>Related Listings</h2>
-	<br />
+	<div class="row centered my-5">
+		<% if @related_listings.length != 0 %>
+			<div class="col">
+				<div class="row">
+					<% listings = @related_listings%>
+					<%4.times do |i|%>
+						<% if(!listings[i].nil?)%>
+							<%listing = listings[i]%>
+							<% if listing.id != @listing.id %>
+								<div class="col-3">
+									<%= render partial: "listing_card_listing", locals: {listing: listing} %>
+								</div>
+							<% end %>
 
-	<% if(@related_listings.length != 0) %>
-		<% @related_listings.each do |listing| %>
-			<%= render partial: "listing_card_listing", locals: {listing: listing} %>
+						<% else %>
+							<div class="col-3"><div class="listing-card-listing no-interior"></div></div>
+						<% end %>
+					<% end %>
+				</div>
+			</div>
+
+		<% else %>
+
+			<div class="col-12">
+				<h6>Nothing here!</h6>
+			</div>
+			
 		<% end %>
-		
-	<% else %>
-		<h2 style="padding: 1em">Nothing here!</h2>
-	<% end %>
+	</div>
 
 </div>
-
 
 
 <script>

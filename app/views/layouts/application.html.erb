@@ -5,57 +5,76 @@
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.2/css/all.css" integrity="sha384-/rXc/GQVaYpyDdyxK+ecHPVYJSN9bmVFBvjA/9eOB+pb3F2w2N6fc5qB9Ew5yIns" crossorigin="anonymous">
+    <!--(Above) Font Awesome CDN, (Below) Bootstrap CDN-->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
 
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
   </head>
 
   <body>
   <!-- START NAV BAR -->
-  <nav>
+    <nav class="container-fluid">
+      <div class="row">
 
-    <div id="logo">
-      <%= link_to "🏡", root_path, :class => "nav-link" %>
-    </div>
+        <!--Logo that links to homepage-->
+        <div class="col-1" id="logo">
+          <%= link_to root_path do%>
+            <i class="fas fa-home"></i>
+          <% end %>
+        </div>
+        
+        <!--Signin, signout, profile things-->
+        <div class="col text-right" id="navbar-controls">
+          <% if signed_in? %>
 
-    <div id="searchbar" class="row-buddies" style="color:white; margin-left: 1em;">
-      <%= form_for :search, method: "GET", url: listings_path do |f| %>
-      Looking for a place in 
-        <%= f.select :city, Listing.all.map { |e|  e.city}.sort%>
-         from
-        <%= f.date_field :start_date %>
-         to 
-        <%= f.date_field :end_date %>
-        <%= f.submit ">"%>
-      <% end %>
-    </div>
+            <%if (current_user.avatar == nil)%>
+              <%= link_to image_tag("question-mark.jpg", class: "navbar-avatar"), user_path(current_user.id) %>&nbsp;
+            <% else %>
+              <%= link_to image_tag(current_user.avatar.avatar_image.navbar_size.url, class: "navbar-avatar"), user_path(current_user.id) %>&nbsp;
+            <% end %>
 
-    <div id="navbar-controls">
-      <% if signed_in? %>
+            <%= link_to sign_out_path, method: :delete do %>
+              <i class="fas fa-sign-out-alt"></i>
+            <% end %>
 
-        <%if (current_user.avatar == nil)%>
-          <%= link_to image_tag("question-mark.jpg", class: "navbar-avatar"), user_path(current_user.id) %>&nbsp;
-        <% else %>
-          <%= link_to image_tag(current_user.avatar.avatar_image.navbar_size.url, class: "navbar-avatar"), user_path(current_user.id) %>&nbsp;
-        <% end %>
+          <% else %>
 
-        <%= link_to User::SYMBOLS[:logout], sign_out_path, method: :delete %>
-      <% else %>
-        <%= link_to User::SYMBOLS[:login], sign_in_path, :class => "nav-link" %>
-      <% end %>
-    </div>
+            <!--Show the Login Button-->
+            <%= link_to sign_in_path do %>
+              <i class="fas fa-sign-in-alt"></i>
+            <% end %>
+          <% end %>
+        </div>
 
-  </nav>
-
-  <div id="flash">
-    <% flash.each do |key, value| %>
-      <div class="flash <%= key %>"><%= value %></div>
-    <% end %>
-  </div>
+      </div>
+    </nav>
   <!-- END NAV BAR -->
+  
+    <div id="flash">
+      <% flash.each do |key, value| %>
+        <div class="flash <%= key %>"><%= value %></div>
+      <% end %>
+    </div>
 
+
+    <div style="z-index: 199; position: fixed; bottom:2em; right: 2em; width: 10em; padding: 1em; background-color: gainsboro; border:1px solid black">Any bugs or styling errors are present because this is the demo version. For a fully functional web app, please hire me.</div>
 
     <%= yield %>
 
+  <!--Activating all tooltips-->
+  <script>
+    $(document).ready(function(){
+        $('[data-toggle="tooltip"]').tooltip(); 
+    });
+  </script>
+  
   </body>
 </html>

@@ -1,18 +1,51 @@
-<%= form_for :user, url: user_path(user.id), method: :patch do |f| %>
-
-	<div>
-		<%= f.label :first_name, "First Name" %>
-		<%= f.text_field :first_name %>
-
-		<%= f.label :last_name, "Last Name" %>
-		<%= f.text_field :last_name %>
-
-		<%= f.label :email, "New Email Address" %>
-		<%= f.text_field :email %>
-
-		<%= f.label :avatar_image, "New Avatar Image" %>
-		<%= f.file_field :avatar_image %>
+<div class="container px-3 py-2">
+	<%= form_for :user, url: user_path(user.id), method: :patch do |f| %>
+	<div class="form-row mb-2">
+		<div class="col input-group">
+			<div class="input-group-prepend" data-toggle="tooltip" title="First Name" data-placement="left" >
+				<div class="input-group-text">
+					<i class="fas fa-signature"></i>		
+				</div>
+			</div>
+			<%= f.text_field :first_name, :class => "form-control", :placeholder => "First Name" %>
+		</div>
 	</div>
 
-	<br /><%= f.submit "Submit"%>
-<% end %>
+	<div class="form-row mb-2">
+		<div class="col input-group">
+			<div class="input-group-prepend" data-toggle="tooltip" title="Last Name" data-placement="left" >
+				<div class="input-group-text">
+					<i class="fas fa-signature"></i>		
+				</div>
+			</div>
+			<%= f.text_field :last_name, :class => "form-control", :placeholder => "Last Name" %>
+		</div>
+	</div>
+
+	<div class="form-row mb-2">
+		<div class="col input-group">
+			<div class="input-group-prepend" data-toggle="tooltip" title="Email Address" data-placement="left" >
+				<div class="input-group-text">
+					<i class="fas fa-at"></i>
+				</div>
+			</div>
+			<%= f.text_field :email, :class => "form-control", :placeholder => "Email Address" %>
+		</div>
+	</div>
+
+	<div class="form-row mb-2">
+		<div class="col input-group">
+			<div class="input-group-prepend" data-toggle="tooltip" title="Avatar Image (optional)" data-placement="left" >
+				<div class="input-group-text">
+					<i class="fas fa-image"></i>
+				</div>
+			</div>
+			<%= f.file_field :avatar_image, :class => "form-control" %>
+		</div>
+	</div>
+					
+			
+			<%= f.submit "Submit", :class => "btn btn-primary w-100 mb-2"%>
+			<%= link_to 'Back to Profile', user_path(@user.id), :class => "btn btn-secondary w-100 mb-2" %>
+	<% end %>
+</div>

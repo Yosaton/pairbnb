@@ -1,123 +1,165 @@
 <%= form_with(model: listing, local: true) do |f| %>
-  <div>
-    Listing Name (min. 10 chars)<br/>
-    <%=f.text_field :name, :size => 75%>
-  </div> <br/>
-  
-  <div style="margin-bottom: 2em">
-    Enter up to 3 tags for your listing (10 characters max per tag): <br/>
-
-    <% 3.times do |index| %>
-      <div class="row-buddies">
-        <%=f.text_field :"tags[tag#{index}]", :size => 10, :value => (listing.tags[index]!=nil)? listing.tags[index].text : ""%>
-      </div>    
-    <% end %>
-
-    
-  </div>
-
-  <div>
-    Property Type <br/>
-    <%=f.select :property_type, Listing::PROPERTY_TYPES%>
-  </div>  <br/>
-
-  <div>
-    Street Address <br/>
-    <%=f.text_field :address, :size => 40%>
-  </div>  <br/>
-
-  <div>
-    City <br/>
-    <%=f.text_field :city%>
-  </div>  <br/>
-
-  <div>
-    Country <br/>
-    <%=f.select :country, ApplicationRecord::COUNTRIES%>
-  </div>  <br/>
-
-  <div>
-    Price <br/>
-    <%=f.text_field :price, :size => 5%> <span class="listing-form-unhighlighted">USD per night</span>
-  </div>  <br/>
-
-  <div>
-    Capacity <br/>
-    <%=f.text_field :capacity, :size => 3%> <span class="listing-form-unhighlighted">pax</span>
-  </div>  <br/>
-
-  <div>
-    Description <br/>
-    <%=f.text_area :description, :rows => 4, :cols => 75%>
-  </div>  <br/>
-
-  <div>
-    Number of bedrooms <br/>
-    <%=f.text_field :n_bedrooms, :size => 2%>
-  </div>  <br/>  
-
-  <div>
-    Number of bathrooms <br/>
-    <%=f.text_field :n_bathrooms, :size => 2%>
-  </div>  <br/>
-
-  <hr />
-  <div style="margin: 1em 0em 1em 0em">
-    <table style="width: 100%">
-      <tr>
-        <td><%=f.label :essentials%><%="#{Listing::AMENITIES[:essentials]}"%> <%=f.check_box :has_essentials%></td>
-        
-        <td><%=f.label :airconditioner%><%="#{Listing::AMENITIES[:airconditioner]}"%> <%=f.check_box :has_airconditioner%></td>
-        
-        <td><%=f.label :washer_dryer%><%="#{Listing::AMENITIES[:washer_dryer]}"%> <%=f.check_box :has_washer_dryer%></td>
-        
-        <td><%=f.label :television%><%="#{Listing::AMENITIES[:television]}"%> <%=f.check_box :has_television%></td>
-        
-        <td><%=f.label :fireplace%><%="#{Listing::AMENITIES[:fireplace]}"%> <%=f.check_box :has_fireplace%></td>
-        
-      </tr>
-      <tr>
-        <td><%=f.label :wifi%><%="#{Listing::AMENITIES[:wifi]}"%> <%=f.check_box :has_wifi%></td>
-        
-        <td><%=f.label :hot_water%><%="#{Listing::AMENITIES[:hot_water]}"%> <%=f.check_box :has_hot_water%></td>
-        
-        <td><%=f.label :kitchen%><%="#{Listing::AMENITIES[:kitchen]}"%> <%=f.check_box :has_kitchen%></td>
-        
-        <td><%=f.label :heating%><%="#{Listing::AMENITIES[:heating]}"%> <%=f.check_box :has_heating%></td>
-        
-        <td><%=f.label :living_room%><%="#{Listing::AMENITIES[:living_room]}"%> <%=f.check_box :has_living_room%></td>
-        
-      </tr>
-
-      <tr>
-        <td colspan=5 class=centered>
-          <hr />
-          <%=f.label :smoking_allowed?%><%=f.check_box :smoking_allowed%>
-        </td>
-
-      </tr>
-    </table>
-  </div>
-  <hr />
-  <div>
-    Upload photos (max 8 per listing)<br/>
-    <%=f.file_field :photos, multiple: true %>
-  </div> <br/>
-
-  <% if (listing.listing_photos.length != 0)%>
-    <div>
-      Select photos for deletion <br/> <br />
-
-      <%listing.listing_photos.each do |listing_photo| %>
-        <%= image_tag listing_photo.photo.thumb.url, class: "listing-photo-deletion-icon" %>
-        <%= f.check_box "delete_images[#{listing_photo.id}]", {:style => "position: relative; right: 1em; bottom: 4.5em"}, true, false %>
-      <% end %>
-
+  <div class="form-row mb-2">
+    <div class="input-group col">
+      <div class="input-group-prepend">
+        <div class="input-group-text" data-toggle="tooltip" title="Listing Name" data-placement="left">
+          <i class="fas fa-question-circle"></i>
+        </div>
+      </div>
+      <%=f.text_field :name, :size => 75, :class => "form-control", :id => "listing-name-input", :placeholder => "Listing Name (min. 10 characters)"%>
     </div>
-  <% end %>
+  </div>
+  
+  <div class="form-row mb-2">
+    <div class="input-group col">
+      <label></label>
+      <div class="input-group">
+        <div class="input-group-prepend">
+          <div class="input-group-text" data-toggle="tooltip" title="Tags (optional) Used to help people find your listing." data-placement="left">
+            <i class="fas fa-tag"></i>
+          </div>
+        </div>
+        <% 3.times do |index| %>
+            <%=f.text_field :"tags[tag#{index}]", :size => 10, :value => (listing.tags[index]!=nil)? listing.tags[index].text : "", :class => "form-control tag-input", :placeholder => "Tag #{index+1}"%>   
+        <% end %>
+      </div>
+    </div>
+  </div>
+
+  <div class="input-group mb-2">
+    <div class="input-group-prepend">
+      <div class="input-group-text" data-toggle="tooltip" title="Type of Property" data-placement="left">
+        <i class="fas fa-building"></i>
+      </div>
+    </div>
+    <%=f.select :property_type, Listing::PROPERTY_TYPES, {}, {:class => "form-control"}%>
+  </div>
+
+  <hr/>
+    
+  <div class="input-group mb-2">
+    <div class="input-group-prepend">
+      <div class="input-group-text" data-toggle="tooltip" title="Address" data-placement="left">
+        <i class="fas fa-map-pin"></i>
+      </div>
+    </div>
+    <%=f.text_field :address, :size => 40, :class => "form-control", :placeholder => "Address"%>
+  </div>
+
+  <div class="input-group mb-2">
+    <div class="input-group-prepend">
+      <div class="input-group-text" data-toggle="tooltip" title="City" data-placement="left">
+        <i class="fas fa-map-pin"></i>
+      </div>
+    </div>
+    <%=f.text_field :city, :class => "form-control", :placeholder => "City"%>
+  </div> 
+
+  <div class="input-group">
+    <div class="input-group-prepend">
+      <div class="input-group-text" data-toggle="tooltip" title="Country" data-placement="left">
+        <i class="fas fa-map-pin"></i>
+      </div>
+    </div>
+    <%=f.select :country, ApplicationRecord::COUNTRIES, {}, {:class => "form-control"}%>
+  </div>
 
   <hr />
-  <%= link_to "Back to Profile", user_path(current_user.id) %>
-  <%=f.submit "Submit!", :style => "float:right"%>
+
+  <div class="input-group">
+    <%=f.text_area :description, :rows => 4, :cols => 75, :class => "form-control", :placeholder => "Enter a description for your listing here!", :"data-toggle" => "tooltip", :"data-placement" => "left",  :title => "Enter an enticing description for your listing!"%>
+  </div>
+
+  <div class="row my-4">
+    <div class="input-group col-12">
+      <div class="input-group-prepend">
+        <div class="input-group-text" data-toggle="tooltip" title="Images of your listing (max 8)">
+          <i class="fas fa-images"></i>
+        </div>
+      </div>
+      <%=f.file_field :photos, multiple: true, :class => "form-control" %>
+    </div>
+  </div>
+
+  <div class="row my-4"> 
+    <% if (listing.listing_photos.length != 0)%>
+      <%listing.listing_photos.each_with_index do |listing_photo, index| %>
+
+        <div class="col-3">
+          <%= f.check_box "delete_images[#{listing_photo.id}]", {:style => "position: absolute;", :id => "#{index}"}, true, false %>
+          <label for="<%=index%>" data-toggle="tooltip" title="Select photos to mark them for deletion">
+          <%= image_tag listing_photo.photo.thumb.url, class: "listing-photo-deletion-icon", :id => index%>
+        </label>
+        </div>
+
+      <% end %>
+    <% end %>
+  </div>
+  <hr />
+
+  <div class="form-inline form-row">
+    <div class="input-group col-3">
+      <div class="input-group-prepend">
+        <div class="input-group-text" data-toggle="tooltip" title="Price per night ($)">
+          <%=Listing.display_fa_icon_symbols(:price_icon)%>
+        </div>    
+      </div>
+      <%=f.text_field :price, :class => "form-control"%>    
+    </div>
+
+    <div class="input-group col-3">
+      <div class="input-group-prepend">
+        <div class="input-group-text" data-toggle="tooltip" title="Capacity">
+          <%=Listing.display_fa_icon_symbols(:capacity)%>
+        </div>    
+      </div>
+      <%=f.text_field :capacity, :class => "form-control"%>
+    </div>
+
+    <div class="input-group col-3">
+      <div class="input-group-prepend">
+        <div class="input-group-text" data-toggle="tooltip" title="Number of bedrooms">
+          <%=Listing.display_fa_icon_symbols(:bed)%>
+        </div>    
+      </div>
+      <%=f.text_field :n_bedrooms, :class => "form-control"%>
+    </div>
+
+    <div class="input-group col-3">
+      <div class="input-group-prepend">
+        <div class="input-group-text" data-toggle="tooltip" title="Number of bathrooms">
+          <%=Listing.display_fa_icon_symbols(:bath)%>
+        </div>    
+      </div>
+      <%=f.text_field :n_bathrooms, :class => "form-control"%>
+    </div>
+  </div>
+
+  <div class="row my-4">
+    <% i = 0 %>
+    <% Listing::AMENITIES.each do |key, value|%>
+      <div class="col-2 my-2 centered">
+        <%=f.check_box "has_#{key}".to_sym, :id => i, :class => "hidden-checkbox"%>
+        <label for="<%=i%>" class="label-for-check" data-toggle="tooltip" title="<%="#{key.to_s.capitalize.split("_").join(" ")}"%>" data-placement="top">
+          <%=Listing.display_fa_icon(key)%>
+        </label>
+      </div>
+
+      <% i += 1 %>
+    <% end %>
+  </div>
+
+  <%=f.check_box :smoking_allowed, :class => "hidden-checkbox", :id => "smoking_allowed"%>
+  <label for="smoking_allowed" id="smoking_allowed_label" class="label-for-check-smoking centered" data-toggle="tooltip" title="Allowed to Smoke?" data-placement="top">
+    <span class="text-white">SMOKING</span><i class="fas fa-smoking-ban"></i><span class="text-white">ALLOWED</span>
+  </label>
+  <hr />
+
+
+  <div class="row mb-3">
+    <div class="col"><%= link_to "Back to Profile", user_path(current_user.id), :class => "btn btn-secondary" %></div>
+    <div class="col"><%=f.submit "Submit!", :class => "btn btn-primary", :style => "float:right"%></div>
+  </div>
+  
 
 <% end %>

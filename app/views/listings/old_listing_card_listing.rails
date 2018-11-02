@@ -1,0 +1,25 @@
+<div class="listing-listing-box row-buddies">
+	<h2 class="listing-box-header">
+		<%= link_to listing.name_with_verification, listing_path(listing.id), :class => "listing-box-header"%>
+	</h2>
+	<p class="italic"><%="#{listing.city}, #{listing.country}".truncate(25)%></p>
+	<%=listing.amenity_string%>
+	<hr />
+	<p><%=listing.description.truncate(28)%></p>
+	<hr />
+	
+	<table class="centered" style="margin: auto">
+		<tr>
+			<td><%="#{Listing::SYMBOLS[:rating_star]}#{listing.rating}"%></td>
+			<td><%="#{Listing::SYMBOLS[:bed]}#{listing.n_bedrooms}"%></td>
+			<td><%="#{Listing::SYMBOLS[:capacity]}#{listing.capacity}"%></td>
+			<td><%="#{Listing::SYMBOLS[:bath]}#{listing.n_bathrooms}"%></td>
+			<td><%="#{Listing::SYMBOLS[:price_icon]}#{listing.price}"%></td>
+		</tr>
+	</table>
+	<hr/>
+	<div class= "italic" style="font-size: 10pt; color: grey; padding: 0;">
+		<%=listing.tagline_space_delimited%>
+	</div>
+	<div style=""><%=listing.smoking_badge%></div>
+</div>
