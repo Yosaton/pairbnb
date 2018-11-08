@@ -70,6 +70,7 @@ group :development do
   gem 'spring-watcher-listen', '~> 2.0.0'
   #testing
   gem 'rspec-rails'
+  gem 'rails-controller-testing'
 end
 
 group :test do
@@ -80,6 +81,7 @@ group :test do
   gem 'chromedriver-helper'
   #testing
   gem 'rspec-rails'
+  gem 'rails-controller-testing'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem

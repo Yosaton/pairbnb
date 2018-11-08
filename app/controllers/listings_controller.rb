@@ -4,7 +4,6 @@ class ListingsController < ApplicationController
   # GET /listings
   # GET /listings.json
   def index
-    p search_params
     @listings = Listing.where(city: search_params[:city]).page params[:page] 
 
     @listings.each do |listing| # For each listing in the city desired...
