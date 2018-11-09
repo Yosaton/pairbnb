@@ -30,11 +30,10 @@ class UsersController < Clearance::UsersController
       if @user.save
 
         if(user_params[:avatar_image] != nil)
-          new_avatar = Avatar.new(avatar_image: user_params[:avatar_image])
-          new_avatar.user_id = @user.id
+          new_avatar = @user.avatar.build(avatar_image: user_params[:avatar_image])
           new_avatar.save
         end
-        
+
         sign_in(@user)
         format.html { redirect_to @user, notice: 'User was successfully created.' }
         format.json { render :show, status: :created, location: @user }
@@ -57,10 +56,9 @@ class UsersController < Clearance::UsersController
     if(@user.avatar != nil)
       @user.avatar.destroy
     end
-    
+
     if(user_params[:avatar_image] != nil)
-      new_avatar = Avatar.new(avatar_image: user_params[:avatar_image])
-      new_avatar.user_id = @user.id
+      new_avatar = @user.avatar.build(avatar_image: user_params[:avatar_image])
       new_avatar.save
     end
 

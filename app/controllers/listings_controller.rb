@@ -4,10 +4,10 @@ class ListingsController < ApplicationController
   # GET /listings
   # GET /listings.json
   def index
-    @listings = Listing.where(city: search_params[:city]).page params[:page] 
+    @listings = Listing.where(city: search_params[:city]).page params[:page]
 
     @listings.each do |listing| # For each listing in the city desired...
-      
+
       if(listing.has_bookings_between(search_params[:start_date], search_params[:end_date]))
         # If that listing has a booking in the date range specified, we need to reject it
         @listings -= [listing]
@@ -74,8 +74,7 @@ class ListingsController < ApplicationController
   def create
     max_photos_notice = ""
 
-    @listing = Listing.new(listing_params)
-    @listing.user_id = current_user.id
+    @listing = current_user.listings.build(listing_params)
 
     respond_to do |format|
       if @listing.save
@@ -84,8 +83,7 @@ class ListingsController < ApplicationController
         if(listing_photo_params[:photos] != nil)
           listing_photo_params[:photos].each do |photo|
             if(@listing.can_add_more_photos?)
-              new_photo = ListingPhoto.new(photo: photo)
-              new_photo.listing_id = @listing.id
+              new_photo = @listing.listing_photos.build(photo: photo)
               new_photo.save
               @listing = Listing.find_by_id(@listing.id) # Need to re-get reference to @listing to update the picture count
             else
@@ -129,8 +127,7 @@ class ListingsController < ApplicationController
 
       listing_photo_params[:photos].each do |photo|
         if(@listing.can_add_more_photos?)
-          new_photo = ListingPhoto.new(photo: photo)
-          new_photo.listing_id = @listing.id
+          new_photo = @listing.listing_photos.build(photo: photo)
           new_photo.save
           @listing = Listing.find_by_id(@listing.id) # Need to re-get reference to @listing to update the picture count        else
         else
@@ -146,7 +143,7 @@ class ListingsController < ApplicationController
     @listing.taggings.each do |tagging|
       tagging.destroy
     end
-    
+
     loop_and_assign_tags
 
     respond_to do |format|
@@ -196,7 +193,7 @@ class ListingsController < ApplicationController
 
       if(db_tag != nil)
           # Tag exists! Do nothing.
-          
+
       else
           # Tag doesn't exist! Create new tag
         db_tag = Tag.create(text: tag_text)

@@ -36,20 +36,20 @@
 										Looking for a
 										</td>
 										<td><%=f.select :property_type, Listing::PROPERTY_TYPES%></td>
-										
+
 									</tr>
 
 									<tr>
 										<td>in</td>
 										<td><%=f.select :country, ApplicationRecord::COUNTRIES%></td>
-										
+
 									</tr>
 
 									<tr>
 										<td>at most $</td>
 										<td><%=f.text_field :max_price, :size => 4 %> a night</td>
 									</tr>
-								 
+
 								 	<tr>
 								 		<td>with</td>
 								 		<td><%=f.text_field :n_bedrooms, :size => 1%> bedroom(s)</td>
@@ -73,24 +73,24 @@
 								<table>
 									<tr>
 										<td><%=f.label :essentials%><%="#{Listing::AMENITIES[:essentials]}"%> <%=f.check_box :has_essentials%></td>
-										        
+
 								        <td><%=f.label :airconditioner%><%="#{Listing::AMENITIES[:airconditioner]}"%> <%=f.check_box :has_airconditioner%></td>
-								        
+
 								        <td><%=f.label :washer_dryer%><%="#{Listing::AMENITIES[:washer_dryer]}"%> <%=f.check_box :has_washer_dryer%></td>
-								        
+
 								        <td><%=f.label :television%><%="#{Listing::AMENITIES[:television]}"%> <%=f.check_box :has_television%></td>
-								        
+
 								        <td><%=f.label :fireplace%><%="#{Listing::AMENITIES[:fireplace]}"%> <%=f.check_box :has_fireplace%></td>
 									</tr>
 									<tr>
 								        <td><%=f.label :wifi%><%="#{Listing::AMENITIES[:wifi]}"%> <%=f.check_box :has_wifi%></td>
-								        
+
 								        <td><%=f.label :hot_water%><%="#{Listing::AMENITIES[:hot_water]}"%> <%=f.check_box :has_hot_water%></td>
-								        
+
 								        <td><%=f.label :kitchen%><%="#{Listing::AMENITIES[:kitchen]}"%> <%=f.check_box :has_kitchen%></td>
-								        
+
 								        <td><%=f.label :heating%><%="#{Listing::AMENITIES[:heating]}"%> <%=f.check_box :has_heating%></td>
-								        
+
 								        <td><%=f.label :living_room%><%="#{Listing::AMENITIES[:living_room]}"%> <%=f.check_box :has_living_room%></td>
 									</tr>
 
@@ -98,11 +98,11 @@
 										<td colspan=5 class=centered><%=f.submit "Search!"%></td>
 									</tr>
 								</table>
-									
+
 							<% end %>
 
 							<hr />
-							
+
 							<h3 class="centered">Alternatively, use our text search...</h3>
 							<div class="centered">
 
@@ -112,7 +112,7 @@
 									<input type="submit" value=">"/>
 
 
-									<datalist id="list">						
+									<datalist id="list">
 									</datalist>
 								</form>
 								<br />

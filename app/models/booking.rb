@@ -1,6 +1,6 @@
 class Booking < ApplicationRecord
 	# Associations
-	belongs_to 	:user 
+	belongs_to 	:user
 	belongs_to	:listing
 
 	#validations
@@ -37,8 +37,8 @@ class Booking < ApplicationRecord
 		return if end_date.blank? || start_date.blank?
 
 		if end_date < start_date + 1
-		errors.add(:end_date, "must be after the start date") 
-		end 
+		errors.add(:end_date, "must be after the start date")
+		end
 	end
 
 	def booking_does_not_clash
@@ -48,9 +48,9 @@ class Booking < ApplicationRecord
 		this_booking = Booking.where(id: id)
 
 		check_bookings = related_bookings - this_booking
-		
+
 		check_bookings.each do |booking|
-			
+
 			if (start_date <= booking.end_date && booking.start_date <= end_date) # Overlap found if condition is true
 				# Handling overlap: not allowed to save!
 				errors.add(:booking_date, "overlaps with another booking!")

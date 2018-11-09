@@ -9,7 +9,7 @@
       <%=f.text_field :name, :size => 75, :class => "form-control", :id => "listing-name-input", :placeholder => "Listing Name (min. 10 characters)"%>
     </div>
   </div>
-  
+
   <div class="form-row mb-2">
     <div class="input-group col">
       <label></label>
@@ -20,7 +20,7 @@
           </div>
         </div>
         <% 3.times do |index| %>
-            <%=f.text_field :"tags[tag#{index}]", :size => 10, :value => (listing.tags[index]!=nil)? listing.tags[index].text : "", :class => "form-control tag-input", :placeholder => "Tag #{index+1}"%>   
+            <%=f.text_field :"tags[tag#{index}]", :size => 10, :value => (listing.tags[index]!=nil)? listing.tags[index].text : "", :class => "form-control tag-input", :placeholder => "Tag #{index+1}"%>
         <% end %>
       </div>
     </div>
@@ -36,7 +36,7 @@
   </div>
 
   <hr/>
-    
+
   <div class="input-group mb-2">
     <div class="input-group-prepend">
       <div class="input-group-text" data-toggle="tooltip" title="Address" data-placement="left">
@@ -53,7 +53,7 @@
       </div>
     </div>
     <%=f.text_field :city, :class => "form-control", :placeholder => "City"%>
-  </div> 
+  </div>
 
   <div class="input-group">
     <div class="input-group-prepend">
@@ -81,7 +81,7 @@
     </div>
   </div>
 
-  <div class="row my-4"> 
+  <div class="row my-4">
     <% if (listing.listing_photos.length != 0)%>
       <%listing.listing_photos.each_with_index do |listing_photo, index| %>
 
@@ -102,16 +102,16 @@
       <div class="input-group-prepend">
         <div class="input-group-text" data-toggle="tooltip" title="Price per night ($)">
           <%=Listing.display_fa_icon_symbols(:price_icon)%>
-        </div>    
+        </div>
       </div>
-      <%=f.text_field :price, :class => "form-control"%>    
+      <%=f.text_field :price, :class => "form-control"%>
     </div>
 
     <div class="input-group col-3">
       <div class="input-group-prepend">
         <div class="input-group-text" data-toggle="tooltip" title="Capacity">
           <%=Listing.display_fa_icon_symbols(:capacity)%>
-        </div>    
+        </div>
       </div>
       <%=f.text_field :capacity, :class => "form-control"%>
     </div>
@@ -120,7 +120,7 @@
       <div class="input-group-prepend">
         <div class="input-group-text" data-toggle="tooltip" title="Number of bedrooms">
           <%=Listing.display_fa_icon_symbols(:bed)%>
-        </div>    
+        </div>
       </div>
       <%=f.text_field :n_bedrooms, :class => "form-control"%>
     </div>
@@ -129,7 +129,7 @@
       <div class="input-group-prepend">
         <div class="input-group-text" data-toggle="tooltip" title="Number of bathrooms">
           <%=Listing.display_fa_icon_symbols(:bath)%>
-        </div>    
+        </div>
       </div>
       <%=f.text_field :n_bathrooms, :class => "form-control"%>
     </div>
@@ -160,6 +160,6 @@
     <div class="col"><%= link_to "Back to Profile", user_path(current_user.id), :class => "btn btn-secondary" %></div>
     <div class="col"><%=f.submit "Submit!", :class => "btn btn-primary", :style => "float:right"%></div>
   </div>
-  
+
 
 <% end %>

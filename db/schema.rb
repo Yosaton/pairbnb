@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_10_31_031226) do
+ActiveRecord::Schema.define(version: 2018_11_09_062455) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -30,6 +30,7 @@ ActiveRecord::Schema.define(version: 2018_10_31_031226) do
     t.integer "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_avatars_on_user_id"
   end
 
   create_table "bookings", force: :cascade do |t|
@@ -41,6 +42,8 @@ ActiveRecord::Schema.define(version: 2018_10_31_031226) do
     t.datetime "updated_at", null: false
     t.integer "price"
     t.boolean "is_paid", default: false
+    t.index ["listing_id"], name: "index_bookings_on_listing_id"
+    t.index ["user_id"], name: "index_bookings_on_user_id"
   end
 
   create_table "listing_photos", force: :cascade do |t|
@@ -48,6 +51,7 @@ ActiveRecord::Schema.define(version: 2018_10_31_031226) do
     t.integer "listing_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["listing_id"], name: "index_listing_photos_on_listing_id"
   end
 
   create_table "listings", force: :cascade do |t|
@@ -77,6 +81,7 @@ ActiveRecord::Schema.define(version: 2018_10_31_031226) do
     t.boolean "has_heating", default: false
     t.boolean "has_living_room", default: false
     t.boolean "smoking_allowed", default: false
+    t.index ["user_id"], name: "index_listings_on_user_id"
   end
 
   create_table "taggings", force: :cascade do |t|
@@ -84,6 +89,8 @@ ActiveRecord::Schema.define(version: 2018_10_31_031226) do
     t.integer "tag_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["listing_id"], name: "index_taggings_on_listing_id"
+    t.index ["tag_id"], name: "index_taggings_on_tag_id"
   end
 
   create_table "tags", force: :cascade do |t|

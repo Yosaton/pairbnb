@@ -8,7 +8,7 @@ class User < ApplicationRecord
 
   # Associations
   has_many :authentications, dependent: :destroy #omniauth
-  has_many 	:listings 
+  has_many 	:listings
   has_many 	:bookings
   has_one 	:avatar
 
@@ -52,7 +52,6 @@ class User < ApplicationRecord
   def google_token
     x = self.authentications.find_by(provider: 'google_oauth2')
     return x.token unless x.nil?
-    
   end
 
 end

@@ -3,9 +3,9 @@
 	<h1><%=@user.full_name%></h1>
 
 	<%if (@user.avatar == nil) %>
-		<%= image_tag "question-mark.jpg", class: "profile-page-avatar"%> 
+		<%= image_tag "question-mark.jpg", class: "profile-page-avatar"%>
 	<% else %>
-		<%= image_tag @user.avatar.avatar_image.profile_size.url, class: "profile-page-avatar"%> 
+		<%= image_tag @user.avatar.avatar_image.profile_size.url, class: "profile-page-avatar"%>
 	<% end %>
 
 
@@ -17,9 +17,9 @@
 <table class="profile-details">
 	<tr>
 		<td class="profile-details-left">
-			
+
 			<%=show_role%>
-			
+
 			<%if signed_in? %>
 				<%if current_user.moderator? || current_user.superadmin? %>
 					<div class="moderator-profile-controls">
@@ -46,7 +46,7 @@
 
 						<li>
 							<%= link_to "View my Guests", guests_path(@user.id) %>
-						</li>						
+						</li>
 
 						<li>
 							<%= link_to "Edit my Profile", edit_user_path(@user.id) %>
@@ -60,7 +60,7 @@
 
 				<% end %>
 			<% end %>
-			
+
 			<h2 class="underlined">About</h2>
 			<ul class="no-bullets">
 				<li><%="Average Rating: #{@user.average_rating}/5"%></li>
@@ -69,7 +69,7 @@
 
 		</td>
 		<td>
-			<%= render partial: "/listings/listing_card_profile", locals: {listings: @user.listings}%>				
+			<%= render partial: "/listings/listing_card_profile", locals: {listings: @user.listings}%>
 		</td>
 	</tr>
 </table>

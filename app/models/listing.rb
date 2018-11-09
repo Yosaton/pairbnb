@@ -15,9 +15,9 @@ class Listing < ApplicationRecord
 	validates :price, numericality: {greater_than: 0}
 	validates :rating, numericality: {greater_than: -1}
 	validates :rating, numericality: {less_than: 6}
-	
+
 	# Associations
-	has_many 	:bookings	
+	has_many 	:bookings
 	has_many	:listing_photos
 	has_many :taggings
 	has_many :tags, :through => :taggings
@@ -106,7 +106,7 @@ class Listing < ApplicationRecord
 		rating.times do |i|
 			x[i] = fetch_font_awesome_class("symbols", :rating_star)
 		end
-		
+
 		return render_font_awesome_string(x).join("").html_safe
 	end
 
@@ -119,8 +119,8 @@ class Listing < ApplicationRecord
 
 		Listing::AMENITIES.each do |key, value|
 			if (send("has_#{key}") == true)
-				result << value			
-			end 
+				result << value
+			end
 		end
 
 		return render_font_awesome_string(result).join(" ").html_safe
@@ -132,8 +132,8 @@ class Listing < ApplicationRecord
 
 		Listing::AMENITIES.each do |key, value|
 			if (send("has_#{key}") == true)
-				result << key.capitalize.to_s.gsub("_", " ")			
-			end 
+				result << key.capitalize.to_s.gsub("_", " ")
+			end
 		end
 
 		result << "#{Listing::SYMBOLS[:tick]}"
@@ -170,7 +170,7 @@ class Listing < ApplicationRecord
     # Max photos 8
     def can_add_more_photos?
       return (listing_photos.length <= 7)? true : false
-    end 
+    end
 
     def has_bookings_between(start_date, end_date)
     	if(start_date.strip != "" && end_date.strip != "")
@@ -185,7 +185,7 @@ class Listing < ApplicationRecord
     	return false
     end
 
-   
+
 	private
 	def display_badge_if_verified
 		if(is_verified)
