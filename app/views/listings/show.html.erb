@@ -78,7 +78,7 @@
 
 
 	
-	<a href="<%=@booking_button_href%>" style="text-decoration: none;">
+	<a href="<%=@booking_button_href%>" style="text-decoration: none;" id="book-now-link">
 		<div class="centered" id="book-now-button">
 			<%=@booking_button_text%>
 		</div>
@@ -104,7 +104,7 @@
 							<%listing = listings[i]%>
 							<% if listing.id != @listing.id %>
 								<div class="col-3">
-									<%= render partial: "listing_card_listing", locals: {listing: listing} %>
+									<%= render "listing_card_listing", listing: listing %>
 								</div>
 							<% end %>
 
@@ -148,7 +148,7 @@
 							<%listing = listings[i]%>
 							<% if listing.id != @listing.id %>
 								<div class="col-3">
-									<%= render partial: "listing_card_listing", locals: {listing: listing} %>
+									<%= render "listing_card_listing", listing: listing %>
 								</div>
 							<% end %>
 

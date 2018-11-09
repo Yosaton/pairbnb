@@ -4,7 +4,7 @@ class SearchController < ApplicationController
 
 	# Values for the checkboxes are "0" and "1", so lets handle them separately!
   	search_params.each do |key, value|
-		@results = @results.public_send(key, value) if value.present? 
+		@results = @results.public_send(key, value) if value.present?
   	end
 
   	# Here, we handle searching for the amenities. Ignore "0", search when we have "1"s
@@ -24,7 +24,7 @@ class SearchController < ApplicationController
     @total_results = @results.length
     @results = @results.order(:rating).page params[:page]
     render :show
-    
+
   end
 
   def text_search_ajax

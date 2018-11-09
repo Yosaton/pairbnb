@@ -28,9 +28,8 @@ class BookingsController < ApplicationController
   # POST /bookings.json
   def create
     @listing = Listing.find_by_id(listing_id_from_params[:listing_id].to_i)
-    @booking = Booking.new(booking_params)
+    @booking = @listing.bookings.build(booking_params)
     @booking.user_id = current_user.id
-    @booking.listing_id = @listing.id
     @booking.price = @booking.calculate_total_price(@listing.price)
 
     respond_to do |format|

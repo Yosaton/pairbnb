@@ -27,7 +27,7 @@ Rails.application.routes.draw do
 	resources :users
   # resources :taggings NO NEEED RESOURCES TAGGING (NO TAGGING SHIT HAPPENING)
   # resources :tags NO NEED RESOURCES TAGS (NO TAG SHIT HAPPENING)
-  
+
   # Manual additions
   # update user
   # make path for post to update
@@ -39,7 +39,7 @@ Rails.application.routes.draw do
   # Payments
   get '/payments/:booking_id' => "braintree#show", as: "payments"
   post 'braintree/checkout'
-  
+
   # Guests
   get '/users/:id/guests' => "users#guests", as: "guests"
 

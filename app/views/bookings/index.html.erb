@@ -1,6 +1,6 @@
 <div class="container centered mt-2 w-50">
   <%if (@bookings.length != 0) %>
-  
+
     <%if (current_user.id == @bookings.first.user.id) %>
 
         <h2><%="Bookings for #{@user.full_name}"%></h2>
@@ -12,7 +12,7 @@
 
 
               <div class="col text-right">
-                <a href="/bookings/<%=booking.id%>"> 
+                <a href="/bookings/<%=booking.id%>">
                   <h6>
                     <%="#{booking.listing.name}, from #{booking.start_date.to_date} to #{booking.end_date.to_date}"%>
                   </h6>

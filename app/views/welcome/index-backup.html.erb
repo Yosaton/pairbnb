@@ -2,7 +2,7 @@
 <style type="text/css">body{overflow: hidden}</style>
 
 <div class="container-fluid" id="welcome">
-	
+
 		<div class="row no-gutters p-4 mx-auto">
 
 			<div class="d-none d-xl-block col-8 p-4" id="random-listing-display">
@@ -18,13 +18,13 @@
 						<li><%=tag.text%> &nbsp;</li>
 					<%end%>
 				</ul>
-				
+
 				<div id="random-listing-stats">
 					<%=@featured_listing.amenity_string%><br/>
 					<div class="rating"><%=@featured_listing.symbolize_rating%></div>
 					<%=@featured_listing.symbolize_capacity%>
 				</div>
-			
+
 				<p>
 					<br/>
 					<%=@featured_listing.description.truncate(300)%>
@@ -44,20 +44,20 @@
 								Looking for a
 								</td>
 								<td><%=f.select :property_type, Listing::PROPERTY_TYPES%></td>
-								
+
 							</tr>
 
 							<tr>
 								<td>in</td>
 								<td><%=f.select :country, ApplicationRecord::COUNTRIES%></td>
-								
+
 							</tr>
 
 							<tr>
 								<td>at most $</td>
 								<td><%=f.text_field :max_price, :size => 4 %> a night</td>
 							</tr>
-						 
+
 						 	<tr>
 						 		<td>with</td>
 						 		<td><%=f.text_field :n_bedrooms, :size => 1%> bedroom(s)</td>
@@ -81,44 +81,44 @@
 						<table>
 							<tr>
 								<td>
-									<%=f.label :essentials%><%=Listing.display_fa_icon(:essentials)%> <%=f.check_box :has_essentials%>		
+									<%=f.label :essentials%><%=Listing.display_fa_icon(:essentials)%> <%=f.check_box :has_essentials%>
 								</td>
-								        
+
 						        <td>
-						        	<%=f.label :airconditioner%><%=Listing.display_fa_icon(:airconditioner)%> <%=f.check_box :has_airconditioner%>						  
+						        	<%=f.label :airconditioner%><%=Listing.display_fa_icon(:airconditioner)%> <%=f.check_box :has_airconditioner%>
 						        </td>
-						        
+
 						        <td>
-						        	<%=f.label :laundry%><%=Listing.display_fa_icon(:washer_dryer)%> <%=f.check_box :has_washer_dryer%>						  
+						        	<%=f.label :laundry%><%=Listing.display_fa_icon(:washer_dryer)%> <%=f.check_box :has_washer_dryer%>
 						        </td>
-						        
+
 						        <td>
-						        	<%=f.label :television%><%=Listing.display_fa_icon(:television)%> <%=f.check_box :has_television%>						  
+						        	<%=f.label :television%><%=Listing.display_fa_icon(:television)%> <%=f.check_box :has_television%>
 						        </td>
-						        
+
 						        <td>
-						        	<%=f.label :fireplace%><%=Listing.display_fa_icon(:fireplace)%> <%=f.check_box :has_fireplace%>						  
+						        	<%=f.label :fireplace%><%=Listing.display_fa_icon(:fireplace)%> <%=f.check_box :has_fireplace%>
 						        </td>
 							</tr>
 							<tr>
 						        <td>
-						        	<%=f.label :wifi%><%=Listing.display_fa_icon(:wifi)%> <%=f.check_box :has_wifi%>						  
+						        	<%=f.label :wifi%><%=Listing.display_fa_icon(:wifi)%> <%=f.check_box :has_wifi%>
 						        </td>
-						        
+
 						        <td>
-						        	<%=f.label :hot_water%><%=Listing.display_fa_icon(:hot_water)%> <%=f.check_box :has_hot_water%>						  
+						        	<%=f.label :hot_water%><%=Listing.display_fa_icon(:hot_water)%> <%=f.check_box :has_hot_water%>
 						        </td>
-						        
+
 						        <td>
-						        	<%=f.label :kitchen%><%=Listing.display_fa_icon(:kitchen)%> <%=f.check_box :has_kitchen%>						  
+						        	<%=f.label :kitchen%><%=Listing.display_fa_icon(:kitchen)%> <%=f.check_box :has_kitchen%>
 						        </td>
-						        
+
 						        <td>
-						        	<%=f.label :heating%><%=Listing.display_fa_icon(:heating)%> <%=f.check_box :has_heating%>						  
+						        	<%=f.label :heating%><%=Listing.display_fa_icon(:heating)%> <%=f.check_box :has_heating%>
 						        </td>
-						        
+
 						        <td>
-						        	<%=f.label :living_room%><%=Listing.display_fa_icon(:living_room)%> <%=f.check_box :has_living_room%>						  
+						        	<%=f.label :living_room%><%=Listing.display_fa_icon(:living_room)%> <%=f.check_box :has_living_room%>
 						        </td>
 							</tr>
 
@@ -126,11 +126,11 @@
 								<td colspan=5 class=centered><%=f.submit "Search!"%></td>
 							</tr>
 						</table>
-							
+
 					<% end %>
 
 					<hr />
-					
+
 					<h3 class="centered">Alternatively, use our text search...</h3>
 					<div class="centered">
 
@@ -140,7 +140,7 @@
 							<input type="submit" value=">"/>
 
 
-							<datalist id="list">						
+							<datalist id="list">
 							</datalist>
 						</form>
 						<br />
@@ -149,7 +149,7 @@
 			</div>
 
 		</div>
-	
+
 </div>
 
 <!-- AJAX SHIT -->
