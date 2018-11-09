@@ -53,6 +53,8 @@ gem 'pg_search'
 
 gem 'rails_12factor'
 
+gem 'redis'
+
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.1.0', require: false
 

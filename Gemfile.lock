@@ -335,6 +335,7 @@ DEPENDENCIES
   rails (~> 5.2.1)
   rails-controller-testing
   rails_12factor
+  redis
   rspec-rails
   sass-rails (~> 5.0)
   selenium-webdriver
