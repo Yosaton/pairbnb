@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  resources :subscriptions
+  resources :chatrooms
+  resources :messages
   # Root redirect
   root "welcome#index"
 
