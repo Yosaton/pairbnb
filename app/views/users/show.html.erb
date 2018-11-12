@@ -13,6 +13,12 @@
 	<%="Member since #{@user.created_at.to_date}"%>
 </div> <br /> <br />
 
+<div class="centered">
+	<%if(signed_in? && current_user.id != @user.id)%>
+		<%= link_to "Chat!", chatrooms_path(@user.id), method: :post, class: "btn btn-success" %>
+	<%end%>
+</div>
+
 <hr />
 <table class="profile-details">
 	<tr>

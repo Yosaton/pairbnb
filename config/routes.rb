@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  resources :subscriptions
+  resources :chatrooms
+  resources :messages
   # Root redirect
   root "welcome#index"
 
@@ -50,6 +53,9 @@ Rails.application.routes.draw do
   # Text search
   get '/search/text_search'
   get '/search/text_search_ajax'
+
+  # Mount channels for ActionCable
+  mount ActionCable.server, at: '/cable'
 
 	# For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
