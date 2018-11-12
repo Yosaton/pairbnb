@@ -1,6 +1,6 @@
 <div class="container" style="height: 45em">
 	<div class="row mt-5 px-1 py-2 h-100 border border-bottom-0">
-		<div class="col" style="overflow-y: scroll">
+		<div class="col" id="messages-container" style="overflow-y: scroll">
 			<%= render @chatroom.messages.order(:created_at)%>
 		</div>
 	</div>
@@ -10,7 +10,7 @@
 			<%=form_with model: @message, url: messages_path do |f|%>
 				<%=f.hidden_field :chatroom_id, value: @chatroom.id%>
 				<div class="input-group mb-2">
-					<%=f.text_field :content, class: "form-control"%>
+					<%=f.text_field :content, id: "message-input", class: "form-control"%>
 					<div class="input-group-append">
 						<%=f.submit ">", class: "btn btn-success"%>	
 					</div>
@@ -21,3 +21,4 @@
 		</div>
 	</div>
 </div>
+<div id="chatroom_id" style="display:none"><%=@chatroom.id%></div>

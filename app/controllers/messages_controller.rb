@@ -5,9 +5,9 @@ class MessagesController < ApplicationController
   # POST /messages.json
   def create
     @message = current_user.messages.build(message_params)
-      
+
     if @message.save
-      redirect_to chatroom_path(params[:chatroom_id])
+      ActionCable.server.broadcast "room_channel", message: render_message(@message)
     else
       flash[:error] = "Couldn't save message! #{@message.errors.full_messages.join(", ")}"
       redirect_to root_path
@@ -24,5 +24,9 @@ class MessagesController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def message_params
       params.permit(:content, :chatroom_id)
+    end
+
+    def render_message(message)
+      render(partial: "message", locals: {message: message})
     end
 end
