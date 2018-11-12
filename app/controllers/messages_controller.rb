@@ -7,7 +7,7 @@ class MessagesController < ApplicationController
     @message = current_user.messages.build(message_params)
 
     if @message.save
-      ActionCable.server.broadcast "room_channel", message: render_message(@message)
+      ActionCable.server.broadcast "room_channel_#{@message.chatroom_id}", message: render_message(@message)
     else
       flash[:error] = "Couldn't save message! #{@message.errors.full_messages.join(", ")}"
       redirect_to root_path

@@ -1,6 +1,5 @@
 class ChatroomChannel < ApplicationCable::Channel
   def subscribed
-  	# byebug
     stream_from "room_channel_#{params[:chatroom_id]}"
   end
 
