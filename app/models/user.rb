@@ -11,6 +11,9 @@ class User < ApplicationRecord
   has_many 	:listings
   has_many 	:bookings
   has_one 	:avatar
+  has_many :messages
+  has_many :subscriptions
+  has_many :chats, through: :subscriptions
 
   # Symbols Constant (for ASCII)
   SYMBOLS = {login: "🚪", logout: "⏻"}

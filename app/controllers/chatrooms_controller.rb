@@ -1,5 +1,5 @@
 class ChatroomsController < ApplicationController
-  before_action :set_chatroom, only: [:show, :edit, :update, :destroy]
+  before_action :require_login
 
   # GET /chatrooms
   # GET /chatrooms.json
@@ -10,6 +10,8 @@ class ChatroomsController < ApplicationController
   # GET /chatrooms/1
   # GET /chatrooms/1.json
   def show
+    target_user = User.find_by_id(params[:id])
+    byebug
   end
 
   # GET /chatrooms/new
