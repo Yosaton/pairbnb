@@ -1,5 +1,6 @@
 class ChatroomsController < ApplicationController
   before_action :require_login
+  before_action :set_chatroom, only: [:show]
 
   # GET /chatrooms
   # GET /chatrooms.json
@@ -10,57 +11,29 @@ class ChatroomsController < ApplicationController
   # GET /chatrooms/1
   # GET /chatrooms/1.json
   def show
-    target_user = User.find_by_id(params[:id])
-    byebug
   end
 
-  # GET /chatrooms/new
-  def new
-    @chatroom = Chatroom.new
-  end
 
-  # GET /chatrooms/1/edit
-  def edit
-  end
-
-  # POST /chatrooms
-  # POST /chatrooms.json
   def create
-    @chatroom = Chatroom.new(chatroom_params)
+    target_user = User.find_by_id(chatroom_params[:format])
+    # Check if the target user and current user have a subscription to the same chatroom_id
+    similar_chatrooms = current_user.chatrooms.ids.select{ |item| target_user.chatrooms.ids.include?(item)}
+    if(similar_chatrooms.length != 0)
+      @chatroom = Chatroom.find_by_id(similar_chatrooms.first)
+    else
+      @chatroom = Chatroom.new(name: "Chat between #{current_user.full_name} and #{target_user.full_name}")
 
-    respond_to do |format|
       if @chatroom.save
-        format.html { redirect_to @chatroom, notice: 'Chatroom was successfully created.' }
-        format.json { render :show, status: :created, location: @chatroom }
+        Chatroom.transaction do
+          current_user.subscriptions.create(chatroom_id: @chatroom.id)
+          target_user.subscriptions.create(chatroom_id: @chatroom.id)
+        end
       else
-        format.html { render :new }
-        format.json { render json: @chatroom.errors, status: :unprocessable_entity }
+
       end
     end
-  end
 
-  # PATCH/PUT /chatrooms/1
-  # PATCH/PUT /chatrooms/1.json
-  def update
-    respond_to do |format|
-      if @chatroom.update(chatroom_params)
-        format.html { redirect_to @chatroom, notice: 'Chatroom was successfully updated.' }
-        format.json { render :show, status: :ok, location: @chatroom }
-      else
-        format.html { render :edit }
-        format.json { render json: @chatroom.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
-  # DELETE /chatrooms/1
-  # DELETE /chatrooms/1.json
-  def destroy
-    @chatroom.destroy
-    respond_to do |format|
-      format.html { redirect_to chatrooms_url, notice: 'Chatroom was successfully destroyed.' }
-      format.json { head :no_content }
-    end
+    redirect_to chatroom_path(@chatroom)
   end
 
   private
@@ -71,6 +44,6 @@ class ChatroomsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def chatroom_params
-      params.fetch(:chatroom, {})
+      params.permit(:format)
     end
 end

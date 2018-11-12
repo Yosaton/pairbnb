@@ -15,7 +15,7 @@
 
 <div class="centered">
 	<%if(signed_in? && current_user.id != @user.id)%>
-		<%= link_to "Chat!", chatroom_path(@user.id), class: "btn btn-success" %>
+		<%= link_to "Chat!", chatrooms_path(@user.id), method: :post, class: "btn btn-success" %>
 	<%end%>
 </div>
 
